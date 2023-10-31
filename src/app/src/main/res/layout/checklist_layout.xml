@@ -1,0 +1,37 @@
+<!--
+Design of Checklist Boxes
+******************************************************
+Checklist item design, creating the look of each item
+and colour scheme (green).
+
+This helper xml uses the Cardview API which helps with
+design and layout for each item:
+https://developer.android.com/develop/ui/views/layout/cardview
+******************************************************
+-->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/tools"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <CheckBox
+            android:id="@+id/checklistContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tool:text="Clear Crib of Debris"
+            android:paddingStart="8dp"
+            android:buttonTint="@android:color/holo_green_light"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
