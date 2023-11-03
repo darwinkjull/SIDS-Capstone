@@ -1,76 +1,83 @@
 package com.example.sids_checklist;
 
 /*
-Code sourced with reference to Mohit Singh's To Do List App Android Studio Tutorial
-https://github.com/msindev
+Code created with reference to Mohit Singh's To Do List App Android Studio Tutorial
+https://github.com/msindev/Do-it
+
 */
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
+import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-public class Checklist_MainActivity extends AppCompatActivity {
-    // Initialize variables to be used by RecylcerView adaptive list API
-    private RecyclerView checklistRecyclerView;
+public class Checklist_MainActivity extends AppCompatActivity implements DialogCloseListener{
     private ChecklistAdapter checklistAdapter;
     private List<ChecklistModel> checklistList;
+    private Checklist_DatabaseHandler db;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checklist_activitymain);
-        getSupportActionBar().hide(); // Hide action bar so top most navigation is hidden
+
+        // Hide action bar so top most navigation is hidden
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
+        // Create database within Main Function and open
+        db = new Checklist_DatabaseHandler(this);
+        db.openDatabase();
 
         // On startup, initialize new empty array of checklist items
         checklistList = new ArrayList<>();
 
         // reference recyclerview item in checklist_activitymain.xml
-        checklistRecyclerView = findViewById(R.id.checklistRecyclerView);
+        // Initialize variables to be used by RecylcerView adaptive list API
+        RecyclerView checklistRecyclerView = findViewById(R.id.checklistRecyclerView);
         checklistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        checklistAdapter = new ChecklistAdapter(this);
+        checklistAdapter = new ChecklistAdapter(db, this);
         checklistRecyclerView.setAdapter(checklistAdapter);
 
-        // Temporary checklist item creation for demonstration
-        ChecklistModel item_1 = new ChecklistModel();
-        item_1.setItem("Clear Crib of Debris");
-        item_1.setStatus(0);
-        item_1.setId(1);
+        // Add the "ADD" "button capability onto screen
+        FloatingActionButton fab = findViewById(R.id.checklistFAB);
 
-        ChecklistModel item_2 = new ChecklistModel();
-        item_2.setItem("Secure Loose Bedding");
-        item_2.setStatus(0);
-        item_2.setId(1);
+        // add item creator helper to reference in main using recyclerview api
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new Checklist_RecyclerItemTouchHelper(checklistAdapter));
+        itemTouchHelper.attachToRecyclerView(checklistRecyclerView);
 
-        ChecklistModel item_3 = new ChecklistModel();
-        item_3.setItem("Crib in the same room as Parents");
-        item_3.setStatus(0);
-        item_3.setId(1);
+        // display current items in the database (newest first)
+        checklistList = db.getAllItems();
+        Collections.reverse(checklistList);
+        checklistAdapter.setItems(checklistList);
 
-        ChecklistModel item_4 = new ChecklistModel();
-        item_4.setItem("Prone Sleeping Position");
-        item_4.setStatus(0);
-        item_4.setId(1);
+        // listen for "ADD" button being pressed by user
+        // if pressed, continue to Item adding functionality in Checklist_AddNewItem
+        fab.setOnClickListener(
+                v -> Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
+                        Checklist_AddNewItem.TAG));
+    }
 
-        ChecklistModel item_5 = new ChecklistModel();
-        item_5.setItem("Appropriate Clothing to Prevent Overheating");
-        item_5.setStatus(0);
-        item_5.setId(1);
-
-        checklistList.add(item_1);
-        checklistList.add(item_2);
-        checklistList.add(item_3);
-        checklistList.add(item_4);
-        checklistList.add(item_5);
-
-        checklistAdapter.setItem(checklistList);
-
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void handleDialogClose(DialogInterface dialog){
+        checklistList = db.getAllItems();
+        Collections.reverse(checklistList);
+        checklistAdapter.setItems(checklistList);
+        checklistAdapter.notifyDataSetChanged();
     }
 }
