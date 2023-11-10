@@ -9,8 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Primary brand color. -->
-    <color name="colorPrimary">@android:color/holo_green_dark</color>
-    <color name="colorPrimaryDark">@android:color/holo_green_dark</color>
-    <color name="colorAccent">@android:color/white</color>
+    <color name="colorPrimary">#A2C579</color>
+    <color name="colorPrimaryDark">#016A70</color>
+    <color name="colorAccent">#D2DE32</color>
+    <color name="background">#FFFFDD</color>
 
 </resources>
