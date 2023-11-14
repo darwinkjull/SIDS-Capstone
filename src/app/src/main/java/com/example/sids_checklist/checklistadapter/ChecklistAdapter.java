@@ -21,16 +21,22 @@ import com.example.sids_checklist.Checklist_MainActivity;
 import com.example.sids_checklist.R;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
+import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
+
 import java.util.List;
+import java.util.Calendar;
 
 public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.ViewHolder> {
     private List<ChecklistModel> checklistList;
     private final Checklist_MainActivity activity;
     private final Checklist_DatabaseHandler db;
+    private final Checklist_UtilDatabaseHandler disp_db;
+
 
     // Pass activity context to adapter
-    public ChecklistAdapter(Checklist_DatabaseHandler db, Checklist_MainActivity activity){
+    public ChecklistAdapter(Checklist_DatabaseHandler db, Checklist_UtilDatabaseHandler disp_db, Checklist_MainActivity activity){
         this.db = db;
+        this.disp_db = disp_db;
         this.activity = activity;
     }
 
@@ -46,12 +52,14 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     // get the name and status of the checklist item
     public void onBindViewHolder(ViewHolder holder, int position){
         db.openDatabase();
+        disp_db.openDatabase();
         ChecklistModel item = checklistList.get(position);
         holder.item.setText(item.getItem());
         holder.item.setChecked(toBoolean(item.getStatus()));
         holder.item.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
                 db.updateStatus(item.getId(), 1);
+                disp_db.insertItem(item.getItem(), 1, item.getSession());
             } else {
                 db.updateStatus(item.getId(), 0);
             }
@@ -67,6 +75,17 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     @SuppressLint("NotifyDataSetChanged")
     public void setItem(List<ChecklistModel> checklistList){
         this.checklistList = checklistList;
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void refreshItems(List<ChecklistModel> checklistList){
+        String session = String.valueOf(Calendar.getInstance().getTime());
+        checklistList.forEach((item) -> {
+            db.updateStatus(item.getId(), 0);
+            db.updateSession(item.getId(), session);
+            item.setSession(session);
+        });
         notifyDataSetChanged();
     }
 

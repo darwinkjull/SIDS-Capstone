@@ -11,7 +11,6 @@ import java.util.Objects;
 
 @SuppressLint("CustomSplashScreen")
 public class Checklist_SplashActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

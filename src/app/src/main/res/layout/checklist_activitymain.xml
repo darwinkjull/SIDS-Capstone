@@ -31,13 +31,39 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:layout_marginTop="16dp"
         android:textSize="24sp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/checklistRecyclerView"
-        android:layout_width="match_parent"
+    <!--Swipe Refresh Layout -->
+
+    <Button
+        android:id="@+id/checklistReportButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/checklistTitle"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:nestedScrollingEnabled="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@id/checklistTitle"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:drawableEnd="@drawable/baseline_arrow_forward_24"
+        android:text="Reports"
+        android:textSize="12sp" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/checklistTitle">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/checklistRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/checklistFAB"
@@ -50,7 +76,8 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/holo_green_light"
-        android:src="@drawable/ic_baseline_add" />
+        android:src="@drawable/ic_baseline_add"
+        android:contentDescription="Add New Item" />
 
 </RelativeLayout>
 
