@@ -6,8 +6,7 @@ default and had built in tools in Android Studio to query with SQLite.
 
 Database Handler will deal with all queries to the database
 
-TODO: Add date/time column in database and log completion date/time
-TODO: Add static items that user cannot delete
+TODO: Add static items that user cannot delete (populate database)
 
  */
 
@@ -29,10 +28,14 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     private static final String ID = "id";
     private static final String ITEM = "item";
     private static final String STATUS = "status";
-    private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
-                                        + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + ITEM
-                                        + " TEXT, " + STATUS + " INTEGER)";
 
+    private static final String SESSION = "session";
+
+    private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SESSION + " TEXT, " + ITEM  + " TEXT, "
+            + STATUS + " INTEGER)";
+
+    public String CheckListSession;
     private SQLiteDatabase db;
     public Checklist_DatabaseHandler(Context context){
         super(context, NAME, null, VERSION);
@@ -54,6 +57,10 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     // open the database to write to
     public void openDatabase(){
         db = this.getWritableDatabase(); // open as a writable database since we want to update
+
+        /* IF THE DATABASE EVER BUGS, UNCOMMENT THIS FOR ONE CYCLE*/
+        //db.execSQL("DROP TABLE IF EXISTS " + CHECKLIST_TABLE); // drop the old version
+        //onCreate(db); // create upgraded table
     }
 
     // ability to add new items to the database (SQL)
@@ -61,6 +68,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item.getItem()); // get item name
         cv.put(STATUS, 0); // set item as "unchecked"
+        cv.put(SESSION, item.getSession());
         db.insert(CHECKLIST_TABLE, null, cv); // insert new item to database
     }
 
@@ -79,6 +87,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
                         item.setId(cur.getInt(cur.getColumnIndex(ID)));
                         item.setItem(cur.getString(cur.getColumnIndex(ITEM)));
                         item.setStatus(cur.getInt(cur.getColumnIndex(STATUS)));
+                        item.setSession(cur.getString(cur.getColumnIndex(SESSION)));
                         itemList.add(item);
                     }while(cur.moveToNext());
                 }
@@ -96,6 +105,13 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     public void updateStatus(int id, int status){
         ContentValues cv = new ContentValues();
         cv.put(STATUS, status);
+        db.update(CHECKLIST_TABLE, cv, ID + "=?", new String[] {String.valueOf(id)});
+    }
+
+    public void updateSession(int id, String session){
+        ContentValues cv = new ContentValues();
+        CheckListSession = session;
+        cv.put(SESSION, CheckListSession);
         db.update(CHECKLIST_TABLE, cv, ID + "=?", new String[] {String.valueOf(id)});
     }
 

@@ -24,7 +24,11 @@ import androidx.core.content.ContextCompat;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
@@ -61,6 +65,8 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
         db = new Checklist_DatabaseHandler(getActivity());
         db.openDatabase();
+
+        List<ChecklistModel> checklist = db.getAllItems();
 
         boolean isUpdate = false;
         final Bundle bundle = getArguments();
@@ -100,13 +106,21 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
         // push the item onto the database once finalized and saved by the user
         boolean finalIsUpdate = isUpdate;
         newItemSaveButton.setOnClickListener(v -> {
+            AtomicReference<String> session = new AtomicReference<>("null");
             String text = newItemText.getText().toString();
             if(finalIsUpdate){
                 db.updateItem(bundle.getInt("id"), text);
             } else {
+
+                try {
+                    session.set(String.valueOf(checklist.get(0).getSession()));
+                } catch(IndexOutOfBoundsException ex){
+                    session.set(String.valueOf(Calendar.getInstance().getTime()));
+                }
                 ChecklistModel item = new ChecklistModel();
                 item.setItem(text);
                 item.setStatus(0);
+                item.setSession(String.valueOf(session));
                 db.insertItem(item);
             }
             dismiss();
