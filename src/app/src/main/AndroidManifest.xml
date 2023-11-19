@@ -23,7 +23,7 @@
         <activity android:name=".Pin_Activity"/>
         <activity android:name=".Checklist_MainActivity"/>
         <activity
-            android:name=".Checklist_Reports">
+            android:name=".checklistreports.Checklist_Reports">
         </activity>
     </application>
 </manifest>

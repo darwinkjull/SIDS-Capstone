@@ -30,7 +30,7 @@ https://developer.android.com/develop/ui/views/layout/cardview
             android:layout_height="wrap_content"
             tool:text="Clear Crib of Debris"
             android:paddingStart="8dp"
-            android:buttonTint="@android:color/holo_green_light"
+            android:buttonTint="@color/colorAccent"
             tool:ignore="RtlSymmetry" />
 
     </RelativeLayout>
