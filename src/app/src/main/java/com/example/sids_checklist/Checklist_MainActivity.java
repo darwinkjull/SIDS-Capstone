@@ -8,6 +8,7 @@ https://github.com/msindev/Do-it
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -80,4 +81,5 @@ public class Checklist_MainActivity extends AppCompatActivity implements DialogC
         checklistAdapter.setItems(checklistList);
         checklistAdapter.notifyDataSetChanged();
     }
+
 }

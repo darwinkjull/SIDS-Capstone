@@ -25,7 +25,7 @@ public class Checklist_SplashActivity extends AppCompatActivity {
         // Splash Screen setup function
         // Intent in AndroidManifest.xml also set to have single launcher
         final Intent i = new Intent(Checklist_SplashActivity.this,
-                Checklist_MainActivity.class);
+                Pin_Activity.class);
 
         // Create a delay of 1500 milli for the launch of the splash screen
         new Handler().postDelayed(() -> {

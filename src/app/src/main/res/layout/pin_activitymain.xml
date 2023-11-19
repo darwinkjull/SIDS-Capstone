@@ -12,6 +12,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="245dp"
+            android:layout_weight="1"
+            android:gravity="center|bottom"
+            android:orientation="horizontal"
+            android:paddingBottom="40dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:text="Enter Your Pin"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                >
+            </TextView>
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -22,37 +45,37 @@
             >
             <View
                 android:id="@+id/view_bubble_01"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/bg_view_empty_oval_pin"/>
             <View
                 android:id="@+id/view_bubble_02"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/bg_view_empty_oval_pin"
                 android:layout_marginLeft="10sp"/>
             <View
                 android:id="@+id/view_bubble_03"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/bg_view_empty_oval_pin"
                 android:layout_marginLeft="10sp"/>
             <View
                 android:id="@+id/view_bubble_04"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/bg_view_empty_oval_pin"
                 android:layout_marginLeft="10sp"/>
             <View
                 android:id="@+id/view_bubble_05"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/bg_view_empty_oval_pin"
                 android:layout_marginLeft="10sp"/>
             <View
                 android:id="@+id/view_bubble_06"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/bg_view_empty_oval_pin"
                 android:layout_marginLeft="10sp"/>
         </LinearLayout>
@@ -69,6 +92,7 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
                 <Button
+                    android:id="@+id/btn_01"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -78,9 +102,10 @@
                     android:text="1"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp">
+                    android:textSize="20dp">
                 </Button>
                 <Button
+                    android:id="@+id/btn_02"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -90,8 +115,9 @@
                     android:text="2"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
                 <Button
+                    android:id="@+id/btn_03"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -101,7 +127,7 @@
                     android:text="3"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
 
             </LinearLayout>
             <LinearLayout
@@ -110,6 +136,7 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
                 <Button
+                    android:id="@+id/btn_04"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -119,8 +146,9 @@
                     android:text="4"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
                 <Button
+                    android:id="@+id/btn_05"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -130,8 +158,9 @@
                     android:text="5"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
                 <Button
+                    android:id="@+id/btn_06"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -141,7 +170,7 @@
                     android:text="6"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -149,6 +178,7 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
                 <Button
+                    android:id="@+id/btn_07"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -158,8 +188,9 @@
                     android:text="7"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
                 <Button
+                    android:id="@+id/btn_08"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -169,8 +200,9 @@
                     android:text="8"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
                 <Button
+                    android:id="@+id/btn_09"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -180,7 +212,7 @@
                     android:text="9"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -188,17 +220,19 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
                 <Button
+                    android:id="@+id/btn_reset"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="10dp"
                     android:background="@android:color/transparent"
-                    android:text="Forgot?"
+                    android:text="Reset"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
                 <Button
+                    android:id="@+id/btn_00"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -208,8 +242,9 @@
                     android:text="0"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"></Button>
+                    android:textSize="20dp"></Button>
                 <Button
+                    android:id="@+id/btn_clear"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -218,8 +253,8 @@
                     android:background="@android:color/transparent"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"
-                    android:text="delete"></Button>
+                    android:textSize="20dp"
+                    android:text="clear"></Button>
             </LinearLayout>
 
 
