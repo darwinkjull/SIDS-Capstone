@@ -24,7 +24,7 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@color/colorPrimaryDark"
         android:text="Sleep Checklist"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
@@ -43,7 +43,7 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:layout_toEndOf="@id/checklistTitle"
-        android:backgroundTint="@android:color/holo_green_light"
+        android:backgroundTint="@color/colorPrimary"
         android:drawableEnd="@drawable/baseline_arrow_forward_24"
         android:text="Reports"
         android:textSize="12sp" />
@@ -75,7 +75,7 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_green_light"
+        android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_baseline_add"
         android:contentDescription="Add New Item" />
 

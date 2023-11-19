@@ -52,16 +52,16 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     // get the name and status of the checklist item
     public void onBindViewHolder(ViewHolder holder, int position){
         db.openDatabase();
-        disp_db.openDatabase();
         ChecklistModel item = checklistList.get(position);
         holder.item.setText(item.getItem());
         holder.item.setChecked(toBoolean(item.getStatus()));
         holder.item.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
                 db.updateStatus(item.getId(), 1);
-                disp_db.insertItem(item.getItem(), 1, item.getSession());
+                item.setStatus(1);
             } else {
                 db.updateStatus(item.getId(), 0);
+                item.setStatus(0);
             }
         });
     }
@@ -80,11 +80,16 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
 
     @SuppressLint("NotifyDataSetChanged")
     public void refreshItems(List<ChecklistModel> checklistList){
+        disp_db.openDatabase();
         String session = String.valueOf(Calendar.getInstance().getTime());
+        checklistList.forEach((item) -> {
+            disp_db.insertItem(item.getItem(), item.getStatus(), item.getSession());
+        });
         checklistList.forEach((item) -> {
             db.updateStatus(item.getId(), 0);
             db.updateSession(item.getId(), session);
             item.setSession(session);
+            item.setStatus(0);
         });
         notifyDataSetChanged();
     }
