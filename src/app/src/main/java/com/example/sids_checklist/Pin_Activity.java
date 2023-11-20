@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Pin_Activity extends AppCompatActivity implements View.OnClickListener{
 
@@ -28,6 +29,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pin_activitymain);
         initializeComponents();
+        Objects.requireNonNull(getSupportActionBar()).hide();
     }
 
     private void initializeComponents() {

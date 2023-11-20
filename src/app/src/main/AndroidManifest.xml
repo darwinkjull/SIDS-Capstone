@@ -22,8 +22,6 @@
         </activity>
         <activity android:name=".Pin_Activity"/>
         <activity android:name=".Checklist_MainActivity"/>
-        <activity
-            android:name=".checklistreports.Checklist_Reports">
-        </activity>
+        <activity android:name="com.example.sids_checklist.checklistreports.Checklist_Reports"/>
     </application>
 </manifest>
