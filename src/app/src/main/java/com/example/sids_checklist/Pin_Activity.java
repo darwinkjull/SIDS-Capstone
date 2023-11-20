@@ -22,7 +22,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
     Button btn_01,btn_02,btn_03,btn_04,btn_05,btn_06,btn_07,btn_08,btn_09,btn_reset,btn_00,btn_clear;
 
     ArrayList<String> num_list = new ArrayList<>();
-    String pinCode = "";
+    String pinCode = "111111"; //This is a temporary string, so we can use the device
     String num_01, num_02, num_03, num_04, num_05, num_06;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

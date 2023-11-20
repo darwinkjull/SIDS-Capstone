@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id = "@+id/nav_addprofile"
+            android:icon="@drawable/addprofile_icon"
+            android:title = "Add Profile"
+            />
+
+        <item
+            android:id = "@+id/nav_info"
+            android:icon="@drawable/information_icon"
+            android:title="Our Sources"
+            />
+
+        <item
+            android:id = "@+id/nav_lock"
+            android:icon="@drawable/lock_icon"
+            android:title="Lock Application"
+            />
+    </group>
+
+
+
+</menu>
