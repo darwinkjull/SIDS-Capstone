@@ -191,7 +191,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
 
     private void matchPinCode() {
         if (getPinCode().equals(pinCode)){
-            startActivity(new Intent(Pin_Activity.this,Checklist_MainActivity.class));
+            startActivity(new Intent(Pin_Activity.this, Main_Activity.class));
         }else{
             Toast.makeText(this,"Pin Incorrect",Toast.LENGTH_SHORT).show();
             num_list.clear();
