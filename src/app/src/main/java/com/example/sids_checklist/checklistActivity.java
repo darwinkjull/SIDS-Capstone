@@ -1,7 +1,6 @@
 package com.example.sids_checklist;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class checklistActivity extends AppCompatActivity {
