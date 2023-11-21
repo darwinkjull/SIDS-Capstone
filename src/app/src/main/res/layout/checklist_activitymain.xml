@@ -12,12 +12,20 @@ This code used the RecyclerView android widget:
 https://developer.android.com/develop/ui/views/layout/recyclerview
 ******************************************************
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawerLayout"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    tools:context=".Checklist_MainActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <!-- Title of Checklist -->
     <TextView
         android:id="@+id/checklistTitle"
@@ -78,6 +86,15 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_baseline_add"
         android:contentDescription="Add New Item" />
-
 </RelativeLayout>
 
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/navigationView"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation_menu"/>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
