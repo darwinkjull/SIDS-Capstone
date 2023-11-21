@@ -46,4 +46,6 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation ("androidx.navigation:navigation-fragment:2.7.5")
+    implementation ("androidx.navigation:navigation-ui:2.7.5")
 }
