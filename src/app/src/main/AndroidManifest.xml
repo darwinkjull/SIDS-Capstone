@@ -13,15 +13,20 @@
         android:theme="@style/Theme.Sids_checklist"
         tools:targetApi="31">
         <activity
+            android:name=".checklistActivity"
+            android:exported="false" />
+        <activity
             android:name=".Checklist_SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Pin_Activity"/>
-        <activity android:name=".Checklist_MainActivity"/>
-        <activity android:name="com.example.sids_checklist.checklistreports.Checklist_Reports"/>
+        <activity android:name=".Pin_Activity" />
+        <activity android:name=".Checklist_MainActivity" />
+        <activity android:name=".checklistreports.Checklist_Reports" />
     </application>
+
 </manifest>
