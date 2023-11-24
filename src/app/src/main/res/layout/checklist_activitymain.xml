@@ -26,9 +26,10 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:text="Sleep Checklist"
-        android:layout_marginStart="16dp"
+        android:layout_alignParentEnd="true"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:textSize="24sp"/>
 
     <!--Swipe Refresh Layout -->
@@ -37,15 +38,13 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:id="@+id/checklistReportButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:layout_toEndOf="@id/checklistTitle"
         android:backgroundTint="@color/colorPrimary"
-        android:drawableEnd="@drawable/baseline_arrow_forward_24"
-        android:text="Reports"
+        android:drawableLeft="@drawable/baseline_arrow_back_24"
+        android:text="Back"
         android:textSize="12sp" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -78,6 +77,21 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_baseline_add"
         android:contentDescription="Add New Item" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/checklistConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:drawableEnd="@drawable/baseline_save_24"
+        android:text="SAVE"
+        android:contentDescription="Save Sleep Session" />
 
 </RelativeLayout>
 

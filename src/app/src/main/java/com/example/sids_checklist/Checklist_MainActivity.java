@@ -24,6 +24,7 @@ import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistreports.Checklist_Reports;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,6 +70,9 @@ public class Checklist_MainActivity extends AppCompatActivity implements DialogC
         // Add the "ADD" "button capability onto screen
         FloatingActionButton fab = findViewById(R.id.checklistFAB);
 
+        // Add the "ADD" "button capability onto screen
+        ExtendedFloatingActionButton save = findViewById(R.id.checklistConfirm);
+
         // Add the "REPORTS" "button capability onto screen
         Button reportButton = findViewById(R.id.checklistReportButton);
 
@@ -92,11 +96,16 @@ public class Checklist_MainActivity extends AppCompatActivity implements DialogC
         reportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_MainActivity.this,
                 Checklist_Reports.class)));
 
-        // Refresh  the layout if swiped down, to begin a new napping session
-        // TODO: Confirmation check
+        save.setOnClickListener(
+                v -> {
+                    checklistAdapter.refreshItems(checklistList);
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+        );
+
+        // Refresh the layout if swiped down
         swipeRefreshLayout.setOnRefreshListener(
             () -> {
-                checklistAdapter.refreshItems(checklistList);
                 swipeRefreshLayout.setRefreshing(false);
             }
         );

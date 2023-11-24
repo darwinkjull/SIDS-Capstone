@@ -54,11 +54,11 @@ public class Checklist_Reports extends AppCompatActivity {
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(sessionList));
-        //xAxis.setAvoidFirstLastClipping(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelRotationAngle(-80);
         xAxis.setGranularity(1);
         xAxis.setGranularityEnabled(true);
+
         lineChart.setDragEnabled(true);
         lineChart.moveViewToX(lineData.getEntryCount());
         lineChart.setVisibleXRangeMaximum(5);
@@ -67,9 +67,14 @@ public class Checklist_Reports extends AppCompatActivity {
         lineChart.getAxisLeft().setAxisMaximum(100);
         lineChart.getAxisRight().setEnabled(false);
         lineChart.getLegend().setEnabled(false);
+        lineChart.setExtraTopOffset(50);
 
-        lineDataSet.setColors(parseColor("#A2C579"));
-        lineDataSet.setValueTextSize(0f); // hide the top text
+        lineDataSet.setColors(parseColor("#D2DE32"));
+        lineDataSet.setCircleColor(parseColor("#A2C579"));
+        lineDataSet.setValueTextSize(10); // hide the top text
+        lineDataSet.setCircleRadius(8);
+        lineDataSet.setCircleHoleColor(parseColor("#A2C579"));
+        lineDataSet.setLineWidth(3);
 
         lineChart.getDescription().setEnabled(false);
 
