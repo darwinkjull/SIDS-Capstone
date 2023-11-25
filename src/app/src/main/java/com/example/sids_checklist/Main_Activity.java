@@ -7,6 +7,7 @@ This is the main activity which allows the user to access the sleeping checklist
 
 */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,11 +28,9 @@ public class Main_Activity extends AppCompatActivity {
         goToChecklist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavController navigationController = Navigation.findNavController(Main_Activity.this, R.id.nav_host_fragment);
-                navigationController.navigate(R.id.mainToChecklist);
+                Intent i = new Intent(Main_Activity.this, Checklist_Activity.class);
+                startActivity(i);
             }
         });
-
-
     }
 }
