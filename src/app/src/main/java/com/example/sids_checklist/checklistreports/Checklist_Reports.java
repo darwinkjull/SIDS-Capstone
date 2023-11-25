@@ -15,7 +15,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sids_checklist.Checklist_MainActivity;
+import com.example.sids_checklist.Main_Activity;
 import com.example.sids_checklist.R;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.github.mikephil.charting.charts.LineChart;
@@ -79,7 +79,7 @@ public class Checklist_Reports extends AppCompatActivity {
         lineChart.getDescription().setEnabled(false);
 
         ChecklistButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Reports.this,
-                Checklist_MainActivity.class)));
+                Main_Activity.class)));
     }
     private void getData(){
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);

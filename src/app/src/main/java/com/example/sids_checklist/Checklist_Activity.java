@@ -1,23 +1,16 @@
 package com.example.sids_checklist;
 
-/*
-Code created with reference to Mohit Singh's To Do List App Android Studio Tutorial
-
-This is the main activity which allows the user to access the sleeping checklist,
-
-*/
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
@@ -26,12 +19,13 @@ import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Checklist_MainActivity extends AppCompatActivity implements DialogCloseListener{
+public class Checklist_Activity extends AppCompatActivity implements DialogCloseListener {
     private ChecklistAdapter checklistAdapter;
     private List<ChecklistModel> checklistList;
 
@@ -42,7 +36,7 @@ public class Checklist_MainActivity extends AppCompatActivity implements DialogC
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.checklist_activitymain);
+        setContentView(R.layout.activity_checklist);
 
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
 
@@ -93,7 +87,7 @@ public class Checklist_MainActivity extends AppCompatActivity implements DialogC
                 v -> Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
                         Checklist_AddNewItem.TAG));
 
-        reportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_MainActivity.this,
+        reportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Activity.this,
                 Checklist_Reports.class)));
 
         save.setOnClickListener(
@@ -119,5 +113,4 @@ public class Checklist_MainActivity extends AppCompatActivity implements DialogC
         checklistAdapter.setItems(checklistList);
         checklistAdapter.notifyDataSetChanged();
     }
-
 }
