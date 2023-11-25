@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:id="@+id/profile_select"/>
+            android:id="@+id/profile_select" />
     </LinearLayout>
 
     <GridLayout
@@ -76,6 +76,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
+
         <Button
             android:id="@+id/goToSetup"
             android:layout_width="150dp"
@@ -88,9 +89,6 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
-
-
-
 
 
     </GridLayout>
