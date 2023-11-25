@@ -84,12 +84,10 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
         disp_db.openDatabase();
         String session = String.valueOf(Calendar.getInstance().getTime());
         checklistList.forEach((item) -> {
-            disp_db.insertItem(item.getItem(), item.getStatus(), item.getSession());
+            disp_db.insertItem(item.getItem(), item.getStatus(), session);
         });
         checklistList.forEach((item) -> {
             db.updateStatus(item.getId(), 0);
-            db.updateSession(item.getId(), session);
-            item.setSession(session);
             item.setStatus(0);
         });
         notifyDataSetChanged();

@@ -106,21 +106,13 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
         // push the item onto the database once finalized and saved by the user
         boolean finalIsUpdate = isUpdate;
         newItemSaveButton.setOnClickListener(v -> {
-            AtomicReference<String> session = new AtomicReference<>("null");
             String text = newItemText.getText().toString();
             if(finalIsUpdate){
                 db.updateItem(bundle.getInt("id"), text);
             } else {
-
-                try {
-                    session.set(String.valueOf(checklist.get(0).getSession()));
-                } catch(IndexOutOfBoundsException ex){
-                    session.set(String.valueOf(Calendar.getInstance().getTime()));
-                }
                 ChecklistModel item = new ChecklistModel();
                 item.setItem(text);
                 item.setStatus(0);
-                item.setSession(String.valueOf(session));
                 db.insertItem(item);
             }
             dismiss();

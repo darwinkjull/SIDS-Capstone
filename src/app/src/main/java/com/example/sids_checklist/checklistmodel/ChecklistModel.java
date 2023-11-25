@@ -10,7 +10,7 @@ Creating a model to define the structure of the checklist items
 
 public class ChecklistModel {
     private int id, status; // defining variables to use for checklist functionality
-    private String item, session; // text for the checklist
+    private String item; // text for the checklist
 
     // Getter and Setter functions for each attribute
     public int getId() {
@@ -31,6 +31,4 @@ public class ChecklistModel {
     public void setItem(String item) {
         this.item = item;
     }
-    public void setSession(String session) { this.session = session; }
-    public String getSession() { return session; }
 }
