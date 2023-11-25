@@ -29,7 +29,7 @@
             android:id="@+id/profile_select"/>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/margin_standard"
@@ -37,11 +37,17 @@
         android:layout_below="@id/home_header">
 
         <Button
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:id="@+id/goToChecklist"
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:drawableTop="@drawable/checklist_icon"
             android:text="Checklist"
-            android:id="@+id/goToChecklist" />
-    </RelativeLayout>
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>
