@@ -47,45 +47,45 @@
             android:layout_margin="8dp"
             android:drawableTop="@drawable/checklist_icon"
             android:text="Checklist"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
 
         <Button
-            android:id="@+id/goToChecklist"
+            android:id="@+id/goToProfile"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="8dp"
-            android:drawableTop="@drawable/checklist_icon"
-            android:text="Checklist"
-            android:textSize="18sp"
+            android:drawableTop="@drawable/baby_icon"
+            android:text="Profile"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
 
         <Button
-            android:id="@+id/goToChecklist"
+            android:id="@+id/goToReport"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="8dp"
-            android:drawableTop="@drawable/checklist_icon"
-            android:text="Checklist"
-            android:textSize="18sp"
+            android:drawableTop="@drawable/graph_icon"
+            android:text="Reports"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
         <Button
-            android:id="@+id/goToChecklist"
+            android:id="@+id/goToSetup"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="8dp"
-            android:drawableTop="@drawable/checklist_icon"
-            android:text="Checklist"
-            android:textSize="18sp"
+            android:drawableTop="@drawable/crib_icon"
+            android:text="Setup"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
 
