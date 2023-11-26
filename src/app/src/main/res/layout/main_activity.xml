@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="Home"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
@@ -47,6 +46,7 @@
             android:layout_margin="8dp"
             android:drawableTop="@drawable/checklist_icon"
             android:text="Checklist"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
@@ -60,6 +60,7 @@
             android:layout_margin="8dp"
             android:drawableTop="@drawable/baby_icon"
             android:text="Profile"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
@@ -73,6 +74,7 @@
             android:layout_margin="8dp"
             android:drawableTop="@drawable/graph_icon"
             android:text="Reports"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
@@ -86,6 +88,7 @@
             android:layout_margin="8dp"
             android:drawableTop="@drawable/crib_icon"
             android:text="Setup"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />

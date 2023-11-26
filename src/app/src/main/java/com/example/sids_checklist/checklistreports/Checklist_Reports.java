@@ -38,7 +38,7 @@ public class Checklist_Reports extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checklist_report);
         Objects.requireNonNull(getSupportActionBar()).hide();
-//        BarChart barChart = findViewById(R.id.checklistChart);
+
         LineChart lineChart = findViewById(R.id.checklistChart);
 
         // Add the "REPORTS" "button capability onto screen

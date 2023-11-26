@@ -14,7 +14,6 @@ import android.widget.Button;
 
 import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
-import com.example.sids_checklist.checklistreports.Checklist_Reports;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -88,7 +87,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
                         Checklist_AddNewItem.TAG));
 
         reportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Activity.this,
-                Checklist_Reports.class)));
+                Main_Activity.class)));
 
         save.setOnClickListener(
                 v -> {
@@ -99,9 +98,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
 
         // Refresh the layout if swiped down
         swipeRefreshLayout.setOnRefreshListener(
-            () -> {
-                swipeRefreshLayout.setRefreshing(false);
-            }
+            () -> swipeRefreshLayout.setRefreshing(false)
         );
     }
 
