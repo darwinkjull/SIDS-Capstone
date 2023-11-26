@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.sids_checklist.Main_Activity;
 import com.example.sids_checklist.R;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
@@ -44,6 +43,7 @@ public class Checklist_Reports extends AppCompatActivity {
         // Add the "REPORTS" "button capability onto screen
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         Button ChecklistButton = findViewById(R.id.checklistButton);
+        Button ExportButton = findViewById(R.id.ExportButton);
 
         getData();
         getSleepSessions();
@@ -80,6 +80,10 @@ public class Checklist_Reports extends AppCompatActivity {
 
         ChecklistButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Reports.this,
                 Main_Activity.class)));
+
+        ExportButton.setOnClickListener(
+                v -> Checklist_Export.newInstance().show(getSupportFragmentManager(),
+                        Checklist_Export.TAG));
     }
     private void getData(){
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);

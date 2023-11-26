@@ -25,10 +25,8 @@ import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
@@ -65,8 +63,6 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
         db = new Checklist_DatabaseHandler(getActivity());
         db.openDatabase();
-
-        List<ChecklistModel> checklist = db.getAllItems();
 
         boolean isUpdate = false;
         final Bundle bundle = getArguments();
@@ -121,10 +117,11 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
     // dismissed the dialog box so close it
     @Override
-    public void onDismiss(@NonNull DialogInterface dialog){
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
         Activity activity = getActivity();
-        if(activity instanceof DialogCloseListener){
-            ((DialogCloseListener)activity).handleDialogClose(dialog);
+        if (activity instanceof DialogCloseListener) {
+            ((DialogCloseListener) activity).handleDialogClose(dialog);
         }
     }
 }

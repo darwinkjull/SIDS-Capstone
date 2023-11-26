@@ -34,14 +34,14 @@
         android:layout_height="match_parent"
         android:layout_marginStart="45dp"
         android:layout_marginTop="75dp"
-        android:layout_marginBottom="75dp" />
+        android:layout_marginBottom="150dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="100dp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:text="Date and Time"
@@ -58,6 +58,18 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/ExportButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:drawableEnd="@drawable/baseline_download_24"
+        android:text="Export"
+        android:textSize="11sp" />
 
 
 
