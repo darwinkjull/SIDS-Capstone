@@ -40,13 +40,41 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/profile_header">
+        android:layout_below="@+id/profile_header"
+        android:layout_marginHorizontal="@dimen/margin_standard">
 
-        :
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:id="@+id/profileNameHeader"
+            android:text="New Profile Name:"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginEnd="@dimen/margin_standard"
+            android:gravity="center"/>
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/newProfileText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profileNameHeader"
+            android:background="@null"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="Name"
+            android:textSize="24sp"
+            android:height="32dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/newProfileText"
+            android:text="Add Profile"
+            android:drawableLeft="@drawable/new_person_icon"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>
