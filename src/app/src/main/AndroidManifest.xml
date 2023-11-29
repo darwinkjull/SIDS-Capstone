@@ -32,6 +32,9 @@
             android:name=".Main_Activity"
             android:theme="@style/Theme.Sids_checklist"/>
         <activity android:name=".checklistreports.Checklist_Reports" />
+        <activity
+            android:name=".Profile_Activity"
+            android:theme="@style/Theme.Sids_checklist"/>
     </application>
 
 </manifest>
