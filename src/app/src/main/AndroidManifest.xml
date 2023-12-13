@@ -16,9 +16,6 @@
             android:name=".Checklist_Activity"
             android:exported="false" />
         <activity
-            android:name=".checklistutils.ChecklistActivity"
-            android:exported="false" />
-        <activity
             android:name=".Checklist_SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -28,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Pin_Activity" />
+        <activity android:name=".checklistreports.Checklist_Export" />
         <activity
             android:name=".Main_Activity"
             android:theme="@style/Theme.Sids_checklist"/>

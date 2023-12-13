@@ -7,12 +7,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Report"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Checklist Completion Tracking"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
     <Button
         android:id="@+id/checklistButton"
@@ -32,8 +32,8 @@
         android:id="@+id/checklistChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/checklistButton"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="75dp"
         android:layout_marginBottom="150dp" />
 
     <TextView

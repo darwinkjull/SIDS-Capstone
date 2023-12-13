@@ -58,6 +58,8 @@ public class Checklist_Reports extends AppCompatActivity {
         xAxis.setLabelRotationAngle(-80);
         xAxis.setGranularity(1);
         xAxis.setGranularityEnabled(true);
+        xAxis.setDrawGridLines(false);
+        lineChart.getAxisLeft().setDrawGridLines(false);
 
         lineChart.setDragEnabled(true);
         lineChart.moveViewToX(lineData.getEntryCount());
@@ -81,9 +83,8 @@ public class Checklist_Reports extends AppCompatActivity {
         ChecklistButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Reports.this,
                 Main_Activity.class)));
 
-        ExportButton.setOnClickListener(
-                v -> Checklist_Export.newInstance().show(getSupportFragmentManager(),
-                        Checklist_Export.TAG));
+        ExportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Reports.this,
+                Checklist_Export.class)));
     }
     private void getData(){
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);

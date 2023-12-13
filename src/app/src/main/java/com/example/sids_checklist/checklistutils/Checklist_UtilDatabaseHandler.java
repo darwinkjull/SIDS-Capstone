@@ -112,4 +112,34 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
         });
         return(dataCalc);
     }
+
+    public List[] selectSessionData(String session){
+        ArrayList<String> sessionName = new ArrayList<>();
+        ArrayList<String> sessionItems = new ArrayList<>();
+        ArrayList<String> itemStatus = new ArrayList<>();
+
+        String[] sessionSplit = session.split(" ");
+
+        String sessionDate = sessionSplit[0] + " " + sessionSplit[1] + " " + sessionSplit [2];
+        String sessionYear = sessionSplit[5];
+
+        Cursor cursor = disp_db.rawQuery("SELECT * FROM " + CHECKLIST_TABLE + " WHERE " + SESSION + " LIKE '%" + sessionDate + "%'", null);
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(1).contains(sessionYear)){
+                    String[] dateSplit = cursor.getString(1).split(" ");
+                    sessionName.add(dateSplit[0] + " " + dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3]);
+                    sessionItems.add(cursor.getString(2));
+                    itemStatus.add(cursor.getString(3));
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        List[] returnVals = new List[3];
+        returnVals[0] = sessionName;
+        returnVals[1] = sessionItems;
+        returnVals [2] = itemStatus;
+        return(returnVals);
+    }
 }
