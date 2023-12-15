@@ -28,6 +28,7 @@ public class Main_Activity extends AppCompatActivity {
         Button goToReport = findViewById(R.id.goToReport);
         // Button goToProfile = findViewById(R.id.goToProfile);
         /// Button goToSetup = findViewById(R.id.goToSetup);
+        Button goToManageUsers = findViewById(R.id.goToManageUsers);
 
         goToChecklist.setOnClickListener(v -> {
             Intent i = new Intent(Main_Activity.this, Checklist_Activity.class);
@@ -36,6 +37,11 @@ public class Main_Activity extends AppCompatActivity {
 
         goToReport.setOnClickListener(v -> {
             Intent i = new Intent(Main_Activity.this, Checklist_Reports.class);
+            startActivity(i);
+        });
+
+        goToManageUsers.setOnClickListener(v -> {
+            Intent i = new Intent(Main_Activity.this, Profile_Activity.class);
             startActivity(i);
         });
     }
