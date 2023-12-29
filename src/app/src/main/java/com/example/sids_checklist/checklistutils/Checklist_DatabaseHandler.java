@@ -68,13 +68,14 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     public void insertItem(ChecklistModel item){
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item.getItem()); // get item name
-        cv.put(STATUS, 0); // set item as "unchecked" 
+        cv.put(STATUS, 0); // set item as "unchecked"
+        cv.put(PROFILE_ID, item.getProfile_id());
         db.insert(CHECKLIST_TABLE, null, cv); // insert new item to database
     }
 
     // Ability to get current items from the database (SQL)
     @SuppressLint("Range")
-    public List<ChecklistModel> getAllItems(){
+    public List<ChecklistModel> getAllItems(int profile_id){
         List<ChecklistModel> itemList = new ArrayList<>();
         Cursor cur = null;
         db.beginTransaction(); // ensure safe storage of database even if interrupted
@@ -83,11 +84,14 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
             if (cur != null){
                 if (cur.moveToFirst()){
                     do{
-                        ChecklistModel item = new ChecklistModel();
-                        item.setId(cur.getInt(cur.getColumnIndex(ID)));
-                        item.setItem(cur.getString(cur.getColumnIndex(ITEM)));
-                        item.setStatus(cur.getInt(cur.getColumnIndex(STATUS)));
-                        itemList.add(item);
+                        // Check to see if entry is for the selected profile
+                        if (cur.getInt(cur.getColumnIndex(PROFILE_ID)) == profile_id){
+                            ChecklistModel item = new ChecklistModel();
+                            item.setId(cur.getInt(cur.getColumnIndex(ID)));
+                            item.setItem(cur.getString(cur.getColumnIndex(ITEM)));
+                            item.setStatus(cur.getInt(cur.getColumnIndex(STATUS)));
+                            itemList.add(item);
+                        }
                     }while(cur.moveToNext());
                 }
             }
