@@ -23,7 +23,7 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     private static final String USERNAME = "username";
     private static final String CREATE_PROFILE_TABLE = "CREATE TABLE " + PROFILE_TABLE + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + USERNAME + " TEXT)";
+            + USERNAME + " TEXT UNIQUE)";
     private SQLiteDatabase db;
 
     public Profile_DatabaseHandler(Context context){super(context, NAME, null, VERSION);}
@@ -48,7 +48,7 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public List<ProfileModel> getProfiles(){
+    public List<ProfileModel> getAllProfiles(){
         List<ProfileModel> profileList = new ArrayList<>();
         Cursor cur = null;
         db.beginTransaction();
@@ -71,6 +71,47 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
             cur.close();
         }
         return profileList;
+    }
+
+
+    // Definitely not the best way for this to be implemented, but is how I am going to do it for now.
+    @SuppressLint("Range")
+    public List<String> getAllUsernames(){
+        List<String> usernameList = new ArrayList<>();
+        Cursor cur = null;
+        db.beginTransaction();
+        try {
+            cur = db.query(PROFILE_TABLE, null, null, null, null, null, null, null);
+            if (cur != null){
+                if (cur.moveToFirst()){
+                    do{
+                        String username = cur.getString(cur.getColumnIndex(USERNAME));
+                        usernameList.add(username);
+                    }while(cur.moveToNext());
+                }
+            }
+        }
+        finally {
+            db.endTransaction();
+            assert cur != null;
+            cur.close();
+        }
+        return usernameList;
+    }
+
+    @SuppressLint("Range")
+    public int getIDByUsername(String username){
+        String[] column = new String[] {ID};
+        String[] row = new String[] {username};
+        int id = 0;
+
+        Cursor cur = db.query(PROFILE_TABLE, column, USERNAME + "=?", row, null, null, null);
+        if (cur.moveToFirst()){
+            id = cur.getInt(cur.getColumnIndex(ID));
+        }
+        cur.close();
+
+        return id;
     }
 
     public void updateUsername(int id, String username){
