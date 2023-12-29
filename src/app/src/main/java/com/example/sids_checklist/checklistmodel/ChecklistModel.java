@@ -16,21 +16,32 @@ public class ChecklistModel {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public int getStatus() {
         return status;
     }
+
     public void setStatus(int status) {
         this.status = status;
     }
+
     public String getItem() {
         return item;
     }
+
     public void setItem(String item) {
         this.item = item;
     }
-    public int getProfile_id() { return profile_id; }
-    public void setProfile_id(int profile_id) { this.profile_id = profile_id; }
+
+    public int getProfile_id() {
+        return profile_id;
+    }
+
+    public void setProfile_id(int profile_id) {
+        this.profile_id = profile_id;
+    }
 }

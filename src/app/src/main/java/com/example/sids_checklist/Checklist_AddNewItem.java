@@ -19,8 +19,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -34,7 +36,10 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     private Checklist_DatabaseHandler db;
     private int profileID;
 
-    public static Checklist_AddNewItem newInstance(int profileID){
+    /* Pass profile ID into the fragment as an argument so it can be used in the definition of
+     new checklist items.
+     */
+    public static Checklist_AddNewItem newInstance(int profileID) {
         Checklist_AddNewItem frag = new Checklist_AddNewItem();
         Bundle args = new Bundle();
         args.putInt("profile_ID", profileID);
@@ -43,7 +48,7 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
         Bundle args = getArguments();
@@ -53,7 +58,7 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.checklist_new, container, false);
         Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -62,7 +67,7 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
     // Setup the text box for writing in names of added items, and save button
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         newItemText = requireView().findViewById(R.id.checklistNewItemText);
         newItemSaveButton = requireView().findViewById(R.id.checklistNewItemButton);
@@ -73,13 +78,13 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
         boolean isUpdate = false;
         final Bundle bundle = getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             isUpdate = true;
-            String item =bundle.getString("item");
+            String item = bundle.getString("item");
             newItemText.setText(item);
 
             assert item != null;
-            if(item.length()>0) {
+            if (item.length() > 0) {
                 newItemSaveButton.setTextColor(ContextCompat.getColor(requireContext(),
                         R.color.colorPrimaryDark));
             }
@@ -88,11 +93,12 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
         // change color of the save button if text exists
         newItemText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().length() == 0){
+                if (s.toString().length() == 0) {
                     newItemSaveButton.setEnabled(false);
                     newItemSaveButton.setTextColor(Color.GRAY);
                 } else {
@@ -103,14 +109,15 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         // push the item onto the database once finalized and saved by the user
         boolean finalIsUpdate = isUpdate;
         newItemSaveButton.setOnClickListener(v -> {
             String text = newItemText.getText().toString();
-            if(finalIsUpdate){
+            if (finalIsUpdate) {
                 db.updateItem(bundle.getInt("id"), text);
             } else {
                 ChecklistModel item = new ChecklistModel();

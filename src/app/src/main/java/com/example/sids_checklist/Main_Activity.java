@@ -39,10 +39,11 @@ public class Main_Activity extends AppCompatActivity {
         db = new Profile_DatabaseHandler(this);
         db.openDatabase();
 
+        // As of right now, there is no use for the full profile on the home page, just the username
         profileList = new ArrayList<>();
         profileList = db.getAllProfiles();
 
-        // This should be turned into an adapter or other simplified function in the future
+        // This could be turned into an adapter or other simplified function in the future
         usernameList = new ArrayList<>();
         usernameList = db.getAllUsernames();
 
@@ -56,24 +57,32 @@ public class Main_Activity extends AppCompatActivity {
         // Hide action bar so top most navigation is hidden
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-
+        // Set up spinner (drop down menu) to house the profiles we can select
+        // The ArrayAdapter is used to put our list of usernames into the drop down menu
         Spinner profile_select = (Spinner) findViewById(R.id.profile_select);
-        ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, usernameList);
+        ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, usernameList);
         usernameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         profile_select.setAdapter(usernameAdapter);
 
+        // Defining the buttons on the home page
         Button goToChecklist = findViewById(R.id.goToChecklist);
         Button goToReport = findViewById(R.id.goToReport);
         // Button goToProfile = findViewById(R.id.goToProfile);
-        /// Button goToSetup = findViewById(R.id.goToSetup);
+        // Button goToSetup = findViewById(R.id.goToSetup);
         Button goToManageUsers = findViewById(R.id.goToManageUsers);
 
+        /* This itemSelectedListener will allow us to navigate using the buttons only when
+        an item from the list has been chosen
+         */
         profile_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedUsername = parent.getItemAtPosition(position).toString();
+                // Getting profile ID from the selected user name
                 int selectedProfileID = db.getIDByUsername(selectedUsername);
 
+                // Providing profile ID with the intents to activities in our application
                 goToChecklist.setOnClickListener(v -> {
                     Intent i = new Intent(Main_Activity.this, Checklist_Activity.class);
                     i.putExtra("profile_id", selectedProfileID);
@@ -95,6 +104,7 @@ public class Main_Activity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+                // If no option selected, assume we have a blank list, force user to go to profiles
                 goToManageUsers.setOnClickListener(v -> {
                     Intent i = new Intent(Main_Activity.this, Profile_Activity.class);
                     startActivity(i);

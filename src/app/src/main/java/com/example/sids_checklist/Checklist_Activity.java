@@ -32,7 +32,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
@@ -42,8 +42,9 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // Hide action bar so top most navigation is hidden
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        // Get the profile ID that was passed into the activity using the intent
         profileID = getIntent().getIntExtra("profile_id", -2);
-        assert(profileID != -1);
+        assert (profileID != -1);
 
         // Create database within Main Function and open
         db = new Checklist_DatabaseHandler(this);
@@ -60,7 +61,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         RecyclerView checklistRecyclerView = findViewById(R.id.checklistRecyclerView);
         checklistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        checklistAdapter = new ChecklistAdapter(db, disp_db,this);
+        checklistAdapter = new ChecklistAdapter(db, disp_db, this);
         checklistRecyclerView.setAdapter(checklistAdapter);
 
         // Add the "ADD" "button capability onto screen
@@ -101,13 +102,13 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
 
         // Refresh the layout if swiped down
         swipeRefreshLayout.setOnRefreshListener(
-            () -> swipeRefreshLayout.setRefreshing(false)
+                () -> swipeRefreshLayout.setRefreshing(false)
         );
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void handleDialogClose(DialogInterface dialog){
+    public void handleDialogClose(DialogInterface dialog) {
         checklistList = db.getAllItems(profileID);
         Collections.reverse(checklistList);
         checklistAdapter.setItems(checklistList);

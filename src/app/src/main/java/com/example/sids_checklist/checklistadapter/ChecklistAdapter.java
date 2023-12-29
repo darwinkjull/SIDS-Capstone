@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +36,7 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
 
 
     // Pass activity context to adapter
-    public ChecklistAdapter(Checklist_DatabaseHandler db, Checklist_UtilDatabaseHandler disp_db, Checklist_Activity activity){
+    public ChecklistAdapter(Checklist_DatabaseHandler db, Checklist_UtilDatabaseHandler disp_db, Checklist_Activity activity) {
         this.db = db;
         this.disp_db = disp_db;
         this.activity = activity;
@@ -44,20 +45,20 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     // define a viewholder which will get context from checklist_layout.xml
     // this will help populate the item list using the parameters from the xml
     @NonNull
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.checklist_layout, parent, false);
         return new ViewHolder(itemView);
     }
 
     // get the name and status of the checklist item
-    public void onBindViewHolder(ViewHolder holder, int position){
+    public void onBindViewHolder(ViewHolder holder, int position) {
         db.openDatabase();
         ChecklistModel item = checklistList.get(position);
         holder.item.setText(item.getItem());
         holder.item.setChecked(toBoolean(item.getStatus()));
         holder.item.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked){
+            if (isChecked) {
                 db.updateStatus(item.getId(), 1);
                 item.setStatus(1);
             } else {
@@ -68,19 +69,19 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     }
 
     // helper function to turn int (1/0) into boolean
-    private boolean toBoolean(int i){
+    private boolean toBoolean(int i) {
         return i != 0;
     }
 
     // update the checklist if new item is added
     @SuppressLint("NotifyDataSetChanged")
-    public void setItem(List<ChecklistModel> checklistList){
+    public void setItem(List<ChecklistModel> checklistList) {
         this.checklistList = checklistList;
         notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void refreshItems(List<ChecklistModel> checklistList){
+    public void refreshItems(List<ChecklistModel> checklistList) {
         disp_db.openDatabase();
         String session = String.valueOf(Calendar.getInstance().getTime());
         checklistList.forEach((item) -> {
@@ -94,17 +95,17 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     }
 
     // get a count of the items currently in the checklist
-    public int getItemCount(){
+    public int getItemCount() {
         return checklistList.size();
     }
 
     // update the checklist with new and current items
-    public void setItems(List<ChecklistModel> checklistList){
+    public void setItems(List<ChecklistModel> checklistList) {
         this.checklistList = checklistList;
     }
 
     // delete items from checklist
-    public void deleteItem(int position){
+    public void deleteItem(int position) {
         ChecklistModel item = checklistList.get(position);
         db.deleteItem(item.getId());
         checklistList.remove(position);
@@ -112,7 +113,7 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     }
 
     // edit the title of an existing checklist item
-    public void editItem(int position){
+    public void editItem(int position) {
         ChecklistModel item = checklistList.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
@@ -127,10 +128,10 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     }
 
     // define ViewHolder class for remaining attributes
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox item;
 
-        ViewHolder (View view){
+        ViewHolder(View view) {
             super(view);
             item = view.findViewById(R.id.checklistContent);
         }
