@@ -24,9 +24,13 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     private static final String STATUS = "status";
 
     private static final String SESSION = "session";
+    private static final String PROFILE_ID = "profile_id";
     private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
-            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SESSION  + " TEXT, "
-            + ITEM  + " TEXT, " + STATUS + " INTEGER)";
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + SESSION  + " TEXT, "
+            + ITEM  + " TEXT, "
+            + STATUS + " INTEGER, "
+            + "FOREIGN KEY(" + PROFILE_ID + ") REFERENCES Profiles(profile_id))";
 
     private SQLiteDatabase disp_db;
     public Checklist_UtilDatabaseHandler(Context context){

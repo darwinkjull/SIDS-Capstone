@@ -28,12 +28,14 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     private static final String ID = "id";
     private static final String ITEM = "item";
     private static final String STATUS = "status";
+    private static final String PROFILE_ID = "profile_id";
 
 
     private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + ITEM  + " TEXT, "
-            + STATUS + " INTEGER)";
+            + STATUS + " INTEGER, "
+            + "FOREIGN KEY(" + PROFILE_ID + ") REFERENCES Profiles(profile_id))";
 
     private SQLiteDatabase db;
     public Checklist_DatabaseHandler(Context context){
