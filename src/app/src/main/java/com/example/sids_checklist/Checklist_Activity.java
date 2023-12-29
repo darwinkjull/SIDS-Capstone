@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class Checklist_Activity extends AppCompatActivity implements DialogCloseListener {
+    private int profileID;
     private ChecklistAdapter checklistAdapter;
     private List<ChecklistModel> checklistList;
-
     private Checklist_DatabaseHandler db;
 
     @SuppressLint("MissingInflatedId")
@@ -41,6 +41,9 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
 
         // Hide action bar so top most navigation is hidden
         Objects.requireNonNull(getSupportActionBar()).hide();
+
+        profileID = getIntent().getIntExtra("profile_id", -2);
+        assert(profileID != -1);
 
         // Create database within Main Function and open
         db = new Checklist_DatabaseHandler(this);
@@ -75,7 +78,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         itemTouchHelper.attachToRecyclerView(checklistRecyclerView);
 
         // display current items in the database (newest first)
-        checklistList = db.getAllItems();
+        checklistList = db.getAllItems(profileID);
         Collections.reverse(checklistList);
         // checklistAdapter.refreshItems(checklistList);
         checklistAdapter.setItems(checklistList);
@@ -83,7 +86,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // listen for "ADD" button being pressed by user
         // if pressed, continue to Item adding functionality in Checklist_AddNewItem
         fab.setOnClickListener(
-                v -> Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
+                v -> Checklist_AddNewItem.newInstance(profileID).show(getSupportFragmentManager(),
                         Checklist_AddNewItem.TAG));
 
         reportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Activity.this,
@@ -105,7 +108,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void handleDialogClose(DialogInterface dialog){
-        checklistList = db.getAllItems();
+        checklistList = db.getAllItems(profileID);
         Collections.reverse(checklistList);
         checklistAdapter.setItems(checklistList);
         checklistAdapter.notifyDataSetChanged();

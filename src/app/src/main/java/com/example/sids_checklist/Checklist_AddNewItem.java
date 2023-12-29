@@ -25,7 +25,6 @@ import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Checklist_AddNewItem extends BottomSheetDialogFragment {
@@ -33,15 +32,23 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     private EditText newItemText;
     private Button newItemSaveButton;
     private Checklist_DatabaseHandler db;
+    private int profileID;
 
-    public static Checklist_AddNewItem newInstance(){
-        return new Checklist_AddNewItem();
+    public static Checklist_AddNewItem newInstance(int profileID){
+        Checklist_AddNewItem frag = new Checklist_AddNewItem();
+        Bundle args = new Bundle();
+        args.putInt("profile_ID", profileID);
+        frag.setArguments(args);
+        return frag;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
+        Bundle args = getArguments();
+        profileID = args.getInt("profile_ID", -1);
+        assert (profileID != -1);
     }
 
     @Override
@@ -109,6 +116,7 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
                 ChecklistModel item = new ChecklistModel();
                 item.setItem(text);
                 item.setStatus(0);
+                item.setProfile_id(profileID);
                 db.insertItem(item);
             }
             dismiss();
