@@ -9,7 +9,7 @@ Creating a model to define the structure of the checklist items
 
 
 public class ChecklistModel {
-    private int id, status; // defining variables to use for checklist functionality
+    private int id, status, profile_id; // defining variables to use for checklist functionality
     private String item; // text for the checklist
 
     // Getter and Setter functions for each attribute
@@ -31,4 +31,6 @@ public class ChecklistModel {
     public void setItem(String item) {
         this.item = item;
     }
+    public int getProfile_id() { return profile_id; }
+    public void setProfile_id(int profile_id) { this.profile_id = profile_id; }
 }

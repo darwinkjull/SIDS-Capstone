@@ -35,7 +35,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + ITEM  + " TEXT, "
             + STATUS + " INTEGER, "
-            + "FOREIGN KEY(" + PROFILE_ID + ") REFERENCES Profiles(profile_id))";
+            + "FOREIGN KEY(" + PROFILE_ID + ") REFERENCES Profiles(id))";
 
     private SQLiteDatabase db;
     public Checklist_DatabaseHandler(Context context){
@@ -68,7 +68,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     public void insertItem(ChecklistModel item){
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item.getItem()); // get item name
-        cv.put(STATUS, 0); // set item as "unchecked"
+        cv.put(STATUS, 0); // set item as "unchecked" 
         db.insert(CHECKLIST_TABLE, null, cv); // insert new item to database
     }
 

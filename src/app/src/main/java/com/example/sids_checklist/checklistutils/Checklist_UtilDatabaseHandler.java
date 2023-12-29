@@ -30,7 +30,7 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
             + SESSION  + " TEXT, "
             + ITEM  + " TEXT, "
             + STATUS + " INTEGER, "
-            + "FOREIGN KEY(" + PROFILE_ID + ") REFERENCES Profiles(profile_id))";
+            + "FOREIGN KEY(" + PROFILE_ID + ") REFERENCES Profiles(id))";
 
     private SQLiteDatabase disp_db;
     public Checklist_UtilDatabaseHandler(Context context){
