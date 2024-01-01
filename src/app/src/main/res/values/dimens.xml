@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin_standard"> 16dp </dimen>
     <dimen name="menu_button"> 90dp </dimen>
+    <dimen name="menu_half_button">60dp</dimen>
 </resources>

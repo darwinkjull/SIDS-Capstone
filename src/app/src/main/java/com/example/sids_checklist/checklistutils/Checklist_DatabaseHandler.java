@@ -31,7 +31,8 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
 
 
     private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
-            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + ITEM  + " TEXT, "
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ITEM  + " TEXT, "
             + STATUS + " INTEGER)";
 
     private SQLiteDatabase db;
