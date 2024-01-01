@@ -5,26 +5,20 @@
     android:layout_height="wrap_content"
     tools:ignore="MissingDefaultResource">
 
-    <Button
-        android:id="@+id/Export_Confirm"
-        android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:drawableLeft="@drawable/baseline_download_24"
-        android:text="Confirm"
-        android:textSize="11sp" />
-
-    <TableLayout
-        android:id="@+id/export_table"
-        android:layout_below="@+id/Export_Confirm"
-        android:layout_height="wrap_content"
+    <ScrollView
         android:layout_width="match_parent"
-        tools:ignore="MissingConstraints">
-    </TableLayout>
+        android:layout_height="match_parent">
+        <TableLayout
+            android:id="@+id/export_table"
+            android:layout_below="@+id/Export_Confirm"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:isScrollContainer="true"
+            android:scrollbarTrackVertical="@color/colorPrimaryDark"
+            tools:ignore="MissingConstraints">
+        </TableLayout>
+    </ScrollView>
 
 </RelativeLayout>

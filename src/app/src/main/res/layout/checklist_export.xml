@@ -6,49 +6,33 @@
     tools:ignore="MissingDefaultResource">
 
     <TextView
-        android:id="@+id/startDate"
+        android:id="@+id/selectDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:text="Start Date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="Selected Date Range"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
-    <CalendarView
-        android:id="@+id/startDatePicker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/startDate"/>
-
-    <TextView
-        android:id="@+id/endDate"
+    <Button
+        android:id="@+id/datePick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/selectDate"
         android:layout_centerInParent="true"
-
-        android:text="End Date"
-        android:layout_below="@id/startDatePicker"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        />
-
-    <CalendarView
-        android:id="@+id/endDatePicker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/endDate" />
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:drawableLeft="@drawable/baseline_edit_calendar_24"
+        android:text="Open Selector"
+        android:textSize="11sp" />
 
     <Button
         android:id="@+id/exportReturn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/colorPrimary"
@@ -60,13 +44,11 @@
         android:id="@+id/exportConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
-        android:layout_below="@id/endDatePicker"
+        android:layout_below="@id/datePick"
+        android:layout_centerInParent="true"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Confirm"
-        android:textSize="11sp" />
-
+        android:drawableLeft="@drawable/baseline_check_24"
+        android:text="OK"
+        android:textSize="11sp"/>
 
 </RelativeLayout>
