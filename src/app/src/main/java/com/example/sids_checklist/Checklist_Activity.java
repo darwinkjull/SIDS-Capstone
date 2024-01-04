@@ -16,8 +16,6 @@ import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,10 +63,10 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         checklistRecyclerView.setAdapter(checklistAdapter);
 
         // Add the "ADD" "button capability onto screen
-        FloatingActionButton fab = findViewById(R.id.checklistFAB);
+        Button fab = findViewById(R.id.checklistFAB);
 
         // Add the "ADD" "button capability onto screen
-        ExtendedFloatingActionButton save = findViewById(R.id.checklistConfirm);
+        Button save = findViewById(R.id.checklistConfirm);
 
         // Add the "REPORTS" "button capability onto screen
         Button reportButton = findViewById(R.id.checklistReportButton);

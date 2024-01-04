@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sids_checklist.Main_Activity;
@@ -69,7 +70,7 @@ public class Checklist_Reports extends AppCompatActivity {
         lineChart.getAxisLeft().setAxisMaximum(100);
         lineChart.getAxisRight().setEnabled(false);
         lineChart.getLegend().setEnabled(false);
-        lineChart.setExtraTopOffset(50);
+        lineChart.setExtraTopOffset(30);
 
         lineDataSet.setColors(parseColor("#D2DE32"));
         lineDataSet.setCircleColor(parseColor("#A2C579"));

@@ -1,18 +1,19 @@
 package com.example.sids_checklist.checklistreports;
 
+import static android.graphics.Color.parseColor;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import com.example.sids_checklist.DialogCloseListener;
 import com.example.sids_checklist.R;
@@ -25,12 +26,11 @@ import java.util.Objects;
 
 public class Checklist_ExportPage extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
-
-    public static Checklist_ExportPage newInstance(Calendar start, Calendar end){
+    public static Checklist_ExportPage newInstance(long start, long end){
         Checklist_ExportPage CLP = new Checklist_ExportPage();
         Bundle args = new Bundle();
-        args.putLong("start", start.getTimeInMillis());
-        args.putLong("end", end.getTimeInMillis());
+        args.putLong("start", start);
+        args.putLong("end", end);
         CLP.setArguments(args);
         return CLP;
     }
@@ -49,14 +49,16 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
         return view;
     }
 
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
     @SuppressLint({"ResourceAsColor", "SimpleDateFormat", "ResourceType", "SetTextI18n"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-        TableLayout tl = (TableLayout) requireView().findViewById(R.id.export_table);
-
-        Button Confirm = requireView().findViewById(R.id.Export_Confirm);
+        TableLayout tl = requireView().findViewById(R.id.export_table);
 
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(getActivity());
         disp_db.openDatabase();
@@ -94,13 +96,6 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
         label_Item.setPadding(10, 5, 5, 5);
         tr_head.addView(label_Item);
 
-        TextView label_Status = new TextView(getActivity());
-        label_Status.setId(TextID + 2);
-        label_Status.setAllCaps(true);
-        label_Status.setText("Status");
-        label_Status.setPadding(10, 5, 5, 5);
-        tr_head.addView(label_Status);
-
         tl.addView(tr_head, new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.WRAP_CONTENT,
                 TableLayout.LayoutParams.MATCH_PARENT));
@@ -116,10 +111,10 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
                 String itemName = String.valueOf(sessionVars[1].get(i));
                 String status = String.valueOf(sessionVars[2].get(i));
 
-                String itemStatus = "No";
+                int color = parseColor("#cf7878");
 
                 if (status.equals("1")) {
-                    itemStatus = "Yes";
+                    color = parseColor("#A2C579");
                 }
 
                 tr_heads[i] = new TableRow(getActivity());
@@ -137,13 +132,9 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
                 textArray[i] = new TextView(getActivity());
                 textArray[i].setId(i + 111);
                 textArray[i].setText(itemName);
+                textArray[i].setTextColor(color);
                 textArray[i].setPadding(25, 5, 5, 5);
-                tr_heads[i].addView(textArray[i]);
-
-                textArray[i] = new TextView(getActivity());
-                textArray[i].setId(i + 111);
-                textArray[i].setText(itemStatus);
-                textArray[i].setPadding(25, 5, 5, 5);
+                textArray[i].setMaxWidth(getScreenWidth()/2);
                 tr_heads[i].addView(textArray[i]);
 
                 tl.addView(tr_heads[i], new TableLayout.LayoutParams(
@@ -152,8 +143,6 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
             }
             currDate.add(Calendar.DATE, 1);
         }
-
-        Confirm.setOnClickListener(v -> dismiss());
     }
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
