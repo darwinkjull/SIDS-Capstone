@@ -10,12 +10,14 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
+import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,14 +25,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class Checklist_Activity extends AppCompatActivity implements DialogCloseListener {
+    private int profileID;
     private ChecklistAdapter checklistAdapter;
     private List<ChecklistModel> checklistList;
-
     private Checklist_DatabaseHandler db;
+    private Profile_DatabaseHandler dbProfile;
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
@@ -40,9 +43,21 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // Hide action bar so top most navigation is hidden
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        // Get the profile ID that was passed into the activity using the intent
+        profileID = getIntent().getIntExtra("profile_id", -1);
+        assert (profileID != -1);
+
         // Create database within Main Function and open
+
+        Log.d("tag", "Creating profile DB");
+        dbProfile = new Profile_DatabaseHandler(this);
+        dbProfile.openDatabase();
+        Log.d("tag", "Profile DB success");
+
+        Log.d("tag", "Creating checklist DB");
         db = new Checklist_DatabaseHandler(this);
         db.openDatabase();
+        Log.d("tag", "Checklist DB successful");
 
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
@@ -55,7 +70,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         RecyclerView checklistRecyclerView = findViewById(R.id.checklistRecyclerView);
         checklistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        checklistAdapter = new ChecklistAdapter(db, disp_db,this);
+        checklistAdapter = new ChecklistAdapter(db, disp_db, this);
         checklistRecyclerView.setAdapter(checklistAdapter);
 
         // Add the "ADD" "button capability onto screen
@@ -73,7 +88,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         itemTouchHelper.attachToRecyclerView(checklistRecyclerView);
 
         // display current items in the database (newest first)
-        checklistList = db.getAllItems();
+        checklistList = db.getAllItems(profileID);
         Collections.reverse(checklistList);
         // checklistAdapter.refreshItems(checklistList);
         checklistAdapter.setItems(checklistList);
@@ -96,16 +111,20 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
 
         // Refresh the layout if swiped down
         swipeRefreshLayout.setOnRefreshListener(
-            () -> swipeRefreshLayout.setRefreshing(false)
+                () -> swipeRefreshLayout.setRefreshing(false)
         );
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void handleDialogClose(DialogInterface dialog){
-        checklistList = db.getAllItems();
+    public void handleDialogClose(DialogInterface dialog) {
+        checklistList = db.getAllItems(profileID);
         Collections.reverse(checklistList);
         checklistAdapter.setItems(checklistList);
         checklistAdapter.notifyDataSetChanged();
+    }
+
+    public int getProfileID() {
+        return profileID;
     }
 }
