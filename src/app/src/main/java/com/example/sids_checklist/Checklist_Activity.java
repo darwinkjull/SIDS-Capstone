@@ -10,12 +10,14 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
+import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +29,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
     private ChecklistAdapter checklistAdapter;
     private List<ChecklistModel> checklistList;
     private Checklist_DatabaseHandler db;
+    private Profile_DatabaseHandler dbProfile;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,12 +44,20 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         // Get the profile ID that was passed into the activity using the intent
-        profileID = getIntent().getIntExtra("profile_id", -2);
+        profileID = getIntent().getIntExtra("profile_id", -1);
         assert (profileID != -1);
 
         // Create database within Main Function and open
+
+        Log.d("tag", "Creating profile DB");
+        dbProfile = new Profile_DatabaseHandler(this);
+        dbProfile.openDatabase();
+        Log.d("tag", "Profile DB success");
+
+        Log.d("tag", "Creating checklist DB");
         db = new Checklist_DatabaseHandler(this);
         db.openDatabase();
+        Log.d("tag", "Checklist DB successful");
 
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
@@ -85,7 +96,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // listen for "ADD" button being pressed by user
         // if pressed, continue to Item adding functionality in Checklist_AddNewItem
         fab.setOnClickListener(
-                v -> Checklist_AddNewItem.newInstance(profileID).show(getSupportFragmentManager(),
+                v -> Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
                         Checklist_AddNewItem.TAG));
 
         reportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Activity.this,
@@ -111,5 +122,9 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         Collections.reverse(checklistList);
         checklistAdapter.setItems(checklistList);
         checklistAdapter.notifyDataSetChanged();
+    }
+
+    public int getProfileID() {
+        return profileID;
     }
 }

@@ -33,11 +33,16 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Checklist_Reports extends AppCompatActivity {
     ArrayList<Entry> lineArrayList;
     ArrayList<String> sessionList;
+    private int profileID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checklist_report);
         Objects.requireNonNull(getSupportActionBar()).hide();
+
+        // Get the profile ID that was passed into the activity using the intent
+        profileID = getIntent().getIntExtra("profile_id", -1);
+        assert (profileID != -1);
 
         LineChart lineChart = findViewById(R.id.checklistChart);
 

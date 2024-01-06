@@ -4,6 +4,7 @@ package com.example.sids_checklist.checklistutils;
 
  */
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -27,6 +28,7 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     private static final String PROFILE_ID = "profile_id";
     private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PROFILE_ID + " INTEGER, "
             + SESSION + " TEXT, "
             + ITEM + " TEXT, "
             + STATUS + " INTEGER, "
@@ -61,11 +63,12 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     }
 
     // ability to add new items to the database (SQL)
-    public void insertItem(String name, int status, String session) {
+    public void insertItem(String name, int status, String session, int profile_ID) {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, name);
         cv.put(STATUS, status);
         cv.put(SESSION, session);
+        cv.put(PROFILE_ID, profile_ID);
         disp_db.insert(CHECKLIST_TABLE, null, cv); // insert new item to database
     }
 

@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,21 +40,24 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     /* Pass profile ID into the fragment as an argument so it can be used in the definition of
      new checklist items.
      */
-    public static Checklist_AddNewItem newInstance(int profileID) {
-        Checklist_AddNewItem frag = new Checklist_AddNewItem();
-        Bundle args = new Bundle();
-        args.putInt("profile_ID", profileID);
-        frag.setArguments(args);
-        return frag;
-    }
+    public static Checklist_AddNewItem newInstance() {
+//        Log.d("tag", "Now importing intent to fragment");
+//        Checklist_AddNewItem frag = new Checklist_AddNewItem();
+//        Bundle args = new Bundle();
+//        args.putInt("profile_ID", profileID);
+//        Log.d("tag", "Intent imported");
+//        frag.setArguments(args);
+//        Log.d("tag", "Fragment arguments set");
+        return new Checklist_AddNewItem();
+        }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
-        Bundle args = getArguments();
-        profileID = args.getInt("profile_ID", -1);
-        assert (profileID != -1);
+//        Bundle args = getArguments();
+//        profileID = args.getInt("profile_ID", -1);
+//        assert (profileID != -1);
     }
 
     @Override
@@ -62,6 +66,11 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.checklist_new, container, false);
         Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        //Get profileID from Checklist_Activity.java
+        Checklist_Activity checklist = (Checklist_Activity) getActivity();
+        profileID = checklist.getProfileID();
+
         return view;
     }
 

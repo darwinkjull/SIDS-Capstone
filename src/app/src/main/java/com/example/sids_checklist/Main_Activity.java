@@ -9,6 +9,7 @@ This is the main activity which allows the user to access the sleeping checklist
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistreports.Checklist_Reports;
+import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
 import java.util.ArrayList;
@@ -30,14 +32,24 @@ public class Main_Activity extends AppCompatActivity {
     private Profile_DatabaseHandler db;
     private List<ProfileModel> profileList;
     private List<String> usernameList;
+
+    private Checklist_DatabaseHandler dbChecklist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
         //Perform database setup
+        Log.d("tag", "Creating profile DB");
         db = new Profile_DatabaseHandler(this);
         db.openDatabase();
+        Log.d("tag", "Profile DB success");
+
+        Log.d("tag", "Creating checklist DB");
+        dbChecklist = new Checklist_DatabaseHandler(this);
+        dbChecklist.openDatabase();
+        Log.d("tag", "Checklist DB successful");
+
 
         // As of right now, there is no use for the full profile on the home page, just the username
         profileList = new ArrayList<>();

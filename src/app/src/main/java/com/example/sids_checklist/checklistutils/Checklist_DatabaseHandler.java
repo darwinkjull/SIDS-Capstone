@@ -16,6 +16,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import androidx.annotation.ChecksSdkIntAtLeast;
 
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 
@@ -24,7 +27,7 @@ import java.util.List;
 
 public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     // Define Database parameters and query for creating database table
-    private static final int VERSION = 1;
+    private static final int VERSION = 5; //Now on version 2, due to new foreign key column
     private static final String NAME = "ChecklistDatabase";
     private static final String CHECKLIST_TABLE = "checklist";
     private static final String ID = "id";
@@ -35,9 +38,10 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PROFILE_ID + " INTEGER, "
             + ITEM + " TEXT, "
             + STATUS + " INTEGER, "
-            + "FOREIGN KEY(" + PROFILE_ID + ") REFERENCES Profiles(id))";
+            + " FOREIGN KEY (" + PROFILE_ID + ") REFERENCES Profiles(id))";
 
     private SQLiteDatabase db;
 
@@ -48,14 +52,22 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     // create the table
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("tag", "Now calling onCreate for Checklist");
+        Log.d("DatabaseHandler", "SQL Query: " + CREATE_CHECKLIST_TABLE);
         db.execSQL(CREATE_CHECKLIST_TABLE); // execute query
     }
 
     // upgrade the table to the new version and drop the old table
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("tag", "Now calling onUpgrade for Checklist");
+
         db.execSQL("DROP TABLE IF EXISTS " + CHECKLIST_TABLE); // drop the old version
         onCreate(db); // create upgraded table
+
+        //if (oldVersion < 5) {
+        //    db.execSQL("ALTER TABLE " + CHECKLIST_TABLE + " ADD COLUMN " + PROFILE_ID + " INTEGER");
+        //}
     }
 
     // open the database to write to
@@ -125,3 +137,5 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         db.delete(CHECKLIST_TABLE, ID + "=?", new String[]{String.valueOf(id)});
     }
 }
+
+
