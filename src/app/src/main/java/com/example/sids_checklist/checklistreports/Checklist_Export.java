@@ -10,12 +10,9 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sids_checklist.R;
 import android.widget.TextView;
-
 import androidx.core.util.Pair;
 import androidx.lifecycle.MutableLiveData;
-
 import com.google.android.material.datepicker.MaterialDatePicker;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -35,7 +32,6 @@ public class Checklist_Export extends AppCompatActivity {
         setContentView(R.layout.checklist_export);
         // Hide action bar so top most navigation is hidden
         Objects.requireNonNull(getSupportActionBar()).hide();
-
 
         selectedDate = findViewById(R.id.selectDate);
         datePicker = findViewById(R.id.datePick);

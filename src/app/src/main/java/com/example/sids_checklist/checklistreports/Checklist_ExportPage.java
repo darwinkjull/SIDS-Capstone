@@ -82,19 +82,19 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
                 TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.WRAP_CONTENT));
 
-        TextView label_Date = new TextView(getActivity());
-        label_Date.setId(TextID);
-        label_Date.setAllCaps(true);
-        label_Date.setText("Date");
-        label_Date.setPadding(5, 5, 5, 5);
-        tr_head.addView(label_Date);
-
         TextView label_Item = new TextView(getActivity());
-        label_Item.setId(TextID + 1);
-        label_Item.setText("Checklist Item");
+        label_Item.setId(TextID);
         label_Item.setAllCaps(true);
-        label_Item.setPadding(10, 5, 5, 5);
+        label_Item.setText("Checklist Item");
+        label_Item.setPadding(5, 5, 5, 5);
         tr_head.addView(label_Item);
+
+        TextView label_Status = new TextView(getActivity());
+        label_Status.setId(TextID + 1);
+        label_Status.setText("Status");
+        label_Status.setAllCaps(true);
+        label_Status.setPadding(10, 5, 5, 5);
+        tr_head.addView(label_Status);
 
         tl.addView(tr_head, new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.WRAP_CONTENT,
@@ -103,20 +103,45 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
         while (currDate.getTimeInMillis() <= endDate.getTimeInMillis()){
 
             List[] sessionVars = disp_db.selectSessionData(String.valueOf(currDate.getTime()));
-            TextView[] textArray = new TextView[sessionVars[0].size()];
-            TableRow[] tr_heads = new TableRow[sessionVars[0].size()];
+            TextView[] textArray = new TextView[sessionVars[0].size() + 1];
+            TableRow[] tr_heads = new TableRow[sessionVars[0].size() + 1];
+
+            String currSession = "";
 
             for(int i=0; i<sessionVars[0].size();i++) {
                 String sessionDate = String.valueOf(sessionVars[0].get(i));
                 String itemName = String.valueOf(sessionVars[1].get(i));
                 String status = String.valueOf(sessionVars[2].get(i));
+                String statusText = "Incomplete";
 
                 int color = parseColor("#cf7878");
 
                 if (status.equals("1")) {
                     color = parseColor("#A2C579");
+                    statusText = "Completed";
                 }
 
+                if (!currSession.equals(sessionDate)) {
+                    currSession = sessionDate;
+
+                    tr_heads[i] = new TableRow(getActivity());
+                    tr_heads[i].setId(i+1);
+                    tr_heads[i].setLayoutParams(new TableLayout.LayoutParams(
+                            TableLayout.LayoutParams.MATCH_PARENT,
+                            TableLayout.LayoutParams.WRAP_CONTENT));
+
+                    textArray[i] = new TextView(getActivity());
+                    textArray[i].setId(i + 111);
+                    textArray[i].setText(sessionDate);
+                    textArray[i].setTextColor(parseColor("#016A70"));
+                    textArray[i].setPadding(25, 5, 5, 5);
+                    textArray[i].setMaxWidth(getScreenWidth()/2);
+                    tr_heads[i].addView(textArray[i]);
+
+                    tl.addView(tr_heads[i], new TableLayout.LayoutParams(
+                            TableLayout.LayoutParams.MATCH_PARENT,
+                            TableLayout.LayoutParams.WRAP_CONTENT));
+                }
                 tr_heads[i] = new TableRow(getActivity());
                 tr_heads[i].setId(i + 1);
                 tr_heads[i].setLayoutParams(new TableLayout.LayoutParams(
@@ -125,16 +150,17 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
 
                 textArray[i] = new TextView(getActivity());
                 textArray[i].setId(i + 111);
-                textArray[i].setText(sessionDate);
-                textArray[i].setPadding(5, 5, 5, 5);
+                textArray[i].setText(itemName);
+                textArray[i].setTextColor(color);
+                textArray[i].setPadding(25, 5, 5, 5);
+                textArray[i].setMaxWidth(getScreenWidth() / 2);
                 tr_heads[i].addView(textArray[i]);
 
                 textArray[i] = new TextView(getActivity());
                 textArray[i].setId(i + 111);
-                textArray[i].setText(itemName);
+                textArray[i].setText(statusText);
                 textArray[i].setTextColor(color);
-                textArray[i].setPadding(25, 5, 5, 5);
-                textArray[i].setMaxWidth(getScreenWidth()/2);
+                textArray[i].setPadding(5, 5, 5, 5);
                 tr_heads[i].addView(textArray[i]);
 
                 tl.addView(tr_heads[i], new TableLayout.LayoutParams(
