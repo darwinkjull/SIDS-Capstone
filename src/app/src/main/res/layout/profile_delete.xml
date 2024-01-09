@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_marginHorizontal="@dimen/margin_standard">
+    android:layout_width="wrap_content"
+    android:layout_height="100dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/deletionTitle"
@@ -24,7 +23,7 @@
             android:id="@+id/deletionTrueButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Yes, Delete It"
+            android:text="Delete It"
             android:textSize="16dp"
             android:backgroundTint="@color/black"
             android:layout_marginHorizontal="@dimen/margin_standard"/>
@@ -33,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_toRightOf="@id/deletionTrueButton"
-            android:text="No, Go Back"
+            android:text="Cancel"
             android:textSize="16dp"
             android:layout_marginHorizontal="@dimen/margin_standard"/>
         </RelativeLayout>
