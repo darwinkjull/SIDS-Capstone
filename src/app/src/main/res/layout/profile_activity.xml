@@ -70,7 +70,7 @@
                 android:text="Name: "
                 android:textStyle="bold"
                 android:textSize="24sp"
-                android:layout_marginEnd="@dimen/margin_standard"
+                android:layout_marginEnd="@dimen/margin_half_standard"
                 android:gravity="center" />
 
             <TextView
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/profileNameHeader"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:hint="Name"
+                android:hint="Select a Baby"
                 android:textSize="24sp"
                 android:height="32dp" />
 
@@ -91,7 +91,7 @@
                 android:text="Age: "
                 android:textStyle="bold"
                 android:textSize="24sp"
-                android:layout_marginEnd="@dimen/margin_standard"
+                android:layout_marginEnd="@dimen/margin_half_standard"
                 android:gravity="center" />
 
             <TextView
@@ -101,7 +101,7 @@
                 android:layout_toRightOf="@id/profileAgeHeader"
                 android:layout_below="@id/profileNameHeader"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:hint="## Weeks"
+                android:hint="Select a Baby"
                 android:textSize="24sp"
                 android:height="32dp" />
 
