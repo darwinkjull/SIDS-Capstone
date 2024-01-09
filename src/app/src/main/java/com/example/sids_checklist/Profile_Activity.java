@@ -55,7 +55,14 @@ public class Profile_Activity extends AppCompatActivity {
                 editProfilePopUp.showEditProfilePopUp(v, profileID);
             }
         });
-        
+
+        deleteProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Profile_DeleteProfile deleteProfilePopUp = new Profile_DeleteProfile();
+                deleteProfilePopUp.showDeleteProfilePopUp(v, profileID);
+            }
+        });
 
     }
     public int getProfileID() {
