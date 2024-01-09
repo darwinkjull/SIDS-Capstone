@@ -82,7 +82,7 @@ public class Main_Activity extends AppCompatActivity {
         Button goToReport = findViewById(R.id.goToReport);
         // Button goToProfile = findViewById(R.id.goToProfile);
         // Button goToSetup = findViewById(R.id.goToSetup);
-        Button goToManageUsers = findViewById(R.id.goToManageUsers);
+        Button goToManageUsers = findViewById(R.id.goToProfile);
 
         /* This itemSelectedListener will allow us to navigate using the buttons only when
         an item from the list has been chosen
@@ -109,6 +109,7 @@ public class Main_Activity extends AppCompatActivity {
 
                 goToManageUsers.setOnClickListener(v -> {
                     Intent i = new Intent(Main_Activity.this, Profile_Activity.class);
+                    i.putExtra("profile_id", selectedProfileID);
                     startActivity(i);
                 });
             }

@@ -46,35 +46,122 @@
         android:layout_below="@+id/profile_header"
         android:layout_marginHorizontal="@dimen/margin_standard">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:id="@+id/profileNameHeader"
-            android:text="New Profile Name:"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:layout_marginEnd="@dimen/margin_standard"
-            android:gravity="center"/>
 
-        <EditText
-            android:id="@+id/newProfileText"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/selectedProfileTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/profileNameHeader"
-            android:background="@null"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:hint="Name"
-            android:textSize="24sp"
-            android:height="32dp"/>
+            android:text="Selected Baby Information"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_centerHorizontal="true" />
+
+        <RelativeLayout
+            android:id="@+id/profileInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_below="@id/selectedProfileTitle"
+            android:layout_marginHorizontal="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:id="@+id/profileNameHeader"
+                android:text="Name: "
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginEnd="@dimen/margin_half_standard"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/profileNameHeader"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:hint="Select a Baby"
+                android:textSize="24sp"
+                android:height="32dp" />
+
+            <TextView
+                android:id="@+id/profileAgeHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profileNameHeader"
+                android:text="Age: "
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginEnd="@dimen/margin_half_standard"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/profileAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/profileAgeHeader"
+                android:layout_below="@id/profileNameHeader"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:hint="Select a Baby"
+                android:textSize="24sp"
+                android:height="32dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/baby_icon" />
+        </RelativeLayout>
+
 
         <Button
+            android:id="@+id/editProfileButton"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:layout_below="@id/newProfileText"
-            android:text="Add Profile"
-            android:drawableLeft="@drawable/new_person_icon"
-            />
+            android:layout_below="@id/profileInfo"
+            android:drawableLeft="@drawable/edit_icon"
+            android:text="Edit Baby Profile" />
+
+        <Button
+            android:id="@+id/deleteProfileButton"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/editProfileButton"
+            android:text="Delete Baby Profile"
+            android:drawableLeft="@drawable/remove_icon" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deleteProfileButton"
+            android:paddingTop="@dimen/margin_standard">
+
+            <TextView
+                android:id="@+id/profileListTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="All Baby Profiles"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profilesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profileListTitle" />
+
+            <Button
+                android:id="@+id/addProfileButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@id/profilesList"
+                android:text="Add New Baby"
+                android:drawableLeft="@drawable/add_icon" />
+        </RelativeLayout>
     </RelativeLayout>
+
 
 </RelativeLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_double_standard">
+
+
+    <TextView
+        android:id="@+id/profileInfoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Baby Information"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/profileInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileInfoTitle"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:id="@+id/profileNameHeader"
+            android:text="Name: "
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginEnd="@dimen/margin_half_standard"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profileNameHeader"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="Enter Name"
+            android:textSize="24sp"
+            android:height="48dp" />
+
+        <TextView
+            android:id="@+id/profileAgeHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileNameHeader"
+            android:text="Age: "
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginEnd="@dimen/margin_half_standard"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/profileAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profileAgeHeader"
+            android:layout_below="@id/profileNameHeader"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="(Placeholder)"
+            android:textSize="24sp"
+            android:height="48dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileInfo"
+        android:layout_centerHorizontal="true">
+        <Button
+            android:id="@+id/acceptInfoTrue"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Save"
+            android:textSize="16dp"
+            android:backgroundTint="@color/black"
+            android:layout_marginHorizontal="@dimen/margin_standard"/>
+        <Button
+            android:id="@+id/acceptInfoFalse"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/acceptInfoTrue"
+            android:text="Cancel"
+            android:textSize="16dp"
+            android:layout_marginHorizontal="@dimen/margin_standard"/>
+    </RelativeLayout>
+</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

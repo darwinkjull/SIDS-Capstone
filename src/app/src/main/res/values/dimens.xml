@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="margin_double_standard"> 32dp </dimen>
     <dimen name="margin_standard"> 16dp </dimen>
+    <dimen name="margin_half_standard"> 8dp </dimen>
     <dimen name="menu_button"> 90dp </dimen>
     <dimen name="menu_half_button">60dp</dimen>
 </resources>
