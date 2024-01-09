@@ -47,5 +47,18 @@ public class Profile_Activity extends AppCompatActivity {
                 addProfilePopUp.showAddProfilePopUp(v);
             }
         });
+
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Profile_EditProfile editProfilePopUp = new Profile_EditProfile();
+                editProfilePopUp.showEditProfilePopUp(v, profileID);
+            }
+        });
+        
+
+    }
+    public int getProfileID() {
+        return profileID;
     }
 }
