@@ -133,5 +133,20 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
         db.delete(PROFILE_TABLE, ID + "=?", new String[]{String.valueOf(id)});
     }
 
+    @SuppressLint("Range")
+    public ProfileModel getProfileInfo(int id){
+        ProfileModel profile = new ProfileModel();
+
+        String[] row = new String[]{String.valueOf(id)};
+        Cursor cur = db.query(PROFILE_TABLE, null, ID + "=?", row, null, null, null);
+        if (cur.moveToFirst()) {
+             profile.setUsername(cur.getString(cur.getColumnIndex(USERNAME)));
+             profile.setId(id);
+        }
+
+        cur.close();
+        return profile;
+    }
+
 
 }
