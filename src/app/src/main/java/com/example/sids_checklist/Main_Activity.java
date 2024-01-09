@@ -109,6 +109,7 @@ public class Main_Activity extends AppCompatActivity {
 
                 goToManageUsers.setOnClickListener(v -> {
                     Intent i = new Intent(Main_Activity.this, Profile_Activity.class);
+                    i.putExtra("profile_id", selectedProfileID);
                     startActivity(i);
                 });
             }
