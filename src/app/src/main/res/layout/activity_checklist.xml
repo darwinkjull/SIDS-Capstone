@@ -25,13 +25,13 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:text="Sleep Checklist"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@id/ChecklistButtonTips"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:textSize="24sp" />
 
-    <!--Swipe Refresh Layout -->
 
     <Button
         android:id="@+id/checklistReportButton"
@@ -45,7 +45,18 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:drawableLeft="@drawable/baseline_arrow_back_24"
         android:text="Back"
         android:textSize="12sp" />
-
+    <Button
+        android:id="@+id/ChecklistButtonTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawableLeft="@drawable/baseline_lightbulb_24"
+        android:text="Tips"
+        android:textSize="12sp"/>
+    <!--Swipe Refresh Layout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"

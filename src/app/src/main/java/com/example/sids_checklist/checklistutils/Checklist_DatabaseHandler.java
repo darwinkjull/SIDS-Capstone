@@ -16,6 +16,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.sids_checklist.Tips;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,12 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
 
     // ability to add new items to the database (SQL)
     public void insertItem(ChecklistModel item){
+        ContentValues cv = new ContentValues();
+        cv.put(ITEM, item.getItem()); // get item name
+        cv.put(STATUS, 0); // set item as "unchecked"
+        db.insert(CHECKLIST_TABLE, null, cv); // insert new item to database
+    }
+    public void insertTip(Tips item){
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item.getItem()); // get item name
         cv.put(STATUS, 0); // set item as "unchecked"
