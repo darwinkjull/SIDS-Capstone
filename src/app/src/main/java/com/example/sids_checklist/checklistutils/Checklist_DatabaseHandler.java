@@ -30,7 +30,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     // Define Database parameters and query for creating database table
     private static final int VERSION = 5; //Now on version 2, due to new foreign key column
     private static final String NAME = "ChecklistDatabase";
-    private static final String CHECKLIST_TABLE = "checklist";
+    private static final String CHECKLIST_TABLE = "_checklist";
     private static final String ID = "id";
     private static final String ITEM = "item";
     private static final String STATUS = "status";
@@ -59,7 +59,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
 
         for (String i : userList) {
             String newQuery = new String();
-            newQuery = CREATE_CHECKLIST_TABLE_PREFIX + i + "_" + CREATE_CHECKLIST_TABLE_SUFFIX +
+            newQuery = CREATE_CHECKLIST_TABLE_PREFIX + i + CREATE_CHECKLIST_TABLE_SUFFIX +
             Log.d("DatabaseHandler", "SQL Query: " + newQuery);
             db.execSQL(newQuery); // execute query
         }
@@ -75,7 +75,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
 
         for (String i : userList) {
             String tableName;
-            tableName = i + "_" + CHECKLIST_TABLE;
+            tableName = i + CHECKLIST_TABLE;
             db.execSQL("DROP TABLE IF EXISTS " + tableName); // drop the old version
             onCreate(db); // create upgraded table
         }
@@ -97,7 +97,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         cv.put(ITEM, item.getItem()); // get item name
         cv.put(STATUS, 0); // set item as "unchecked"
 
-        String tableName = username + "_" + CHECKLIST_TABLE;
+        String tableName = username + CHECKLIST_TABLE;
         db.insert(tableName, null, cv); // insert new item to database
     }
 
@@ -107,7 +107,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         List<ChecklistModel> itemList = new ArrayList<>();
         Cursor cur = null;
         db.beginTransaction(); // ensure safe storage of database even if interrupted
-        String tableName = username + "_" + CHECKLIST_TABLE;
+        String tableName = username + CHECKLIST_TABLE;
 
         try {
             cur = db.query(tableName, null, null, null, null, null, null, null);
@@ -137,7 +137,7 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(STATUS, status);
 
-        String tableName = username + "_" + CHECKLIST_TABLE;
+        String tableName = username + CHECKLIST_TABLE;
         db.update(tableName, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
 
@@ -146,13 +146,13 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item);
 
-        String tableName = username + "_" + CHECKLIST_TABLE;
+        String tableName = username + CHECKLIST_TABLE;
         db.update(tableName, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
 
     // Delete a checklist item (SQL)
     public void deleteItem(int id, String username) {
-        String tableName = username + "_" + CHECKLIST_TABLE;
+        String tableName = username + CHECKLIST_TABLE;
         db.delete(tableName, ID + "=?", new String[]{String.valueOf(id)});
     }
 }
