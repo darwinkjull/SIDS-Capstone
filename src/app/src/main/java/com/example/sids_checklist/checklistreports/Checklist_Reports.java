@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sids_checklist.Main_Activity;
 import com.example.sids_checklist.R;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
+import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -33,6 +34,7 @@ public class Checklist_Reports extends AppCompatActivity {
     ArrayList<Entry> lineArrayList;
     ArrayList<String> sessionList;
     private int profileID;
+    private String profileUsername;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,9 @@ public class Checklist_Reports extends AppCompatActivity {
         // Get the profile ID that was passed into the activity using the intent
         profileID = getIntent().getIntExtra("profile_id", -1);
         assert (profileID != -1);
+
+        Profile_DatabaseHandler profile_db = new Profile_DatabaseHandler(this);
+        profileUsername = profile_db.getUsernameByID(profileID);
 
         LineChart lineChart = findViewById(R.id.checklistChart);
 
@@ -97,7 +102,7 @@ public class Checklist_Reports extends AppCompatActivity {
 
         lineArrayList = new ArrayList<>();
 
-        List dataArrayList = disp_db.calculateSessionData();
+        List dataArrayList = disp_db.calculateSessionData(profileUsername);
         AtomicReference<Float> i = new AtomicReference<>((float) 0);
 
         dataArrayList.forEach(dataSet -> {
@@ -110,7 +115,7 @@ public class Checklist_Reports extends AppCompatActivity {
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
         sessionList = new ArrayList<>();
-        ArrayList newSessions = disp_db.getAllSessions();
+        ArrayList newSessions = disp_db.getAllSessions(profileUsername);
         newSessions.forEach(session ->{
             String[] tempString = (String.valueOf(session).split(" "));
             sessionList.add(tempString[1] + " " + tempString[2] + " " + tempString[3]);
