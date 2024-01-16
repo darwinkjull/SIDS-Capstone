@@ -36,5 +36,5 @@ public class ChecklistModel {
     public void setItem(String item) {
         this.item = item;
     }
-    
+
 }

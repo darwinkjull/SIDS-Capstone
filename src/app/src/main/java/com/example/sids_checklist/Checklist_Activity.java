@@ -26,6 +26,7 @@ import java.util.Objects;
 
 public class Checklist_Activity extends AppCompatActivity implements DialogCloseListener {
     private int profileID;
+    private String profileUsername;
     private ChecklistAdapter checklistAdapter;
     private List<ChecklistModel> checklistList;
     private Checklist_DatabaseHandler db;
@@ -46,6 +47,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // Get the profile ID that was passed into the activity using the intent
         profileID = getIntent().getIntExtra("profile_id", -1);
         assert (profileID != -1);
+        profileUsername = dbProfile.getUsernameByID(profileID);
 
         // Create database within Main Function and open
 
@@ -88,7 +90,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         itemTouchHelper.attachToRecyclerView(checklistRecyclerView);
 
         // display current items in the database (newest first)
-        checklistList = db.getAllItems(profileID);
+        checklistList = db.getAllItems(profileUsername);
         Collections.reverse(checklistList);
         // checklistAdapter.refreshItems(checklistList);
         checklistAdapter.setItems(checklistList);
@@ -118,13 +120,14 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        checklistList = db.getAllItems(profileID);
+        checklistList = db.getAllItems(profileUsername);
         Collections.reverse(checklistList);
         checklistAdapter.setItems(checklistList);
         checklistAdapter.notifyDataSetChanged();
     }
 
-    public int getProfileID() {
-        return profileID;
+    public int getProfileUsername() {
+        return profileUsername;
     }
+
 }
