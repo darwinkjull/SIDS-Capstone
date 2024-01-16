@@ -121,6 +121,21 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
         return id;
     }
 
+    @SuppressLint("Range")
+    public String getUsernameByID(Integer id){
+        String[] column = new String[]{USERNAME};
+        String[] row = new String[]{id.toString()};
+        String username = new String();
+
+        Cursor cur = db.query(PROFILE_TABLE, column, ID + "=?", row, null, null, null);
+        if (cur.moveToFirst()) {
+            username = cur.getString(cur.getColumnIndex(USERNAME));
+        }
+        cur.close();
+
+        return username;
+    }
+
     // Updates the username of a given profile in the PROFILE_TABLE table
     public void updateUsername(int id, String username) {
         ContentValues cv = new ContentValues();

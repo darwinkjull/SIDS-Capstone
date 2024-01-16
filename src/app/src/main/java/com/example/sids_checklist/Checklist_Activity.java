@@ -126,7 +126,7 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         checklistAdapter.notifyDataSetChanged();
     }
 
-    public int getProfileUsername() {
+    public String getProfileUsername() {
         return profileUsername;
     }
 
