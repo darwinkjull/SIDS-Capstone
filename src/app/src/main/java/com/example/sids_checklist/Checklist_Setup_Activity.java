@@ -77,6 +77,8 @@ public class Checklist_Setup_Activity extends AppCompatActivity {
                 checkCheckedItems(tipsAdapterSmoking);
                 checkCheckedItems(tipsAdapterCoSleeping);
                 checkCheckedItems(tipsAdapterStandard);
+                startActivity(new Intent(Checklist_Setup_Activity.this,
+                        Checklist_Activity.class));
             }
         });
 

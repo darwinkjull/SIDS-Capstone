@@ -80,14 +80,15 @@
             android:gravity="center" />
 
         <Button
-            android:id="@+id/goToSetup"
+            android:id="@+id/goToInfo"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="8dp"
-            android:drawableTop="@drawable/crib_icon"
-            android:text="Setup"
+            android:drawableTop="@drawable/info_icon"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:text="Info"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"

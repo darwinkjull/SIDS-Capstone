@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">sids_checklist</string>
+    <string name="Sleep_Location_Info" />
+    <string name="Sleep_Area_Info" />
+    <string name="Overheating_Info" />
+    <string name="sleeping_position_info" />
+    <string name="Breastfeeding_Info" />
+    <string name="Breathing_Info" />
+    <string name="Additional_Info" />
 </resources>
