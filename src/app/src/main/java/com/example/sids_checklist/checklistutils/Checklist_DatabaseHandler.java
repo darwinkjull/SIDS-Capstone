@@ -34,8 +34,6 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     private static final String ID = "id";
     private static final String ITEM = "item";
     private static final String STATUS = "status";
-    private static final String PROFILE_ID = "profile_id";
-
 
     private static final String CREATE_CHECKLIST_TABLE_PREFIX = "CREATE TABLE ";
     private static final String CREATE_CHECKLIST_TABLE_SUFFIX = CHECKLIST_TABLE + "("
