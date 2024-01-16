@@ -121,6 +121,6 @@ public class Checklist_Reports extends AppCompatActivity {
             sessionList.add(tempString[1] + " " + tempString[2] + " " + tempString[3]);
         });
     }
-    
+
     public String getProfileUsername(){return profileUsername;}
 }
