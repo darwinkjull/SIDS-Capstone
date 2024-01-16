@@ -21,6 +21,7 @@ import android.util.Log;
 import androidx.annotation.ChecksSdkIntAtLeast;
 
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
+import com.example.sids_checklist.checklistmodel.ProfileModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +37,15 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     private static final String PROFILE_ID = "profile_id";
 
 
-    private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
+    private static final String CREATE_CHECKLIST_TABLE_PREFIX = "CREATE TABLE ";
+    private static final String CREATE_CHECKLIST_TABLE_SUFFIX = CHECKLIST_TABLE + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PROFILE_ID + " INTEGER, "
             + ITEM + " TEXT, "
-            + STATUS + " INTEGER, "
-            + " FOREIGN KEY (" + PROFILE_ID + ") REFERENCES Profiles(id))";
+            + STATUS + " INTEGER)";
+
 
     private SQLiteDatabase db;
-
+    private Profile_DatabaseHandler profile_db;
     public Checklist_DatabaseHandler(Context context) {
         super(context, NAME, null, VERSION);
     }
@@ -53,8 +54,15 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d("tag", "Now calling onCreate for Checklist");
-        Log.d("DatabaseHandler", "SQL Query: " + CREATE_CHECKLIST_TABLE);
-        db.execSQL(CREATE_CHECKLIST_TABLE); // execute query
+        List<String> userList;
+        userList = profile_db.getAllUsernames();
+
+        for (String i : userList) {
+            String newQuery = new String();
+            newQuery = CREATE_CHECKLIST_TABLE_PREFIX + i + "_" + CREATE_CHECKLIST_TABLE_SUFFIX +
+            Log.d("DatabaseHandler", "SQL Query: " + newQuery);
+            db.execSQL(newQuery); // execute query
+        }
     }
 
     // upgrade the table to the new version and drop the old table
@@ -62,12 +70,16 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d("tag", "Now calling onUpgrade for Checklist");
 
-        db.execSQL("DROP TABLE IF EXISTS " + CHECKLIST_TABLE); // drop the old version
-        onCreate(db); // create upgraded table
+        List<String> userList;
+        userList = profile_db.getAllUsernames();
 
-        //if (oldVersion < 5) {
-        //    db.execSQL("ALTER TABLE " + CHECKLIST_TABLE + " ADD COLUMN " + PROFILE_ID + " INTEGER");
-        //}
+        for (String i : userList) {
+            String newQuery;
+            newQuery = i + "_" + CHECKLIST_TABLE;
+            db.execSQL("DROP TABLE IF EXISTS " + newQuery); // drop the old version
+            onCreate(db); // create upgraded table
+        }
+
     }
 
     // open the database to write to
