@@ -77,7 +77,6 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + tableName); // drop the old version
             onCreate(db); // create upgraded table
         }
-
     }
 
     // open the database to write to

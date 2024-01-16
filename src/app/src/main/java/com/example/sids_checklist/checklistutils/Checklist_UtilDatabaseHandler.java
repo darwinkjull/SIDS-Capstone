@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,23 +20,22 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     // Define Database parameters and query for creating database table
     private static final int VERSION = 1;
     private static final String NAME = "UtilChecklistDatabase";
-    private static final String CHECKLIST_TABLE = "DisplayChecklist";
+    private static final String CHECKLIST_TABLE = "_displayChecklist";
     private static final String ID = "id";
     private static final String ITEM = "item";
     private static final String STATUS = "status";
 
     private static final String SESSION = "session";
-    private static final String PROFILE_ID = "profile_id";
-    private static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + CHECKLIST_TABLE + "("
+    private static final String CREATE_CHECKLIST_TABLE_PREFIX = "CREATE TABLE ";
+    private static final String CREATE_CHECKLIST_TABLE_SUFFIX = CHECKLIST_TABLE + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PROFILE_ID + " INTEGER, "
             + SESSION + " TEXT, "
             + ITEM + " TEXT, "
-            + STATUS + " INTEGER, "
-            + "FOREIGN KEY(" + PROFILE_ID + ") REFERENCES Profiles(id))";
+            + STATUS + " INTEGER)";
 
     private SQLiteDatabase disp_db;
 
+    private Profile_DatabaseHandler profile_db;
     public Checklist_UtilDatabaseHandler(Context context) {
         super(context, NAME, null, VERSION);
     }
@@ -43,14 +43,32 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     // create the table
     @Override
     public void onCreate(SQLiteDatabase disp_db) {
-        disp_db.execSQL(CREATE_CHECKLIST_TABLE); // execute query
+        Log.d("tag", "Now calling onCreate for Display Checklist");
+        List<String> userList;
+        userList = profile_db.getAllUsernames();
+
+        for (String i : userList) {
+            String newQuery = new String();
+            newQuery = CREATE_CHECKLIST_TABLE_PREFIX + i + CREATE_CHECKLIST_TABLE_SUFFIX +
+                    Log.d("DatabaseHandler", "SQL Query: " + newQuery);
+            disp_db.execSQL(newQuery); // execute query
+        }
     }
 
     // upgrade the table to the new version and drop the old table
     @Override
     public void onUpgrade(SQLiteDatabase disp_db, int oldVersion, int newVersion) {
-        disp_db.execSQL("DROP TABLE IF EXISTS " + CHECKLIST_TABLE); // drop the old version
-        onCreate(disp_db); // create upgraded table
+        Log.d("tag", "Now calling onUpgrade for Display Checklist");
+
+        List<String> userList;
+        userList = profile_db.getAllUsernames();
+
+        for (String i : userList) {
+            String tableName;
+            tableName = i + CHECKLIST_TABLE;
+            disp_db.execSQL("DROP TABLE IF EXISTS " + tableName); // drop the old version
+            onCreate(disp_db); // create upgraded table
+        }
     }
 
     // open the database to write to
@@ -63,19 +81,22 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     }
 
     // ability to add new items to the database (SQL)
-    public void insertItem(String name, int status, String session, int profile_ID) {
+    public void insertItem(String name, int status, String session, String username) {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, name);
         cv.put(STATUS, status);
         cv.put(SESSION, session);
-        cv.put(PROFILE_ID, profile_ID);
-        disp_db.insert(CHECKLIST_TABLE, null, cv); // insert new item to database
+
+        String tableName = username + CHECKLIST_TABLE;
+        disp_db.insert(tableName, null, cv); // insert new item to database
     }
 
-    public ArrayList getAllSessions() {
+    public ArrayList getAllSessions(String username) {
         ArrayList<String> sessionList = new ArrayList<>();
         String[] currSession;
-        Cursor cursor = disp_db.rawQuery("SELECT DISTINCT " + SESSION + " FROM " + CHECKLIST_TABLE, null);
+        String tableName = username + CHECKLIST_TABLE;
+
+        Cursor cursor = disp_db.rawQuery("SELECT DISTINCT " + SESSION + " FROM " + tableName, null);
         if (cursor.moveToFirst()) {
             do {
                 currSession = (cursor.getString(0).split(":"));
@@ -87,13 +108,14 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
         return (sessionList);
     }
 
-    public List calculateSessionData() {
+    public List calculateSessionData(String username) {
         ArrayList<String> sessionList = new ArrayList<>();
         List<Float> dataCalc = new ArrayList<>();
         AtomicInteger dataVal = new AtomicInteger();
         AtomicInteger dataCount = new AtomicInteger();
+        String tableName = username + CHECKLIST_TABLE;
 
-        Cursor cursor = disp_db.rawQuery("SELECT DISTINCT " + SESSION + " FROM " + CHECKLIST_TABLE, null);
+        Cursor cursor = disp_db.rawQuery("SELECT DISTINCT " + SESSION + " FROM " + tableName, null);
         if (cursor.moveToFirst()) {
             do {
                 sessionList.add(cursor.getString(0));
@@ -103,7 +125,7 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
 
         sessionList.forEach((session) -> {
-            Cursor dataCursor = disp_db.rawQuery("SELECT * FROM " + CHECKLIST_TABLE +
+            Cursor dataCursor = disp_db.rawQuery("SELECT * FROM " + tableName +
                     " WHERE " + SESSION + " = '" + session + "'", null);
             dataVal.set(0);
             dataCount.set(0);
@@ -121,7 +143,7 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
         return (dataCalc);
     }
 
-    public List[] selectSessionData(String session) {
+    public List[] selectSessionData(String session, String username) {
         ArrayList<String> sessionName = new ArrayList<>();
         ArrayList<String> sessionItems = new ArrayList<>();
         ArrayList<String> itemStatus = new ArrayList<>();
@@ -131,7 +153,9 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
         String sessionDate = sessionSplit[0] + " " + sessionSplit[1] + " " + sessionSplit[2];
         String sessionYear = sessionSplit[5];
 
-        Cursor cursor = disp_db.rawQuery("SELECT * FROM " + CHECKLIST_TABLE + " WHERE " + SESSION + " LIKE '%" + sessionDate + "%'", null);
+        String tableName = username + CHECKLIST_TABLE;
+
+        Cursor cursor = disp_db.rawQuery("SELECT * FROM " + tableName + " WHERE " + SESSION + " LIKE '%" + sessionDate + "%'", null);
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getString(1).contains(sessionYear)) {
