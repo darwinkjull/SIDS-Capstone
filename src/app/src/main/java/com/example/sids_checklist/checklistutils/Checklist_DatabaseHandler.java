@@ -74,9 +74,9 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         userList = profile_db.getAllUsernames();
 
         for (String i : userList) {
-            String newQuery;
-            newQuery = i + "_" + CHECKLIST_TABLE;
-            db.execSQL("DROP TABLE IF EXISTS " + newQuery); // drop the old version
+            String tableName;
+            tableName = i + "_" + CHECKLIST_TABLE;
+            db.execSQL("DROP TABLE IF EXISTS " + tableName); // drop the old version
             onCreate(db); // create upgraded table
         }
 
@@ -92,27 +92,29 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // ability to add new items to the database (SQL)
-    public void insertItem(ChecklistModel item) {
+    public void insertItem(ChecklistModel item, String username) {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item.getItem()); // get item name
         cv.put(STATUS, 0); // set item as "unchecked"
-        cv.put(PROFILE_ID, item.getProfile_id());
-        db.insert(CHECKLIST_TABLE, null, cv); // insert new item to database
+
+        String tableName = username + "_" + CHECKLIST_TABLE;
+        db.insert(tableName, null, cv); // insert new item to database
     }
 
     // Ability to get current items from the database (SQL)
     @SuppressLint("Range")
-    public List<ChecklistModel> getAllItems(int profile_id) {
+    public List<ChecklistModel> getAllItems(String username) {
         List<ChecklistModel> itemList = new ArrayList<>();
         Cursor cur = null;
         db.beginTransaction(); // ensure safe storage of database even if interrupted
+        String tableName = username + "_" + CHECKLIST_TABLE;
+
         try {
-            cur = db.query(CHECKLIST_TABLE, null, null, null, null, null, null, null);
+            cur = db.query(tableName, null, null, null, null, null, null, null);
             if (cur != null) {
                 if (cur.moveToFirst()) {
                     do {
-                        // Check to see if entry is for the selected profile
-                        if (cur.getInt(cur.getColumnIndex(PROFILE_ID)) == profile_id) {
+                        {
                             ChecklistModel item = new ChecklistModel();
                             item.setId(cur.getInt(cur.getColumnIndex(ID)));
                             item.setItem(cur.getString(cur.getColumnIndex(ITEM)));
@@ -131,22 +133,27 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Update the status of the checklist item (checked/unchecked) (SQL)
-    public void updateStatus(int id, int status) {
+    public void updateStatus(int id, int status, String username) {
         ContentValues cv = new ContentValues();
         cv.put(STATUS, status);
-        db.update(CHECKLIST_TABLE, cv, ID + "=?", new String[]{String.valueOf(id)});
+
+        String tableName = username + "_" + CHECKLIST_TABLE;
+        db.update(tableName, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
 
     // Update the name of the checklist item (SQL)
-    public void updateItem(int id, String item) {
+    public void updateItem(int id, String item, String username) {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item);
-        db.update(CHECKLIST_TABLE, cv, ID + "=?", new String[]{String.valueOf(id)});
+
+        String tableName = username + "_" + CHECKLIST_TABLE;
+        db.update(tableName, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
 
     // Delete a checklist item (SQL)
-    public void deleteItem(int id) {
-        db.delete(CHECKLIST_TABLE, ID + "=?", new String[]{String.valueOf(id)});
+    public void deleteItem(int id, String username) {
+        String tableName = username + "_" + CHECKLIST_TABLE;
+        db.delete(tableName, ID + "=?", new String[]{String.valueOf(id)});
     }
 }
 
