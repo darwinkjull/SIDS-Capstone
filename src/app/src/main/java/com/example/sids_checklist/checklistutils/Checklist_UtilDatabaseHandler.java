@@ -36,8 +36,11 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     private SQLiteDatabase disp_db;
 
     private Profile_DatabaseHandler profile_db;
+    private Context context;
+
     public Checklist_UtilDatabaseHandler(Context context) {
         super(context, NAME, null, VERSION);
+        this.context = context;
     }
 
     // create the table
@@ -45,12 +48,14 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase disp_db) {
         Log.d("tag", "Now calling onCreate for Display Checklist");
         List<String> userList;
+        profile_db = new Profile_DatabaseHandler(context.getApplicationContext());
+        profile_db.openDatabase();
         userList = profile_db.getAllUsernames();
 
         for (String i : userList) {
             String newQuery = new String();
-            newQuery = CREATE_CHECKLIST_TABLE_PREFIX + i + CREATE_CHECKLIST_TABLE_SUFFIX +
-                    Log.d("DatabaseHandler", "SQL Query: " + newQuery);
+            newQuery = CREATE_CHECKLIST_TABLE_PREFIX + i + CREATE_CHECKLIST_TABLE_SUFFIX;
+            Log.d("DatabaseHandler", "SQL Query: " + newQuery);
             disp_db.execSQL(newQuery); // execute query
         }
     }
@@ -61,6 +66,8 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
         Log.d("tag", "Now calling onUpgrade for Display Checklist");
 
         List<String> userList;
+        profile_db = new Profile_DatabaseHandler(context.getApplicationContext());
+        profile_db.openDatabase();
         userList = profile_db.getAllUsernames();
 
         for (String i : userList) {
