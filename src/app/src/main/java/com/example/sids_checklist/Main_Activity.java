@@ -15,13 +15,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistreports.Checklist_Reports;
-import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
 import java.util.ArrayList;
@@ -29,11 +27,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class Main_Activity extends AppCompatActivity {
-    private Profile_DatabaseHandler db;
+    private Profile_DatabaseHandler profile_db;
     private List<ProfileModel> profileList;
     private List<String> usernameList;
 
-    private Checklist_DatabaseHandler dbChecklist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,17 +38,17 @@ public class Main_Activity extends AppCompatActivity {
 
         //Perform database setup
         Log.d("tag", "Creating profile DB");
-        db = new Profile_DatabaseHandler(this);
-        db.openDatabase();
+        profile_db = new Profile_DatabaseHandler(this);
+        profile_db.openDatabase();
         Log.d("tag", "Profile DB success");
 
         // As of right now, there is no use for the full profile on the home page, just the username
         profileList = new ArrayList<>();
-        profileList = db.getAllProfiles();
+        profileList = profile_db.getAllProfiles();
 
         // This could be turned into an adapter or other simplified function in the future
         usernameList = new ArrayList<>();
-        usernameList = db.getAllUsernames();
+        usernameList = profile_db.getAllUsernames();
 
 
         // For the sake of testing, we will create two profiles:
@@ -93,7 +90,7 @@ public class Main_Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedUsername = parent.getItemAtPosition(position).toString();
                 // Getting profile ID from the selected user name
-                int selectedProfileID = db.getIDByUsername(selectedUsername);
+                int selectedProfileID = profile_db.getIDByUsername(selectedUsername);
 
                 // Providing profile ID with the intents to activities in our application
                 goToChecklist.setOnClickListener(v -> {

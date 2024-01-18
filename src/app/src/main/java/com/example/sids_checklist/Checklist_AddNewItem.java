@@ -35,7 +35,7 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     private EditText newItemText;
     private Button newItemSaveButton;
     private Checklist_DatabaseHandler db;
-    private String profileUsername;
+    private int profileID;
 
     /* Pass profile ID into the fragment as an argument so it can be used in the definition of
      new checklist items.
@@ -69,7 +69,7 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
         //Get profileID from Checklist_Activity.java
         Checklist_Activity checklist = (Checklist_Activity) getActivity();
-        profileUsername = checklist.getProfileUsername();
+        profileID = checklist.getProfileID();
 
         return view;
     }
@@ -127,12 +127,12 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
         newItemSaveButton.setOnClickListener(v -> {
             String text = newItemText.getText().toString();
             if (finalIsUpdate) {
-                db.updateItem(bundle.getInt("id"), text, profileUsername);
+                db.updateItem(bundle.getInt("id"), text, profileID);
             } else {
                 ChecklistModel item = new ChecklistModel();
                 item.setItem(text);
                 item.setStatus(0);
-                db.insertItem(item, profileUsername);
+                db.insertItem(item, profileID);
             }
             dismiss();
         });

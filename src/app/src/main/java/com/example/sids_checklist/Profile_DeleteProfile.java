@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.example.sids_checklist.checklistmodel.ProfileModel;
+import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
+import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
 public class Profile_DeleteProfile {
@@ -22,13 +22,21 @@ public class Profile_DeleteProfile {
         Button deletionTrueButton = deleteProfilePopUpView.findViewById(R.id.deletionTrueButton);
         Button deletionFalseButton = deleteProfilePopUpView.findViewById(R.id.deletionFalseButton);
 
-        Profile_DatabaseHandler db = new Profile_DatabaseHandler(view.getContext());
-        db.openDatabase();
+        Profile_DatabaseHandler profile_db = new Profile_DatabaseHandler(view.getContext());
+        profile_db.openDatabase();
+
+        Checklist_DatabaseHandler checklist_db = new Checklist_DatabaseHandler(view.getContext());
+        checklist_db.openDatabase();
+
+        Checklist_UtilDatabaseHandler checklist_util_db = new Checklist_UtilDatabaseHandler(view.getContext());
+        checklist_util_db.openDatabase();
 
         deletionTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.deleteProfile(profileID);
+                profile_db.deleteProfile(profileID);
+                checklist_db.deleteTable(profileID);
+                checklist_util_db.deleteTable(profileID);
                 popupWindow.dismiss();
             }
         });

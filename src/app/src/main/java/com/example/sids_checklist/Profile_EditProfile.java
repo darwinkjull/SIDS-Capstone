@@ -29,7 +29,7 @@ public class Profile_EditProfile {
         Profile_DatabaseHandler db = new Profile_DatabaseHandler(view.getContext());
         db.openDatabase();
 
-        profileNameText.setText(db.getProfileInfo(profileID).getUsername());
+        profileNameText.setText(db.getProfileInfoFromID(profileID).getUsername());
         acceptInfoTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

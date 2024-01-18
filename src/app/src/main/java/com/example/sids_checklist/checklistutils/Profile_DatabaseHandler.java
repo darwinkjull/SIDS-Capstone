@@ -151,7 +151,7 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public ProfileModel getProfileInfo(int id){
+    public ProfileModel getProfileInfoFromID(int id){
         ProfileModel profile = new ProfileModel();
 
         String[] row = new String[]{String.valueOf(id)};
@@ -159,6 +159,21 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
         if (cur.moveToFirst()) {
              profile.setUsername(cur.getString(cur.getColumnIndex(USERNAME)));
              profile.setId(id);
+        }
+
+        cur.close();
+        return profile;
+    }
+
+    @SuppressLint("Range")
+    public ProfileModel getProfileInfoFromUsername(String username){
+        ProfileModel profile = new ProfileModel();
+
+        String[] row = new String[]{username};
+        Cursor cur = db.query(PROFILE_TABLE, null, USERNAME + "=?", row, null, null, null);
+        if (cur.moveToFirst()) {
+            profile.setUsername(username);
+            profile.setId(cur.getInt(cur.getColumnIndex(ID)));
         }
 
         cur.close();

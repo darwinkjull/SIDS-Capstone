@@ -26,7 +26,7 @@ import java.util.Objects;
 
 public class Checklist_ExportPage extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
-    private String profileUsername;
+    private int profileID;
     public static Checklist_ExportPage newInstance(long start, long end){
         Checklist_ExportPage CLP = new Checklist_ExportPage();
         Bundle args = new Bundle();
@@ -49,7 +49,7 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         Checklist_Reports reports =  (Checklist_Reports) getActivity();
-        profileUsername = reports.getProfileUsername();
+        profileID = reports.getProfileID();
         return view;
     }
 
@@ -106,7 +106,7 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
 
         while (currDate.getTimeInMillis() <= endDate.getTimeInMillis()){
 
-            List[] sessionVars = disp_db.selectSessionData(String.valueOf(currDate.getTime()), profileUsername);
+            List[] sessionVars = disp_db.selectSessionData(String.valueOf(currDate.getTime()), profileID);
             TextView[] textArray = new TextView[sessionVars[0].size() + 1];
             TableRow[] tr_heads = new TableRow[sessionVars[0].size() + 1];
 
