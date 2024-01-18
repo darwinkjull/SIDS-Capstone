@@ -122,9 +122,11 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public String getUsernameByID(Integer id){
+    public String getUsernameByID(int id){
+        String profileID = Integer.toString(id);
+
         String[] column = new String[]{USERNAME};
-        String[] row = new String[]{id.toString()};
+        String[] row = new String[]{profileID};
         String username = new String();
 
         Cursor cur = db.query(PROFILE_TABLE, column, ID + "=?", row, null, null, null);
