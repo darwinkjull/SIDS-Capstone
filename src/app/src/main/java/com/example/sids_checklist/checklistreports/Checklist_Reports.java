@@ -57,7 +57,7 @@ public class Checklist_Reports extends AppCompatActivity {
 
         // Add the "REPORTS" "button capability onto screen
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-        Button ChecklistButton = findViewById(R.id.checklistButton);
+        Button returnFromReportsButton = findViewById(R.id.returnFromReportsButton);
         Button ExportButton = findViewById(R.id.ExportButton);
 
         getData();
@@ -95,8 +95,11 @@ public class Checklist_Reports extends AppCompatActivity {
 
         lineChart.getDescription().setEnabled(false);
 
-        ChecklistButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Reports.this,
-                Main_Activity.class)));
+        returnFromReportsButton.setOnClickListener(v -> {
+            Intent i = new Intent(Checklist_Reports.this, Main_Activity.class);
+            i.putExtra("profile_id", profileID);
+            startActivity(i);
+        });
 
         ExportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Reports.this,
                 Checklist_Export.class)));

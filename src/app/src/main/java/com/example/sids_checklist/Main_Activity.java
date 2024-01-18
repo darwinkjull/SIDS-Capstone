@@ -28,7 +28,6 @@ import java.util.Objects;
 
 public class Main_Activity extends AppCompatActivity {
     private Profile_DatabaseHandler profile_db;
-    private List<ProfileModel> profileList;
     private List<String> usernameList;
 
     @Override
@@ -36,30 +35,20 @@ public class Main_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
+        //Fetch information, if we were passed it returning from the previous acitivity
+        int returnProfileID = getIntent().getIntExtra("profile_id", -1);
+
         //Perform database setup
         Log.d("tag", "Creating profile DB");
         profile_db = new Profile_DatabaseHandler(this);
         profile_db.openDatabase();
         Log.d("tag", "Profile DB success");
 
-        // As of right now, there is no use for the full profile on the home page, just the username
-        profileList = new ArrayList<>();
-        profileList = profile_db.getAllProfiles();
-
         // This could be turned into an adapter or other simplified function in the future
         usernameList = new ArrayList<>();
         usernameList = profile_db.getAllUsernames();
-
-
-        // For the sake of testing, we will create two profiles:
-//        ProfileModel profile = new ProfileModel();
-//        profile.setUsername("Henry");
-//        db.insertProfile(profile);
-//        profile.setUsername("Mary");
-//        db.insertProfile(profile);
-
-        // Hide action bar so top most navigation is hidden
-        Objects.requireNonNull(getSupportActionBar()).hide();
 
         // Set up spinner (drop down menu) to house the profiles we can select
         // The ArrayAdapter is used to put our list of usernames into the drop down menu
@@ -68,13 +57,15 @@ public class Main_Activity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, usernameList);
         usernameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         profile_select.setAdapter(usernameAdapter);
+        if (returnProfileID != -1) {
+            profile_select.setSelection(usernameAdapter.getPosition(profile_db.getUsernameByID(returnProfileID)));
+        }
 
         // Defining the buttons on the home page
         Button goToChecklist = findViewById(R.id.goToChecklist);
         Button goToReport = findViewById(R.id.goToReport);
-        // Button goToProfile = findViewById(R.id.goToProfile);
-        // Button goToSetup = findViewById(R.id.goToSetup);
         Button goToManageUsers = findViewById(R.id.goToProfile);
+        // Button goToSetup = findViewById(R.id.goToSetup);
 
         // If no option selected, assume we have a blank list, force user to go to profiles
         goToManageUsers.setOnClickListener(v -> {

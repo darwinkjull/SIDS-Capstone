@@ -82,8 +82,8 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // Add the "ADD" "button capability onto screen
         Button save = findViewById(R.id.checklistConfirm);
 
-        // Add the "REPORTS" "button capability onto screen
-        Button reportButton = findViewById(R.id.checklistReportButton);
+        // Add button to return to main activity
+        Button returnFromChecklistButton = findViewById(R.id.returnFromChecklistButton);
 
         // add item creator helper to reference in main using recyclerview api
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
@@ -102,8 +102,11 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
                 v -> Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
                         Checklist_AddNewItem.TAG));
 
-        reportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Activity.this,
-                Main_Activity.class)));
+        returnFromChecklistButton.setOnClickListener(v -> {
+            Intent i = new Intent(Checklist_Activity.this, Main_Activity.class);
+            i.putExtra("profile_id", profileID);
+            startActivity(i);
+        });
 
         save.setOnClickListener(
                 v -> {
