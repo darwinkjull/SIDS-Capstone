@@ -21,9 +21,13 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     private static final String PROFILE_TABLE = "Profiles";
     private static final String ID = "id";
     private static final String USERNAME = "username";
+    private static final String AGE = "age";
+    private static final String PROFILE_COLOR = "profile_color";
     private static final String CREATE_PROFILE_TABLE = "CREATE TABLE " + PROFILE_TABLE + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + USERNAME + " TEXT UNIQUE)";
+            + USERNAME + " TEXT UNIQUE, "
+            + AGE + " TEXT, "
+            + PROFILE_COLOR + " TEXT)";
     private SQLiteDatabase db;
 
     public Profile_DatabaseHandler(Context context) {
