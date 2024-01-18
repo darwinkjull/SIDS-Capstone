@@ -53,6 +53,8 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     public void insertProfile(ProfileModel profile) {
         ContentValues cv = new ContentValues();
         cv.put(USERNAME, profile.getUsername());
+        cv.put(AGE, profile.getAge());
+        cv.put(PROFILE_COLOR, profile.getProfile_color());
         db.insert(PROFILE_TABLE, null, cv);
     }
 
@@ -70,6 +72,8 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
                         ProfileModel profile = new ProfileModel();
                         profile.setId(cur.getInt(cur.getColumnIndex(ID)));
                         profile.setUsername(cur.getString(cur.getColumnIndex(USERNAME)));
+                        profile.setAge(cur.getString(cur.getColumnIndex(AGE)));
+                        profile.setProfile_color(cur.getString(cur.getColumnIndex(PROFILE_COLOR)));
                         profileList.add(profile);
                     } while (cur.moveToNext());
                 }
@@ -142,12 +146,22 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
         return username;
     }
 
-    // Updates the username of a given profile in the PROFILE_TABLE table
+    // Updates all profile information for a given profile which already exists in the PROFILE_TABLE table
+    public void updateProfile(int id, ProfileModel profile) {
+        ContentValues cv = new ContentValues();
+        cv.put(USERNAME, profile.getUsername());
+        cv.put(AGE, profile.getAge());
+        cv.put(PROFILE_COLOR, profile.getProfile_color());
+        db.update(PROFILE_TABLE, cv, ID + "=?", new String[]{String.valueOf(id)});
+    }
+
+    // Updates only the username for a given profile which already exists in the PROFILE_TABLE table
     public void updateUsername(int id, String username) {
         ContentValues cv = new ContentValues();
         cv.put(USERNAME, username);
         db.update(PROFILE_TABLE, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
+
 
     // Removes the target profile from the PROFILE_TABLE table
     public void deleteProfile(int id) {
@@ -161,8 +175,10 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
         String[] row = new String[]{String.valueOf(id)};
         Cursor cur = db.query(PROFILE_TABLE, null, ID + "=?", row, null, null, null);
         if (cur.moveToFirst()) {
-             profile.setUsername(cur.getString(cur.getColumnIndex(USERNAME)));
-             profile.setId(id);
+            profile.setId(id);
+            profile.setUsername(cur.getString(cur.getColumnIndex(USERNAME)));
+            profile.setAge(cur.getString(cur.getColumnIndex(AGE)));
+            profile.setProfile_color(cur.getString(cur.getColumnIndex(PROFILE_COLOR)));
         }
 
         cur.close();
@@ -176,8 +192,10 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
         String[] row = new String[]{username};
         Cursor cur = db.query(PROFILE_TABLE, null, USERNAME + "=?", row, null, null, null);
         if (cur.moveToFirst()) {
-            profile.setUsername(username);
             profile.setId(cur.getInt(cur.getColumnIndex(ID)));
+            profile.setUsername(username);
+            profile.setAge(cur.getString(cur.getColumnIndex(AGE)));
+            profile.setProfile_color(cur.getString(cur.getColumnIndex(PROFILE_COLOR)));
         }
 
         cur.close();
