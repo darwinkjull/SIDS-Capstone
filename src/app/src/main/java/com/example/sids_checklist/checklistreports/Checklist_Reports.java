@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sids_checklist.Main_Activity;
+import com.example.sids_checklist.Profile_Activity;
 import com.example.sids_checklist.R;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
@@ -101,8 +102,11 @@ public class Checklist_Reports extends AppCompatActivity {
             startActivity(i);
         });
 
-        ExportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Reports.this,
-                Checklist_Export.class)));
+        ExportButton.setOnClickListener(v -> {
+            Intent i = new Intent(Checklist_Reports.this, Checklist_Export.class);
+            i.putExtra("profile_id", profileID);
+            startActivity(i);
+        });
         Log.d("tag", "Successfully invoked onCreate method in Checklist_Reports");
     }
     private void getData(){

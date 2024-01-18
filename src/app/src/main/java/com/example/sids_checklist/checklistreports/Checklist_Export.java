@@ -8,6 +8,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.sids_checklist.Main_Activity;
+import com.example.sids_checklist.Profile_Activity;
 import com.example.sids_checklist.R;
 import android.widget.TextView;
 import androidx.core.util.Pair;
@@ -33,6 +36,9 @@ public class Checklist_Export extends AppCompatActivity {
         // Hide action bar so top most navigation is hidden
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        int profileID = getIntent().getIntExtra("profile_id", -1);
+        assert (profileID != -1);
+
         selectedDate = findViewById(R.id.selectDate);
         datePicker = findViewById(R.id.datePick);
         exportReturn = findViewById(R.id.exportReturn);
@@ -57,8 +63,11 @@ public class Checklist_Export extends AppCompatActivity {
                 v -> Checklist_ExportPage.newInstance(startDate, endDate).show(getSupportFragmentManager(),
                         Checklist_ExportPage.TAG));
 
-        exportReturn.setOnClickListener(v -> startActivity(new Intent(Checklist_Export.this,
-                Checklist_Reports.class)));
+        exportReturn.setOnClickListener(v -> {
+            Intent i = new Intent(Checklist_Export.this, Checklist_Reports.class);
+            i.putExtra("profile_id", profileID);
+            startActivity(i);
+        });
     }
 
     private void DatePickerdialog() {
