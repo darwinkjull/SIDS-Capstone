@@ -34,7 +34,7 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
     <!--Swipe Refresh Layout -->
 
     <Button
-        android:id="@+id/checklistReportButton"
+        android:id="@+id/returnFromChecklistButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

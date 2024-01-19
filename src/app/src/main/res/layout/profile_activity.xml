@@ -11,7 +11,7 @@
         <!--Swipe Refresh Layout -->
 
         <Button
-            android:id="@+id/returnFromProfileButton"
+            android:id="@+id/returnFromProfilesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

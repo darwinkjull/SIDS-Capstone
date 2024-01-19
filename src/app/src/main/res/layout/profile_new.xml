@@ -49,22 +49,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/profileNameHeader"
-            android:text="Age: "
+            android:text="Birthday: "
             android:textStyle="bold"
             android:textSize="24sp"
             android:layout_marginEnd="@dimen/margin_half_standard"
             android:gravity="center" />
 
-        <EditText
+        <CalendarView
             android:id="@+id/profileAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/profileAgeHeader"
-            android:layout_below="@id/profileNameHeader"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:hint="(Placeholder)"
-            android:textSize="24sp"
-            android:height="48dp" />
+            android:layout_below="@id/profileAgeHeader"
+            android:minDate="01/01/2023"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/profileColorHeader"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/profileAge"-->
+<!--            android:text="Profile Color: "-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="24sp"-->
+<!--            android:layout_marginEnd="@dimen/margin_half_standard"-->
+<!--            android:gravity="center" />-->
+
+
+
 
     </RelativeLayout>
 

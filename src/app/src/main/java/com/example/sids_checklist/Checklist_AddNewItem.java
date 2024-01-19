@@ -127,13 +127,12 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
         newItemSaveButton.setOnClickListener(v -> {
             String text = newItemText.getText().toString();
             if (finalIsUpdate) {
-                db.updateItem(bundle.getInt("id"), text);
+                db.updateItem(bundle.getInt("id"), text, profileID);
             } else {
                 ChecklistModel item = new ChecklistModel();
                 item.setItem(text);
                 item.setStatus(0);
-                item.setProfile_id(profileID);
-                db.insertItem(item);
+                db.insertItem(item, profileID);
             }
             dismiss();
         });

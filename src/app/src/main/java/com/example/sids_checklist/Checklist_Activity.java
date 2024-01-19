@@ -29,7 +29,6 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
     private ChecklistAdapter checklistAdapter;
     private List<ChecklistModel> checklistList;
     private Checklist_DatabaseHandler db;
-    private Profile_DatabaseHandler dbProfile;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,21 +45,25 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // Get the profile ID that was passed into the activity using the intent
         profileID = getIntent().getIntExtra("profile_id", -1);
         assert (profileID != -1);
+        Log.d("tag", "Selected Profile ID is " + profileID);
 
-        // Create database within Main Function and open
+        // Open profile database so we can get profile info
+        Log.d("tag", "Opening profile DB");
+        Profile_DatabaseHandler profile_db = new Profile_DatabaseHandler(this);
+        profile_db.openDatabase();
+        Log.d("tag", "Profile DB successfully opened");
 
-        Log.d("tag", "Creating profile DB");
-        dbProfile = new Profile_DatabaseHandler(this);
-        dbProfile.openDatabase();
-        Log.d("tag", "Profile DB success");
-
-        Log.d("tag", "Creating checklist DB");
+        // Open checklist database so we can modify checklist items
+        Log.d("tag", "Opening checklist DB");
         db = new Checklist_DatabaseHandler(this);
         db.openDatabase();
-        Log.d("tag", "Checklist DB successful");
+        Log.d("tag", "Checklist DB successfully opened");
 
+        //Open checklist_util database so we can log the status of checklist items
+        Log.d("tag", "Opening checklist_util DB");
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
+        Log.d("tag", "Checklist_util DB successfully opened");
 
         // On startup, initialize new empty array of checklist items
         checklistList = new ArrayList<>();
@@ -79,8 +82,8 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // Add the "ADD" "button capability onto screen
         Button save = findViewById(R.id.checklistConfirm);
 
-        // Add the "REPORTS" "button capability onto screen
-        Button reportButton = findViewById(R.id.checklistReportButton);
+        // Add button to return to main activity
+        Button returnFromChecklistButton = findViewById(R.id.returnFromChecklistButton);
 
         // add item creator helper to reference in main using recyclerview api
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
@@ -99,8 +102,11 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
                 v -> Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
                         Checklist_AddNewItem.TAG));
 
-        reportButton.setOnClickListener(v -> startActivity(new Intent(Checklist_Activity.this,
-                Main_Activity.class)));
+        returnFromChecklistButton.setOnClickListener(v -> {
+            Intent i = new Intent(Checklist_Activity.this, Main_Activity.class);
+            i.putExtra("profile_id", profileID);
+            startActivity(i);
+        });
 
         save.setOnClickListener(
                 v -> {
@@ -123,8 +129,6 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         checklistAdapter.setItems(checklistList);
         checklistAdapter.notifyDataSetChanged();
     }
+    public int getProfileID(){return profileID;}
 
-    public int getProfileID() {
-        return profileID;
-    }
 }

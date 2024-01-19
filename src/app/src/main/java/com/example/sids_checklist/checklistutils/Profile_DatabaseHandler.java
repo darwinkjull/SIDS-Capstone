@@ -21,9 +21,13 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     private static final String PROFILE_TABLE = "Profiles";
     private static final String ID = "id";
     private static final String USERNAME = "username";
+    private static final String AGE = "age";
+    private static final String PROFILE_COLOR = "profile_color";
     private static final String CREATE_PROFILE_TABLE = "CREATE TABLE " + PROFILE_TABLE + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + USERNAME + " TEXT UNIQUE)";
+            + USERNAME + " TEXT UNIQUE, "
+            + AGE + " TEXT, "
+            + PROFILE_COLOR + " TEXT)";
     private SQLiteDatabase db;
 
     public Profile_DatabaseHandler(Context context) {
@@ -49,6 +53,8 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     public void insertProfile(ProfileModel profile) {
         ContentValues cv = new ContentValues();
         cv.put(USERNAME, profile.getUsername());
+        cv.put(AGE, profile.getAge());
+        cv.put(PROFILE_COLOR, profile.getProfile_color());
         db.insert(PROFILE_TABLE, null, cv);
     }
 
@@ -66,6 +72,8 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
                         ProfileModel profile = new ProfileModel();
                         profile.setId(cur.getInt(cur.getColumnIndex(ID)));
                         profile.setUsername(cur.getString(cur.getColumnIndex(USERNAME)));
+                        profile.setAge(cur.getString(cur.getColumnIndex(AGE)));
+                        profile.setProfile_color(cur.getString(cur.getColumnIndex(PROFILE_COLOR)));
                         profileList.add(profile);
                     } while (cur.moveToNext());
                 }
@@ -121,12 +129,39 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
         return id;
     }
 
-    // Updates the username of a given profile in the PROFILE_TABLE table
+    @SuppressLint("Range")
+    public String getUsernameByID(int id){
+        String profileID = Integer.toString(id);
+
+        String[] column = new String[]{USERNAME};
+        String[] row = new String[]{profileID};
+        String username = new String();
+
+        Cursor cur = db.query(PROFILE_TABLE, column, ID + "=?", row, null, null, null);
+        if (cur.moveToFirst()) {
+            username = cur.getString(cur.getColumnIndex(USERNAME));
+        }
+        cur.close();
+
+        return username;
+    }
+
+    // Updates all profile information for a given profile which already exists in the PROFILE_TABLE table
+    public void updateProfile(int id, ProfileModel profile) {
+        ContentValues cv = new ContentValues();
+        cv.put(USERNAME, profile.getUsername());
+        cv.put(AGE, profile.getAge());
+        cv.put(PROFILE_COLOR, profile.getProfile_color());
+        db.update(PROFILE_TABLE, cv, ID + "=?", new String[]{String.valueOf(id)});
+    }
+
+    // Updates only the username for a given profile which already exists in the PROFILE_TABLE table
     public void updateUsername(int id, String username) {
         ContentValues cv = new ContentValues();
         cv.put(USERNAME, username);
         db.update(PROFILE_TABLE, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
+
 
     // Removes the target profile from the PROFILE_TABLE table
     public void deleteProfile(int id) {
@@ -134,14 +169,33 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public ProfileModel getProfileInfo(int id){
+    public ProfileModel getProfileInfoFromID(int id){
         ProfileModel profile = new ProfileModel();
 
         String[] row = new String[]{String.valueOf(id)};
         Cursor cur = db.query(PROFILE_TABLE, null, ID + "=?", row, null, null, null);
         if (cur.moveToFirst()) {
-             profile.setUsername(cur.getString(cur.getColumnIndex(USERNAME)));
-             profile.setId(id);
+            profile.setId(id);
+            profile.setUsername(cur.getString(cur.getColumnIndex(USERNAME)));
+            profile.setAge(cur.getString(cur.getColumnIndex(AGE)));
+            profile.setProfile_color(cur.getString(cur.getColumnIndex(PROFILE_COLOR)));
+        }
+
+        cur.close();
+        return profile;
+    }
+
+    @SuppressLint("Range")
+    public ProfileModel getProfileInfoFromUsername(String username){
+        ProfileModel profile = new ProfileModel();
+
+        String[] row = new String[]{username};
+        Cursor cur = db.query(PROFILE_TABLE, null, USERNAME + "=?", row, null, null, null);
+        if (cur.moveToFirst()) {
+            profile.setId(cur.getInt(cur.getColumnIndex(ID)));
+            profile.setUsername(username);
+            profile.setAge(cur.getString(cur.getColumnIndex(AGE)));
+            profile.setProfile_color(cur.getString(cur.getColumnIndex(PROFILE_COLOR)));
         }
 
         cur.close();

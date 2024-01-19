@@ -3,10 +3,12 @@ package com.example.sids_checklist;
 import static android.app.PendingIntent.getActivity;
 
 import android.app.Activity;
+import android.util.SparseLongArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,17 +27,20 @@ public class Profile_EditProfile {
         Button acceptInfoTrueButton = editProfilePopUpView.findViewById(R.id.acceptInfoTrue);
         Button acceptInfoFalseButton = editProfilePopUpView.findViewById(R.id.acceptInfoFalse);
         TextView profileNameText = editProfilePopUpView.findViewById(R.id.profileName);
+        CalendarView profileAgeText = editProfilePopUpView.findViewById(R.id.profileAge);
 
         Profile_DatabaseHandler db = new Profile_DatabaseHandler(view.getContext());
         db.openDatabase();
 
-        profileNameText.setText(db.getProfileInfo(profileID).getUsername());
+        profileNameText.setText(db.getProfileInfoFromID(profileID).getUsername());
+        //profileAgeText.setDate(Long.parseLong(db.getProfileInfoFromID(profileID).getAge()));
         acceptInfoTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (profileNameText.length() != 0) {
                     ProfileModel newProfile = new ProfileModel();
                     newProfile.setUsername(profileNameText.getText().toString());
+                    newProfile.setAge(String.valueOf(profileAgeText.getDate()));
                     db.updateUsername(profileID, newProfile.getUsername());
                     popupWindow.dismiss();
                 }

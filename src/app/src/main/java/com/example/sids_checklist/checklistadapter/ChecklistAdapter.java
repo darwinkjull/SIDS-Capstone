@@ -34,7 +34,6 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     private final Checklist_DatabaseHandler db;
     private final Checklist_UtilDatabaseHandler disp_db;
 
-
     // Pass activity context to adapter
     public ChecklistAdapter(Checklist_DatabaseHandler db, Checklist_UtilDatabaseHandler disp_db, Checklist_Activity activity) {
         this.db = db;
@@ -59,10 +58,10 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
         holder.item.setChecked(toBoolean(item.getStatus()));
         holder.item.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                db.updateStatus(item.getId(), 1);
+                db.updateStatus(item.getId(), 1, activity.getProfileID());
                 item.setStatus(1);
             } else {
-                db.updateStatus(item.getId(), 0);
+                db.updateStatus(item.getId(), 0, activity.getProfileID());
                 item.setStatus(0);
             }
         });
@@ -88,7 +87,7 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
             disp_db.insertItem(item.getItem(), item.getStatus(), session, activity.getProfileID());
         });
         checklistList.forEach((item) -> {
-            db.updateStatus(item.getId(), 0);
+            db.updateStatus(item.getId(), 0, activity.getProfileID());
             item.setStatus(0);
         });
         notifyDataSetChanged();
@@ -107,7 +106,7 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     // delete items from checklist
     public void deleteItem(int position) {
         ChecklistModel item = checklistList.get(position);
-        db.deleteItem(item.getId());
+        db.deleteItem(item.getId(), activity.getProfileID());
         checklistList.remove(position);
         notifyItemRemoved(position);
     }
