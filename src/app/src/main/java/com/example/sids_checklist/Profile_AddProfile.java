@@ -4,6 +4,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ public class Profile_AddProfile {
         Button acceptInfoTrueButton = addProfilePopUpView.findViewById(R.id.acceptInfoTrue);
         Button acceptInfoFalseButton = addProfilePopUpView.findViewById(R.id.acceptInfoFalse);
         TextView profileNameText = addProfilePopUpView.findViewById(R.id.profileName);
+        CalendarView profileAgeText = addProfilePopUpView.findViewById(R.id.profileAge);
 
         Profile_DatabaseHandler profile_db = new Profile_DatabaseHandler(view.getContext());
         profile_db.openDatabase();
@@ -41,6 +44,7 @@ public class Profile_AddProfile {
                 if (profileNameText.length() != 0) {
                     ProfileModel newProfile = new ProfileModel();
                     newProfile.setUsername(profileNameText.getText().toString());
+                    newProfile.setAge(String.valueOf(profileAgeText.getDate()));
                     profile_db.insertProfile(newProfile);
                     int profileID = profile_db.getIDByUsername(newProfile.getUsername());
                     checklist_db.createTable(profileID);
