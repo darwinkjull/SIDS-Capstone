@@ -26,6 +26,7 @@
             android:exported="false" />
         <activity android:name=".Checklist_Setup_Activity"/>
         <activity android:name=".Pin_Activity" />
+        <activity android:name=".Info_Page_Activity"/>
         <activity android:name=".checklistreports.Checklist_Export" />
         <activity
             android:name=".Main_Activity"

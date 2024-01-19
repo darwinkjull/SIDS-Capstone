@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/InfoBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:drawableLeft="@drawable/baseline_arrow_back_24"
+        android:text="Back"
+        android:textSize="12sp" />
+    <TextView
+        android:id="@+id/InfoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Informative Topics"
+        android:layout_below="@id/InfoBack"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="24sp" />
+    <Button
+        android:id="@+id/buttonSleepLocation"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_below="@id/InfoTitle"
+        android:layout_height="75dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/baseline_location_on_24"
+        android:text="Sleep location"
+        android:textAlignment="textStart"
+        android:drawableRight="@drawable/baseline_arrow_forward_24"/>
+
+    <Button
+        android:id="@+id/buttonSleepArea"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_below="@id/buttonSleepLocation"
+        android:layout_height="75dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/baseline_crib_24"
+        android:text="Sleep Area and Position"
+        android:textAlignment="textStart"
+        android:drawableRight="@drawable/baseline_arrow_forward_24"/>
+    <Button
+        android:id="@+id/buttonGenCare"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_below="@id/buttonSleepArea"
+        android:layout_height="75dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/baseline_baby_changing_station_24"
+        android:text="General Care"
+        android:textAlignment="textStart"
+        android:drawableRight="@drawable/baseline_arrow_forward_24"/>
+
+</RelativeLayout>

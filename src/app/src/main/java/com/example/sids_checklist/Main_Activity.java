@@ -45,9 +45,9 @@ public class Main_Activity extends AppCompatActivity {
             Intent i = new Intent(Main_Activity.this, Profile_Activity.class);
             startActivity(i);
         });
-        /*goToInfo.setOnClickListener(v -> {
-            Intent i = new Intent(Main_Activity.this, info_page_activity.class);
+        goToInfo.setOnClickListener(v -> {
+            Intent i = new Intent(Main_Activity.this, Info_Page_Activity.class);
             startActivity(i);
-        });*/
+        });
 
     }}
