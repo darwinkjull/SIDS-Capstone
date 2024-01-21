@@ -85,6 +85,8 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // Add button to return to main activity
         Button returnFromChecklistButton = findViewById(R.id.returnFromChecklistButton);
 
+        Button tips = findViewById(R.id.buttonTips);
+
         // add item creator helper to reference in main using recyclerview api
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
                 new Checklist_RecyclerItemTouchHelper(checklistAdapter));
@@ -114,6 +116,11 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
                     swipeRefreshLayout.setRefreshing(false);
                 }
         );
+        tips.setOnClickListener(v -> {
+            Intent i = new Intent(Checklist_Activity.this, Checklist_Setup_Activity.class);
+            i.putExtra("profile_id", profileID);
+            startActivity(i);
+        });
 
         // Refresh the layout if swiped down
         swipeRefreshLayout.setOnRefreshListener(

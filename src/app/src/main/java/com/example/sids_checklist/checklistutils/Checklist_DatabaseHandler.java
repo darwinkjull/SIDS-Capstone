@@ -22,6 +22,7 @@ import android.util.Log;
 import androidx.annotation.ChecksSdkIntAtLeast;
 
 import com.example.sids_checklist.Checklist_Activity;
+import com.example.sids_checklist.Tips;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 
@@ -165,6 +166,16 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         String tableName = CHECKLIST_TABLE_PREFIX + profileID + CHECKLIST_TABLE_SUFFIX;
         db.execSQL("DROP TABLE IF EXISTS " + tableName);
     }
+
+    public void insertTip(Tips item, int profile_ID) {
+        ContentValues cv = new ContentValues();
+        cv.put(ITEM, item.getItem()); // get item name
+        cv.put(STATUS, 0); // set item as "unchecked"
+
+        String tableName = CHECKLIST_TABLE_PREFIX + profile_ID + CHECKLIST_TABLE_SUFFIX;
+        db.insert(tableName, null, cv); // insert new item to database
+    }
 }
+
 
 

@@ -25,9 +25,10 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:text="Sleep Checklist"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/returnFromChecklistButton"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textSize="24sp" />
 
@@ -44,6 +45,19 @@ https://developer.android.com/develop/ui/views/layout/recyclerview
         android:backgroundTint="@color/colorPrimary"
         android:drawableLeft="@drawable/baseline_arrow_back_24"
         android:text="Back"
+        android:textSize="12sp" />
+    <Button
+        android:id="@+id/buttonTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:drawableLeft="@drawable/baseline_arrow_back_24"
+        android:text="Tips"
         android:textSize="12sp" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
