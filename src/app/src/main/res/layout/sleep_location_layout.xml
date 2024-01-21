@@ -28,6 +28,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:textSize="24sp" />
+
     <TextView
         android:id="@+id/LocationInfo"
         android:layout_width="match_parent"
@@ -38,19 +39,45 @@
         android:layout_marginRight="@dimen/margin_standard"
         android:layout_marginBottom="@dimen/margin_half_standard"/>
     <TextView
+        android:id="@+id/SubtitleLocation1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LocationInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_half_standard"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Co-Sleeping"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <TextView
         android:id="@+id/LocationInfo2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/LocationInfo"
+        android:layout_below="@id/SubtitleLocation1"
         android:text="@string/Sleep_Location2"
         android:layout_marginLeft="@dimen/margin_standard"
         android:layout_marginRight="@dimen/margin_standard"
         android:layout_marginBottom="@dimen/margin_half_standard"/>
     <TextView
+        android:id="@+id/SubtitleLocation2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LocationInfo2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_half_standard"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Temperature"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <TextView
         android:id="@+id/LocationInfo3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/LocationInfo2"
+        android:layout_below="@id/SubtitleLocation2"
         android:text="@string/Sleep_Location3"
         android:layout_marginLeft="@dimen/margin_standard"
         android:layout_marginRight="@dimen/margin_standard"/>

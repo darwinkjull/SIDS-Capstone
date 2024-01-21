@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistreports.Checklist_Reports;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
+import com.example.sids_checklist.infopages.Info_Page_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,13 +66,21 @@ public class Main_Activity extends AppCompatActivity {
         Button goToChecklist = findViewById(R.id.goToChecklist);
         Button goToReport = findViewById(R.id.goToReport);
         Button goToManageUsers = findViewById(R.id.goToProfile);
-        // Button goToSetup = findViewById(R.id.goToSetup);
+        Button goToInfo = findViewById(R.id.goToInfo);
+        //Button goToSettings = findViewById(R.id.goToSettings);
 
         // If no option selected, assume we have a blank list, force user to go to profiles
         goToManageUsers.setOnClickListener(v -> {
             Intent i = new Intent(Main_Activity.this, Profile_Activity.class);
             startActivity(i);
         });
+        goToInfo.setOnClickListener(v -> {
+            Intent i = new Intent(Main_Activity.this, Info_Page_Activity.class);
+            startActivity(i);});
+        /*goToInfo.setOnClickListener(v -> {
+            Intent i = new Intent(Main_Activity.this, Settings_Page_Activity.class);
+            startActivity(i);});*/
+
 
         /* This itemSelectedListener will allow us to navigate using the buttons only when
         an item from the list has been chosen

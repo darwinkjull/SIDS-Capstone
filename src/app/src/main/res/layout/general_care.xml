@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <Button
-        android:id="@+id/InfoLocationBack"
+        android:id="@+id/InfoGenBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -22,26 +22,58 @@
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:text="General Care"
-        android:layout_below="@id/InfoLocationBack"
+        android:layout_below="@id/InfoGenBack"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:textSize="24sp" />
     <TextView
+        android:id="@+id/SubtitleGen1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/InfoGeneralTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_half_standard"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Breastfeeding"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <TextView
         android:id="@+id/GeneralInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/InfoGeneralTitle"
+        android:layout_below="@id/SubtitleGen1"
         android:text="@string/Sleep_General"
         android:layout_marginLeft="@dimen/margin_standard"
         android:layout_marginRight="@dimen/margin_standard"
         android:layout_marginBottom="@dimen/margin_half_standard"/>
+    <WebView
+        android:id="@+id/webViewGen"
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
+        android:layout_below="@+id/GeneralInfo"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/SubtitleGen2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/webViewGen"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_half_standard"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Breathing and Colouration"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
     <TextView
         android:id="@+id/GeeralInfo2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/GeneralInfo"
+        android:layout_below="@id/SubtitleGen2"
         android:text="@string/Sleep_General2"
         android:layout_marginLeft="@dimen/margin_standard"
         android:layout_marginRight="@dimen/margin_standard"

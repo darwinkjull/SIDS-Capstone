@@ -11,11 +11,14 @@ import com.example.sids_checklist.Checklist_Activity;
 import com.example.sids_checklist.Main_Activity;
 import com.example.sids_checklist.R;
 
+import java.util.Objects;
+
 public class Info_Page_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_page);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         Button backButton = findViewById(R.id.InfoBack);
         Button locationButton = findViewById(R.id.buttonSleepLocation);
         Button areaButton = findViewById(R.id.buttonSleepArea);

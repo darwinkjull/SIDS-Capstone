@@ -152,9 +152,10 @@
 
     <WebView
         android:id="@+id/webViewArea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Subtitle5"/>
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
+        android:layout_below="@id/Subtitle5"
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>

@@ -33,6 +33,10 @@
             android:theme="@style/Theme.Sids_checklist"/>
         <activity android:name=".checklistreports.Checklist_Reports" />
         <activity android:name=".Checklist_Setup_Activity"/>
+        <activity android:name=".infopages.Info_Page_Activity"/>
+        <activity android:name=".infopages.General_Info_Activity"/>
+        <activity android:name=".infopages.Sleep_Location_Activity"/>
+        <activity android:name=".infopages.Sleep_Area_Activity"/>
         <activity
             android:name=".Profile_Activity"
             android:theme="@style/Theme.Sids_checklist"/>
