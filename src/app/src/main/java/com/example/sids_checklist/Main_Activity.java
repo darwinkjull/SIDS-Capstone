@@ -67,7 +67,7 @@ public class Main_Activity extends AppCompatActivity {
         Button goToReport = findViewById(R.id.goToReport);
         Button goToManageUsers = findViewById(R.id.goToProfile);
         Button goToInfo = findViewById(R.id.goToInfo);
-        //Button goToSettings = findViewById(R.id.goToSettings);
+        Button goToSettings = findViewById(R.id.goToSettings);
 
         // If no option selected, assume we have a blank list, force user to go to profiles
         goToManageUsers.setOnClickListener(v -> {
@@ -77,9 +77,10 @@ public class Main_Activity extends AppCompatActivity {
         goToInfo.setOnClickListener(v -> {
             Intent i = new Intent(Main_Activity.this, Info_Page_Activity.class);
             startActivity(i);});
-        /*goToInfo.setOnClickListener(v -> {
-            Intent i = new Intent(Main_Activity.this, Settings_Page_Activity.class);
-            startActivity(i);});*/
+
+        goToSettings.setOnClickListener(v -> {
+            Intent i = new Intent(Main_Activity.this, Settings_Activity.class);
+            startActivity(i);});
 
 
         /* This itemSelectedListener will allow us to navigate using the buttons only when
