@@ -84,12 +84,12 @@ public class Security_Questions_Ask extends AppCompatActivity {
         }
 
         private String getAnswer() {
-            SharedPreferences preferences = getSharedPreferences("Answer pref", Context.MODE_PRIVATE);
+            SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
             return preferences.getString("Answer", "");
         }
 
         private String getQuestion() {
-            SharedPreferences preferences = getSharedPreferences("Question pref", Context.MODE_PRIVATE);
+            SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
             return preferences.getString("Question", "");
 
 

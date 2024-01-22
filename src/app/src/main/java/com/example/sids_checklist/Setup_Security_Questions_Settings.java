@@ -75,7 +75,7 @@ public class Setup_Security_Questions_Settings extends AppCompatActivity {
     }
 
     private SharedPreferences.Editor saveQuestion(String Question) {
-        SharedPreferences preferences = getSharedPreferences("Question pref", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("Question", Question);
         editor.commit();
@@ -83,7 +83,7 @@ public class Setup_Security_Questions_Settings extends AppCompatActivity {
     }
 
     private SharedPreferences.Editor saveAnswer(String Answer) {
-        SharedPreferences preferences = getSharedPreferences("Answer pref", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("Answer", Answer);
         editor.commit();
