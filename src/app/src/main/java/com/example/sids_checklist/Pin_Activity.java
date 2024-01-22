@@ -31,15 +31,13 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.pin_activitymain);
 
         Objects.requireNonNull(getSupportActionBar()).hide();
-        if (getPinCode() == null) {
+        if (getPinCode().equals("")){
             startActivity(new Intent(Pin_Activity.this, Pin_Setup_Pin.class));
 
         } else {
             initializeComponents();
         }
     }
-
-
     private void initializeComponents() {
         view_bubble_01 = findViewById(R.id.view_bubble_01);
         view_bubble_02 = findViewById(R.id.view_bubble_02);
@@ -83,6 +81,11 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         int viewId = view.getId();
         if (viewId == R.id.btn_00) {
             num_list.add("0");
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_01) {
             num_list.add("1");
             try {
@@ -233,7 +236,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
 
         }
     private SharedPreferences.Editor savePinCode(String pinCode) {
-        SharedPreferences preferences = getSharedPreferences("pincode pref", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("pincode", pinCode);
         editor.commit();
@@ -250,7 +253,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private String getPinCode(){
-        SharedPreferences preferences = getSharedPreferences("pincode pref", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         return preferences.getString("pincode","");
     }
 

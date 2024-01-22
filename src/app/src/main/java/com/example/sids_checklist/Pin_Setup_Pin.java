@@ -228,16 +228,16 @@ public class Pin_Setup_Pin extends AppCompatActivity implements View.OnClickList
 
     }
     private String getPinCode(){
-        SharedPreferences preferences = getSharedPreferences("pincode pref", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         return preferences.getString("pincode","");
     }
 
     private SharedPreferences.Editor savePinCode(String pinCode) {
-        SharedPreferences preferences = getSharedPreferences("pincode pref", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("pincode", pinCode);
         editor.commit();
-        startActivity(new Intent(Pin_Setup_Pin.this,Main_Activity.class));
+        startActivity(new Intent(Pin_Setup_Pin.this,Setup_Security_Questions_Pin.class));
         return editor;
     }
     public static String hashPassword(String password) throws NoSuchAlgorithmException {

@@ -223,12 +223,12 @@ public class Pin_Setup_Settings extends AppCompatActivity implements View.OnClic
 
     }
     private String getPinCode(){
-        SharedPreferences preferences = getSharedPreferences("pincode pref", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         return preferences.getString("pincode","");
     }
 
     private SharedPreferences.Editor savePinCode(String pinCode) {
-        SharedPreferences preferences = getSharedPreferences("pincode pref", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("pincode", pinCode);
         editor.commit();

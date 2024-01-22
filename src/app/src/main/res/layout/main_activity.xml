@@ -79,8 +79,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
-
-
+        
         <Button
             android:id="@+id/goToInfo"
             android:layout_width="150dp"
