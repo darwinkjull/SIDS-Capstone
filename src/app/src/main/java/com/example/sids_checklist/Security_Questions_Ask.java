@@ -14,7 +14,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-    public class Security_Questions_Ask extends AppCompatActivity {
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class Security_Questions_Ask extends AppCompatActivity {
         private TextView questionText;
         private EditText answerText;
         private Button enterButton;
@@ -62,13 +65,17 @@ import androidx.core.content.ContextCompat;
                 if (answerText.getText() == null) {
                     Toast.makeText(this, "Missing Answer", Toast.LENGTH_SHORT).show();
                 } else {
-                    matchAnswer();
+                    try {
+                        matchAnswer();
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
         }
 
-        private void matchAnswer() {
-            if (getAnswer().equals(answerText.getText().toString())) {
+        private void matchAnswer() throws NoSuchAlgorithmException {
+            if (getAnswer().equals(hashPassword(answerText.getText().toString()))) {
                 startActivity(new Intent(Security_Questions_Ask.this, Pin_Setup_Pin.class));
             } else {
                 Toast.makeText(this, "Answer Incorrect", Toast.LENGTH_SHORT).show();
@@ -87,4 +94,20 @@ import androidx.core.content.ContextCompat;
 
 
         }
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        md.reset();
+        md.update(password.getBytes());
+        byte[] mdArray = md.digest();
+        StringBuilder sb = new StringBuilder(mdArray.length * 2);
+        for(byte b : mdArray) {
+            int v = b & 0xff;
+            if(v < 16)
+                sb.append('0');
+            sb.append(Integer.toHexString(v));
+        }
+        return sb.toString();
+
+    }
     }

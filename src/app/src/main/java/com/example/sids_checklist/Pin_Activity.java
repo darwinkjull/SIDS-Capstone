@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -84,34 +85,74 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
             num_list.add("0");
         } else if (viewId == R.id.btn_01) {
             num_list.add("1");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_02) {
             num_list.add("2");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_03) {
             num_list.add("3");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_04) {
             num_list.add("4");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_05) {
             num_list.add("5");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_06) {
             num_list.add("6");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_07) {
             num_list.add("7");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_08) {
             num_list.add("8");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_09) {
             num_list.add("9");
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_clear) {
             num_list.clear();
-            passNumber(num_list);
+            try {
+                passNumber(num_list);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         } else if (viewId == R.id.btn_reset) {
             startActivity(new Intent(Pin_Activity.this, Security_Questions_Ask.class));
 
@@ -121,7 +162,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void passNumber(ArrayList<String> numList) {
+    private void passNumber(ArrayList<String> numList) throws NoSuchAlgorithmException {
         if (num_list.size() == 0){
             view_bubble_01.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
             view_bubble_02.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
@@ -184,7 +225,8 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
                 view_bubble_05.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 view_bubble_06.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 pinCode = num_01 + num_02 + num_03 + num_04 + num_05 + num_06;
-                    matchPinCode();
+                String hashedPin = Pin_Setup_Pin.hashPassword(pinCode);
+                    matchPinCode(hashedPin);
                 }
             }
 
@@ -198,7 +240,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         return editor;
     }
 
-    private void matchPinCode() {
+    private void matchPinCode(String pinCode) throws NoSuchAlgorithmException {
         if (getPinCode().equals(pinCode)){
             startActivity(new Intent(Pin_Activity.this, Main_Activity.class));
         }else{
