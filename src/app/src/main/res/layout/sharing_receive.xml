@@ -34,11 +34,28 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/deviceSelectionListTitle" />
 
+        <TextView
+            android:id="@+id/deviceSelectionListWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deviceSelectionList"
+            android:text="NOTE: Your device data will be overwritten."
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/deviceSelectionListWarningText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deviceSelectionListWarning"
+            android:text="This action cannot be undone"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/deviceSelectionList"
+            android:layout_below="@id/deviceSelectionListWarningText"
             android:layout_centerHorizontal="true">
 
             <Button
