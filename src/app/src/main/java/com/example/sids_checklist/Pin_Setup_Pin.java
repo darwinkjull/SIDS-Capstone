@@ -32,6 +32,7 @@ public class Pin_Setup_Pin extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.pin_setup);
         initializeComponents();
     }

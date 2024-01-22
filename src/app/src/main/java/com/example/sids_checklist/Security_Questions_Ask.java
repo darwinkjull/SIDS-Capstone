@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class Security_Questions_Ask extends AppCompatActivity {
         private TextView questionText;
@@ -27,6 +28,7 @@ public class Security_Questions_Ask extends AppCompatActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+            Objects.requireNonNull(getSupportActionBar()).hide();
             setContentView(R.layout.security_question_ask);
             questionText = findViewById(R.id.Question);
             answerText = findViewById(R.id.Answer);
