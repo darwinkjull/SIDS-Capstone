@@ -59,7 +59,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="8dp"
-            android:drawableTop="@drawable/baby_icon"
+            android:drawableTop="@drawable/child_icon"
             android:text="Profiles"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
@@ -81,14 +81,14 @@
             android:gravity="center" />
 
         <Button
-            android:id="@+id/goToSetup"
+            android:id="@+id/goToSharing"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="8dp"
-            android:drawableTop="@drawable/crib_icon"
-            android:text="Setup"
+            android:drawableTop="@drawable/compare_arrows_icon"
+            android:text="Sharing"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"
