@@ -11,6 +11,9 @@
         <item name="colorOnSecondary">@color/background</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
     </style>
 
     <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
@@ -18,4 +21,17 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
+
+    <style name="CustomThemeOverlay_MaterialCalendar_Fullscreen"
+        parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="materialCalendarStyle">@style/Custom_MaterialCalendar.Fullscreen</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorOnSurface">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Custom_MaterialCalendar.Fullscreen"
+        parent="@style/Widget.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
 </resources>

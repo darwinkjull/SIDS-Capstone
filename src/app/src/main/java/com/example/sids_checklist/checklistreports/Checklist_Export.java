@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sids_checklist.Main_Activity;
-import com.example.sids_checklist.Profile_Activity;
 import com.example.sids_checklist.R;
 import android.widget.TextView;
 import androidx.core.util.Pair;
@@ -74,6 +72,7 @@ public class Checklist_Export extends AppCompatActivity {
         // Creating a MaterialDatePicker builder for selecting a date range
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("Select a date range");
+        builder.setTheme(R.style.CustomThemeOverlay_MaterialCalendar_Fullscreen);
 
         // Building the date picker dialog
         MaterialDatePicker<Pair<Long, Long>> datePicker = builder.build();
