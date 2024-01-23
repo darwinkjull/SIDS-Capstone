@@ -48,8 +48,8 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
         Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-        Checklist_Reports reports =  (Checklist_Reports) getActivity();
-        profileID = reports.getProfileID();
+        Checklist_Export export =  (Checklist_Export) getActivity();
+        this.profileID = export.getProfileID();
         return view;
     }
 

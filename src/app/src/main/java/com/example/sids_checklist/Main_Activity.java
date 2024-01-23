@@ -7,7 +7,9 @@ This is the main activity which allows the user to access the sleeping checklist
 
 */
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +37,10 @@ public class Main_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        //uncomment to get the Shared preferences to reset
+        Context context = this;
+        SharedPreferences settings = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        settings.edit().clear().apply();
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
@@ -77,9 +83,10 @@ public class Main_Activity extends AppCompatActivity {
         goToInfo.setOnClickListener(v -> {
             Intent i = new Intent(Main_Activity.this, Info_Page_Activity.class);
             startActivity(i);});
-        /*goToInfo.setOnClickListener(v -> {
-            Intent i = new Intent(Main_Activity.this, Settings_Page_Activity.class);
-            startActivity(i);});*/
+
+        goToSettings.setOnClickListener(v -> {
+            Intent i = new Intent(Main_Activity.this, Settings_Activity.class);
+            startActivity(i);});
 
 
         /* This itemSelectedListener will allow us to navigate using the buttons only when

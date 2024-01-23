@@ -27,12 +27,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".Pin_Activity" />
+        <activity android:name=".Security_Questions_Ask"/>
+        <activity android:name=".Pin_Setup_Pin"/>
+        <activity android:name=".Setup_Security_Questions_Pin"/>
+
         <activity android:name=".checklistreports.Checklist_Export" />
         <activity
             android:name=".Main_Activity"
             android:theme="@style/Theme.Sids_checklist"/>
+        <activity android:name=".Settings_Activity"/>
         <activity android:name=".checklistreports.Checklist_Reports" />
         <activity android:name=".Checklist_Setup_Activity"/>
+        <activity android:name=".Pin_Setup_Settings"/>
+        <activity android:name=".Setup_Security_Questions_Settings"/>
         <activity android:name=".infopages.Info_Page_Activity"/>
         <activity android:name=".infopages.General_Info_Activity"/>
         <activity android:name=".infopages.Sleep_Location_Activity"/>

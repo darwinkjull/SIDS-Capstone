@@ -83,8 +83,11 @@ public class Checklist_Setup_Activity extends AppCompatActivity {
 
 
         Button back = findViewById(R.id.checklistButtonBack);
-        back.setOnClickListener(v -> startActivity(new Intent(Checklist_Setup_Activity.this,
-                Checklist_Activity.class)));
+        back.setOnClickListener(v -> {
+            Intent i = new Intent(Checklist_Setup_Activity.this, Checklist_Activity.class);
+            i.putExtra("profile_id", profileID);
+            startActivity(i);
+        });
 
     }
     private void checkCheckedItems(SetUpAdapter adapter){
@@ -96,5 +99,6 @@ public class Checklist_Setup_Activity extends AppCompatActivity {
             }
         }
     }
+    public int getProfileID(){return profileID;}
 }
 

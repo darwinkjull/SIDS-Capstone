@@ -13,14 +13,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Objects;
 
-public class Pin_Activity extends AppCompatActivity implements View.OnClickListener{
+
+public class Pin_Setup_Pin extends AppCompatActivity implements View.OnClickListener{
 
     View view_bubble_01, view_bubble_02,view_bubble_03,view_bubble_04,view_bubble_05,view_bubble_06;
-    Button btn_01,btn_02,btn_03,btn_04,btn_05,btn_06,btn_07,btn_08,btn_09,btn_reset,btn_00,btn_clear;
+    Button btn_01,btn_02,btn_03,btn_04,btn_05,btn_06,btn_07,btn_08,btn_09,btn_00,btn_clear;
 
     ArrayList<String> num_list = new ArrayList<>();
     String pinCode;
@@ -28,16 +32,12 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pin_activitymain);
-
         Objects.requireNonNull(getSupportActionBar()).hide();
-        if (getPinCode().equals("")){
-            startActivity(new Intent(Pin_Activity.this, Pin_Setup_Pin.class));
-
-        } else {
-            initializeComponents();
-        }
+        setContentView(R.layout.pin_setup);
+        initializeComponents();
     }
+
+
     private void initializeComponents() {
         view_bubble_01 = findViewById(R.id.view_bubble_01);
         view_bubble_02 = findViewById(R.id.view_bubble_02);
@@ -56,8 +56,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         btn_07 = findViewById(R.id.btn_07);
         btn_08 = findViewById(R.id.btn_08);
         btn_09 = findViewById(R.id.btn_09);
-        btn_reset = findViewById(R.id.btn_reset);
-        btn_clear = findViewById(R.id.btn_clear);
+        btn_clear = findViewById(R.id.btn_Clear);
 
         btn_00.setOnClickListener(this);
         btn_01.setOnClickListener(this);
@@ -70,7 +69,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         btn_08.setOnClickListener(this);
         btn_09.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
-        btn_reset.setOnClickListener(this);
+
 
 
 
@@ -81,11 +80,6 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         int viewId = view.getId();
         if (viewId == R.id.btn_00) {
             num_list.add("0");
-            try {
-                passNumber(num_list);
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
         } else if (viewId == R.id.btn_01) {
             num_list.add("1");
             try {
@@ -156,11 +150,8 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }
-        } else if (viewId == R.id.btn_reset) {
-            startActivity(new Intent(Pin_Activity.this, Security_Questions_Ask.class));
-
-
         }
+
 
 
     }
@@ -228,33 +219,48 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
                 view_bubble_05.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 view_bubble_06.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 pinCode = num_01 + num_02 + num_03 + num_04 + num_05 + num_06;
-                String hashedPin = Pin_Setup_Pin.hashPassword(pinCode);
-                    matchPinCode(hashedPin);
-                }
+                String hashedPin = hashPassword(pinCode);
+                savePinCode(hashedPin);
+
+
             }
-
-
         }
-    private SharedPreferences.Editor savePinCode(String pinCode) {
-        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("pincode", pinCode);
-        editor.commit();
-        return editor;
-    }
 
-    private void matchPinCode(String pinCode) throws NoSuchAlgorithmException {
-        if (getPinCode().equals(pinCode)){
-            startActivity(new Intent(Pin_Activity.this, Main_Activity.class));
-        }else{
-            Toast.makeText(this,"Pin Incorrect",Toast.LENGTH_SHORT).show();
-            num_list.clear();
-            passNumber(num_list);
-        }
+
     }
     private String getPinCode(){
         SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         return preferences.getString("pincode","");
     }
 
+    private SharedPreferences.Editor savePinCode(String pinCode) {
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("pincode", pinCode);
+        editor.commit();
+        startActivity(new Intent(Pin_Setup_Pin.this,Setup_Security_Questions_Pin.class));
+        return editor;
+    }
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        md.reset();
+        md.update(password.getBytes());
+        byte[] mdArray = md.digest();
+        StringBuilder sb = new StringBuilder(mdArray.length * 2);
+        for(byte b : mdArray) {
+            int v = b & 0xff;
+            if(v < 16)
+                sb.append('0');
+            sb.append(Integer.toHexString(v));
+        }
+
+
+
+        return sb.toString();
+
+    }
+
+
 }
+

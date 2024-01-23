@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/QuestionBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:drawableLeft="@drawable/baseline_arrow_back_24"
+        android:text="Back"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/QuestionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Security Question Set-Up"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_below="@id/QuestionBack"
+        android:layout_marginTop="@dimen/margin_half_standard"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/profileInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/QuestionTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/margin_double_standard">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:id="@+id/QuestionHeader"
+            android:text="Question: "
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_half_standard"
+            android:layout_marginStart="48dp"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/QuestionSetUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_toRightOf="@id/QuestionHeader"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="Enter Question"
+            android:textSize="18sp"
+            android:height="48dp"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:id="@+id/AnswerHeaderSetUp"
+            android:layout_below="@id/QuestionHeader"
+            android:text="Answer: "
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_half_standard"
+            android:layout_marginStart="48dp"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/AnswerSetUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_toRightOf="@id/AnswerHeaderSetUp"
+            android:layout_below="@+id/QuestionSetUp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="Enter Answer"
+            android:textSize="18sp"
+            android:height="48dp"
+            android:gravity="center" />
+        <Button
+            android:id="@+id/Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AnswerSetUp"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_centerHorizontal="true"
+            android:text="save"
+            android:backgroundTint="@color/grey"/>
+    </RelativeLayout>
+</RelativeLayout>
