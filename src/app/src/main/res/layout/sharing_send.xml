@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_double_standard">
+        android:layout_margin="@dimen/margin_half_standard">
 
         <TextView
             android:id="@+id/sendTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sending Information"
+            android:text="Sending Data"
             android:textStyle="bold"
             android:textSize="24dp"
             android:layout_centerHorizontal="true" />
@@ -22,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/sendTitle"
-            android:text="Please select profiles you wish to share:"
+            android:text="Please select profiles to share:"
             android:textSize="18sp"
             android:layout_centerHorizontal="true" />
 
@@ -31,22 +34,22 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profileSelectionList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_below="@id/deviceSelectionListTitle" />
 
-        <TextView
-            android:id="@+id/confirmSelectionTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/profileSelectionList"
-            android:text="Once selected, press the share button:"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true" />
+<!--        <TextView-->
+<!--            android:id="@+id/confirmSelectionTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/profileSelectionList"-->
+<!--            android:text="Once selected, press the share button:"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_centerHorizontal="true" />-->
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/confirmSelectionTitle"
+            android:layout_below="@id/profileSelectionList"
             android:layout_centerHorizontal="true">
 
             <Button
