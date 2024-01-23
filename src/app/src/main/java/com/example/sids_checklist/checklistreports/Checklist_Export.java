@@ -22,7 +22,7 @@ import java.util.Objects;
 public class Checklist_Export extends AppCompatActivity {
     TextView selectedDate;
     Button datePicker, exportReturn, exportConfirm;
-
+    int profileID;
     Long startDate, endDate;
     MutableLiveData<Long> startDateListener = new MutableLiveData<>();
 
@@ -34,7 +34,7 @@ public class Checklist_Export extends AppCompatActivity {
         // Hide action bar so top most navigation is hidden
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        int profileID = getIntent().getIntExtra("profile_id", -1);
+        this.profileID = getIntent().getIntExtra("profile_id", -1);
         assert (profileID != -1);
 
         selectedDate = findViewById(R.id.selectDate);
@@ -98,4 +98,6 @@ public class Checklist_Export extends AppCompatActivity {
         // Showing the date picker dialog
         datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
     }
+
+    public int getProfileID(){return profileID;}
 }
