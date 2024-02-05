@@ -39,8 +39,9 @@ public class Main_Activity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         //uncomment to get the Shared preferences to reset
         Context context = this;
-        SharedPreferences settings = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
-        settings.edit().clear().apply();
+        //uncomment to reset the pin and security questions on each run of app
+        //SharedPreferences settings = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        //settings.edit().clear().apply();
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 

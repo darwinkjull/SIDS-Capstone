@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Button
@@ -27,16 +29,87 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/DarkModeIcon"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/baseline_dark_mode_24"
+        android:layout_below="@id/SettingsTitle"
+        app:tint="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/DarkMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/DarkModeIcon"
+        android:layout_alignBottom="@id/DarkModeIcon"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/DarkModeIcon"
+        android:gravity="center_vertical"
+        android:text="DARK MODE"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/idDarkSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/DarkModeIcon"
+        android:layout_alignBottom="@id/DarkModeIcon"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="@dimen/margin_standard"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <ImageView
+        android:id="@+id/EnablePinIcon"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/baseline_fiber_pin_24"
+        android:layout_below="@id/DarkModeIcon"
+        app:tint="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/EnablePinMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/EnablePinIcon"
+        android:layout_alignBottom="@id/EnablePinIcon"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/DarkModeIcon"
+        android:gravity="center_vertical"
+        android:text="DISABLE PIN"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/idEnablePinSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/EnablePinIcon"
+        android:layout_alignTop="@id/EnablePinIcon"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/margin_standard"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
     <Button
         android:id="@+id/buttonPinReset"
         android:layout_width="match_parent"
         android:backgroundTint="@color/colorPrimary"
-        android:layout_below="@id/SettingsTitle"
+        android:layout_below="@id/EnablePinIcon"
         android:layout_height="75dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:drawableLeft="@drawable/baseline_fiber_pin_24"
+        android:drawableLeft="@drawable/baseline_lock_reset_24"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
         android:text="Reset PIN"
         android:textAlignment="textStart"
         android:drawableRight="@drawable/baseline_arrow_forward_24"/>
@@ -50,22 +123,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
         android:drawableLeft="@drawable/baseline_question_mark_24"
         android:text="Reset Security Questions"
         android:textAlignment="textStart"
         android:drawableRight="@drawable/baseline_arrow_forward_24"/>
-    <Button
-        android:id="@+id/buttonDarkMode"
-        android:layout_width="match_parent"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_below="@id/buttonSecurityReset"
-        android:layout_height="75dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:drawableLeft="@drawable/baseline_dark_mode_24"
-        android:text="Dark Mode"
-        android:textAlignment="textStart"
-        android:drawableRight="@drawable/baseline_arrow_forward_24"/>
+
 
 </RelativeLayout>

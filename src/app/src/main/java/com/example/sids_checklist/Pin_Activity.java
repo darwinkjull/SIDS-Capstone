@@ -17,27 +17,31 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Pin_Activity extends AppCompatActivity implements View.OnClickListener{
+public class Pin_Activity extends AppCompatActivity implements View.OnClickListener {
 
-    View view_bubble_01, view_bubble_02,view_bubble_03,view_bubble_04,view_bubble_05,view_bubble_06;
-    Button btn_01,btn_02,btn_03,btn_04,btn_05,btn_06,btn_07,btn_08,btn_09,btn_reset,btn_00,btn_clear;
+    View view_bubble_01, view_bubble_02, view_bubble_03, view_bubble_04, view_bubble_05, view_bubble_06;
+    Button btn_01, btn_02, btn_03, btn_04, btn_05, btn_06, btn_07, btn_08, btn_09, btn_reset, btn_00, btn_clear;
 
     ArrayList<String> num_list = new ArrayList<>();
     String pinCode;
     String num_01, num_02, num_03, num_04, num_05, num_06;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pin_activitymain);
 
         Objects.requireNonNull(getSupportActionBar()).hide();
-        if (getPinCode().equals("")){
+        if (getPinCode().equals("") && getPinStatus().equals(false)) {
             startActivity(new Intent(Pin_Activity.this, Pin_Setup_Pin.class));
 
+        } else if (!getPinCode().equals("") && getPinStatus().equals(true)) {
+            startActivity(new Intent(Pin_Activity.this, Main_Activity.class));
         } else {
             initializeComponents();
         }
     }
+
     private void initializeComponents() {
         view_bubble_01 = findViewById(R.id.view_bubble_01);
         view_bubble_02 = findViewById(R.id.view_bubble_02);
@@ -71,7 +75,6 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
         btn_09.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
         btn_reset.setOnClickListener(this);
-
 
 
     }
@@ -166,7 +169,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void passNumber(ArrayList<String> numList) throws NoSuchAlgorithmException {
-        if (num_list.size() == 0){
+        if (num_list.size() == 0) {
             view_bubble_01.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
             view_bubble_02.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
             view_bubble_03.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
@@ -174,7 +177,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
             view_bubble_05.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
             view_bubble_06.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
         } else {
-            if (num_list.size() == 1){
+            if (num_list.size() == 1) {
                 num_01 = num_list.get(0);
                 view_bubble_01.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 view_bubble_02.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
@@ -192,7 +195,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
                 view_bubble_05.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
                 view_bubble_06.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
 
-            }else if (num_list.size() == 3) {
+            } else if (num_list.size() == 3) {
                 num_03 = num_list.get(2);
                 view_bubble_01.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 view_bubble_02.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
@@ -201,7 +204,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
                 view_bubble_05.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
                 view_bubble_06.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
 
-            }else if (num_list.size() == 4) {
+            } else if (num_list.size() == 4) {
                 num_04 = num_list.get(3);
                 view_bubble_01.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 view_bubble_02.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
@@ -210,7 +213,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
                 view_bubble_05.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
                 view_bubble_06.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
 
-            }else if (num_list.size() == 5) {
+            } else if (num_list.size() == 5) {
                 num_05 = num_list.get(4);
                 view_bubble_01.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 view_bubble_02.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
@@ -219,7 +222,7 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
                 view_bubble_05.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 view_bubble_06.setBackgroundResource(R.drawable.bg_view_empty_oval_pin);
 
-            }else if (num_list.size() == 6) {
+            } else if (num_list.size() == 6) {
                 num_06 = num_list.get(5);
                 view_bubble_01.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 view_bubble_02.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
@@ -229,12 +232,13 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
                 view_bubble_06.setBackgroundResource(R.drawable.bg_view_solid_oval_pin);
                 pinCode = num_01 + num_02 + num_03 + num_04 + num_05 + num_06;
                 String hashedPin = Pin_Setup_Pin.hashPassword(pinCode);
-                    matchPinCode(hashedPin);
-                }
+                matchPinCode(hashedPin);
             }
-
-
         }
+
+
+    }
+
     private SharedPreferences.Editor savePinCode(String pinCode) {
         SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -244,17 +248,23 @@ public class Pin_Activity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void matchPinCode(String pinCode) throws NoSuchAlgorithmException {
-        if (getPinCode().equals(pinCode)){
+        if (getPinCode().equals(pinCode)) {
             startActivity(new Intent(Pin_Activity.this, Main_Activity.class));
-        }else{
-            Toast.makeText(this,"Pin Incorrect",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Pin Incorrect", Toast.LENGTH_SHORT).show();
             num_list.clear();
             passNumber(num_list);
         }
     }
-    private String getPinCode(){
+
+    private String getPinCode() {
         SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
-        return preferences.getString("pincode","");
+        return preferences.getString("pincode", "");
     }
 
+    private Boolean getPinStatus() {
+        SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        return preferences.getBoolean("pinStatus", false);
+
+    }
 }
