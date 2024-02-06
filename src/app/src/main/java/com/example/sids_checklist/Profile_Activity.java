@@ -23,8 +23,8 @@ import java.util.Objects;
 public class Profile_Activity extends AppCompatActivity {
 
     private int profileID;
-    private List<ProfileModel> profileModelList;
     private Profile_DatabaseHandler profile_db;
+    private List<ProfileModel> profileModelList;
     private ProfileListAdapter profileListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class Profile_Activity extends AppCompatActivity {
         }
 
     }
-    
+
     public int getProfileID() {
         assert (profileID != -1);
         return profileID;

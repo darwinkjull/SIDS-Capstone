@@ -55,17 +55,17 @@
             android:id="@+id/sendInfoButton"
             android:layout_marginVertical="@dimen/margin_standard"
             android:drawableTop="@drawable/upload_icon"
-            android:text="Send baby data"
+            android:text="Share baby data"
             android:textSize="20sp" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/receiveInfoButton"
-            android:layout_marginVertical="@dimen/margin_standard"
-            android:drawableTop="@drawable/download_icon"
-            android:text="Receive Baby Data"
-            android:textSize="20sp" />
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/receiveInfoButton"-->
+<!--            android:layout_marginVertical="@dimen/margin_standard"-->
+<!--            android:drawableTop="@drawable/download_icon"-->
+<!--            android:text="Receive Baby Data"-->
+<!--            android:textSize="20sp" />-->
     </GridLayout>
 
     <RelativeLayout
@@ -84,9 +84,11 @@
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profilesSharingList"
             android:layout_below="@id/profileListTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="200dp" />
+
     </RelativeLayout>
 
 </RelativeLayout>
