@@ -47,6 +47,7 @@
         <activity
             android:name=".Profile_Activity"
             android:theme="@style/Theme.Sids_checklist"/>
+        <activity android:name=".Sharing_Activity"/>
     </application>
 
 </manifest>

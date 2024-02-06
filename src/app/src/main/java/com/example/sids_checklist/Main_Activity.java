@@ -73,6 +73,7 @@ public class Main_Activity extends AppCompatActivity {
         Button goToReport = findViewById(R.id.goToReport);
         Button goToManageUsers = findViewById(R.id.goToProfile);
         Button goToInfo = findViewById(R.id.goToInfo);
+        Button goToSharing = findViewById(R.id.goToSharing);
         Button goToSettings = findViewById(R.id.goToSettings);
 
         // If no option selected, assume we have a blank list, force user to go to profiles
@@ -114,6 +115,12 @@ public class Main_Activity extends AppCompatActivity {
 
                 goToManageUsers.setOnClickListener(v -> {
                     Intent i = new Intent(Main_Activity.this, Profile_Activity.class);
+                    i.putExtra("profile_id", selectedProfileID);
+                    startActivity(i);
+                });
+
+                goToSharing.setOnClickListener(v -> {
+                    Intent i = new Intent(Main_Activity.this, Sharing_Activity.class);
                     i.putExtra("profile_id", selectedProfileID);
                     startActivity(i);
                 });

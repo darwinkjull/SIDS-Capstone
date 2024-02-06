@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_standard">
+
+        <TextView
+            android:id="@+id/receiveTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Receiving Data"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/deviceSelectionListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/receiveTitle"
+            android:text="Please select a device:"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true" />
+
+        <!-- This should really be a fraction of the overall page size
+        Update this layout element in the future -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/deviceSelectionList"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/deviceSelectionListTitle" />
+
+        <TextView
+            android:id="@+id/deviceSelectionListWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deviceSelectionList"
+            android:text="NOTE: Your data will be overwritten."
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/deviceSelectionListWarningText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deviceSelectionListWarning"
+            android:text="This action cannot be undone"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deviceSelectionListWarningText"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/cancelOperation"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Cancel"
+                android:textSize="16dp"
+                android:layout_marginHorizontal="@dimen/margin_half_standard" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
