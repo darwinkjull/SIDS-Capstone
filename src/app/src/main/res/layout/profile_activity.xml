@@ -125,11 +125,11 @@
         <Button
             android:id="@+id/deleteProfileButton"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_below="@id/editProfileButton"
             android:text="Delete Baby Profile"
-            android:drawableLeft="@drawable/remove_icon" />
+            android:drawableLeft="@drawable/remove_icon"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
