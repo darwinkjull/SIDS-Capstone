@@ -74,6 +74,7 @@ public class Main_Activity extends AppCompatActivity {
         Button goToManageUsers = findViewById(R.id.goToProfile);
         Button goToInfo = findViewById(R.id.goToInfo);
         Button goToSharing = findViewById(R.id.goToSharing);
+        Button goToSettings = findViewById(R.id.goToSettings);
 
         // If no option selected, assume we have a blank list, force user to go to profiles
         goToManageUsers.setOnClickListener(v -> {
