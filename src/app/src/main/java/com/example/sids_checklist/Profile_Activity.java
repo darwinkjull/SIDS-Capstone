@@ -1,5 +1,8 @@
 package com.example.sids_checklist;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,14 +10,22 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sids_checklist.checklistadapter.ProfileListAdapter;
+import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Profile_Activity extends AppCompatActivity {
 
     private int profileID;
+    private List<ProfileModel> profileModelList;
+    private Profile_DatabaseHandler profile_db;
+    private ProfileListAdapter profileListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,18 +34,21 @@ public class Profile_Activity extends AppCompatActivity {
 
         profileID = getIntent().getIntExtra("profile_id", -1);
 
-        Profile_DatabaseHandler db = new Profile_DatabaseHandler(this);
-        db.openDatabase();
+        profile_db = new Profile_DatabaseHandler(this);
+        profile_db.openDatabase();
 
         TextView selectedNameText = findViewById(R.id.profileName);
         if (profileID != -1) {
-            selectedNameText.setText(db.getProfileInfoFromID(profileID).getUsername());
+            selectedNameText.setText(profile_db.getProfileInfoFromID(profileID).getUsername());
         }
 
         Button returnFromProfilesButton = findViewById(R.id.returnFromProfilesButton);
         Button editProfileButton = findViewById(R.id.editProfileButton);
         Button deleteProfileButton = findViewById(R.id.deleteProfileButton);
         Button addProfileButton = findViewById(R.id.addProfileButton);
+
+        RecyclerView profileRecyclerList = findViewById(R.id.profilesList);
+
 
 
         returnFromProfilesButton.setOnClickListener(v -> {
@@ -59,9 +73,7 @@ public class Profile_Activity extends AppCompatActivity {
                     editProfilePopUp.showEditProfilePopUp(v, profileID);
                 }
             });
-        }
 
-        if (profileID != -1) {
             deleteProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -69,8 +81,15 @@ public class Profile_Activity extends AppCompatActivity {
                     deleteProfilePopUp.showDeleteProfilePopUp(v, profileID);
                 }
             });
+
+            profileModelList = profile_db.getAllProfiles();
+            profileListAdapter = new ProfileListAdapter(profile_db, this, profileModelList);
+            profileRecyclerList.setLayoutManager(new LinearLayoutManager(this));
+            profileRecyclerList.setAdapter(profileListAdapter);
         }
+
     }
+    
     public int getProfileID() {
         assert (profileID != -1);
         return profileID;

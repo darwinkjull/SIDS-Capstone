@@ -54,6 +54,4 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
             age = view.findViewById(R.id.profile_age);
         }
     }
-
-
 }
