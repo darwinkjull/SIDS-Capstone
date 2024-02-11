@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_header">
+
+        <!--Swipe Refresh Layout -->
+
+        <Button
+            android:id="@+id/returnFromSharingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:drawableLeft="@drawable/baseline_arrow_back_24"
+            android:text="Back"
+            android:textSize="12sp" />
+
+        <!-- Title of Page -->
+        <TextView
+            android:id="@+id/pageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Share &amp; Receive Data"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/shareButtons"
+        android:layout_below="@id/profile_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="1"
+        android:alignmentMode="alignMargins"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/margin_standard">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendInfoButton"
+            android:layout_marginVertical="@dimen/margin_standard"
+            android:drawableTop="@drawable/upload_icon"
+            android:text="Send baby data"
+            android:textSize="20sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/receiveInfoButton"
+            android:layout_marginVertical="@dimen/margin_standard"
+            android:drawableTop="@drawable/download_icon"
+            android:text="Receive Baby Data"
+            android:textSize="20sp" />
+    </GridLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/shareButtons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_standard">
+
+        <TextView
+            android:id="@+id/profileListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="All Baby Profiles"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/profileListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+</RelativeLayout>
