@@ -171,7 +171,9 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
                         TableLayout.LayoutParams.MATCH_PARENT,
                         TableLayout.LayoutParams.WRAP_CONTENT));
             }
+
             currDate.add(Calendar.DATE, 1);
+
         }
     }
     @Override
