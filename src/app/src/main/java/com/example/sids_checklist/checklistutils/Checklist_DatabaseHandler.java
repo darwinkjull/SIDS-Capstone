@@ -55,7 +55,6 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     // create the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("tag", "Now calling onCreate for Checklist");
         List<ProfileModel> userList;
         profile_db = new Profile_DatabaseHandler(context.getApplicationContext());
         profile_db.openDatabase();
@@ -63,7 +62,6 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
 
         for (ProfileModel i : userList) {
             String newQuery = CREATE_CHECKLIST_TABLE_PREFIX + i.getId() + CREATE_CHECKLIST_TABLE_SUFFIX;
-            Log.d("DatabaseHandler", "SQL Query: " + newQuery);
             db.execSQL(newQuery); // execute query
         }
     }

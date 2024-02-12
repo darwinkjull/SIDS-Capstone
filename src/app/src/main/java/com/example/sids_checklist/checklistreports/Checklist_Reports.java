@@ -39,7 +39,6 @@ public class Checklist_Reports extends AppCompatActivity {
     private String profileUsername;
 
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("tag", "Now calling onCreate method in Checklist_Reports");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checklist_report);
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -48,11 +47,9 @@ public class Checklist_Reports extends AppCompatActivity {
         profileID = getIntent().getIntExtra("profile_id", -1);
         assert (profileID != -1);
 
-        Log.d("tag", "Creating profile DB");
         Profile_DatabaseHandler profile_db = new Profile_DatabaseHandler(this);
         profile_db.openDatabase();
         profileUsername = profile_db.getUsernameByID(profileID);
-        Log.d("tag", "Profile DB success");
 
         LineChart lineChart = findViewById(R.id.checklistChart);
 
@@ -107,10 +104,8 @@ public class Checklist_Reports extends AppCompatActivity {
             i.putExtra("profile_id", profileID);
             startActivity(i);
         });
-        Log.d("tag", "Successfully invoked onCreate method in Checklist_Reports");
     }
     private void getData(){
-        Log.d("tag", "Now calling getData method in Checklist_Reports");
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
 
@@ -126,7 +121,6 @@ public class Checklist_Reports extends AppCompatActivity {
     }
 
     private void getSleepSessions(){
-        Log.d("tag", "Now calling getSleepSessions method in Checklist_Reports");
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
         sessionList = new ArrayList<>();

@@ -45,25 +45,19 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // Get the profile ID that was passed into the activity using the intent
         profileID = getIntent().getIntExtra("profile_id", -1);
         assert (profileID != -1);
-        Log.d("tag", "Selected Profile ID is " + profileID);
 
         // Open profile database so we can get profile info
-        Log.d("tag", "Opening profile DB");
         Profile_DatabaseHandler profile_db = new Profile_DatabaseHandler(this);
         profile_db.openDatabase();
-        Log.d("tag", "Profile DB successfully opened");
 
         // Open checklist database so we can modify checklist items
-        Log.d("tag", "Opening checklist DB");
         db = new Checklist_DatabaseHandler(this);
         db.openDatabase();
-        Log.d("tag", "Checklist DB successfully opened");
 
         //Open checklist_util database so we can log the status of checklist items
-        Log.d("tag", "Opening checklist_util DB");
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
-        Log.d("tag", "Checklist_util DB successfully opened");
+
 
         // On startup, initialize new empty array of checklist items
         checklistList = new ArrayList<>();

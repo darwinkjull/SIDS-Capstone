@@ -49,10 +49,8 @@ public class Main_Activity extends AppCompatActivity {
         int returnProfileID = getIntent().getIntExtra("profile_id", -1);
 
         //Perform database setup
-        Log.d("tag", "Creating profile DB");
         profile_db = new Profile_DatabaseHandler(this);
         profile_db.openDatabase();
-        Log.d("tag", "Profile DB success");
 
         // This could be turned into an adapter or other simplified function in the future
         usernameList = new ArrayList<>();

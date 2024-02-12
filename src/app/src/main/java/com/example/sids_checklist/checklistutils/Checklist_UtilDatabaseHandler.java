@@ -49,7 +49,6 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     // create the table
     @Override
     public void onCreate(SQLiteDatabase disp_db) {
-        Log.d("tag", "Now calling onCreate for Display Checklist");
         List<ProfileModel> userList;
         profile_db = new Profile_DatabaseHandler(context.getApplicationContext());
         profile_db.openDatabase();
@@ -57,7 +56,6 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
 
         for (ProfileModel i : userList) {
             String newQuery = CREATE_CHECKLIST_TABLE_PREFIX + i.getId() + CREATE_CHECKLIST_TABLE_SUFFIX;
-            Log.d("DatabaseHandler", "SQL Query: " + newQuery);
             disp_db.execSQL(newQuery); // execute query
         }
     }
@@ -65,7 +63,6 @@ public class Checklist_UtilDatabaseHandler extends SQLiteOpenHelper {
     // upgrade the table to the new version and drop the old table
     @Override
     public void onUpgrade(SQLiteDatabase disp_db, int oldVersion, int newVersion) {
-        Log.d("tag", "Now calling onUpgrade for Display Checklist");
 
         List<ProfileModel> userList;
         profile_db = new Profile_DatabaseHandler(context.getApplicationContext());
