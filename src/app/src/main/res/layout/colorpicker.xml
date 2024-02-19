@@ -14,7 +14,7 @@
         android:layout_height="@dimen/menu_button"
         android:src="@drawable/child_icon"
         android:background="@drawable/color_item"
-        android:margin="@dimen/margin_half_standard"
+        android:layout_margin="@dimen/margin_half_standard"
         />
     <ImageView
         android:id="@+id/profileColor2"
@@ -23,7 +23,7 @@
         android:layout_height="@dimen/menu_button"
         android:src="@drawable/child_icon"
         android:background="@drawable/color_item"
-        android:margin="@dimen/margin_half_standard"
+        android:layout_margin="@dimen/margin_half_standard"
         />
     <ImageView
         android:id="@+id/profileColor3"
@@ -32,7 +32,7 @@
         android:layout_height="@dimen/menu_button"
         android:src="@drawable/child_icon"
         android:background="@drawable/color_item"
-        android:margin="@dimen/margin_half_standard"
+        android:layout_margin="@dimen/margin_half_standard"
         />
     <ImageView
         android:id="@+id/profileColor4"
@@ -41,7 +41,7 @@
         android:layout_height="@dimen/menu_button"
         android:src="@drawable/child_icon"
         android:background="@drawable/color_item"
-        android:margin="@dimen/margin_half_standard"
+        android:layout_margin="@dimen/margin_half_standard"
         />
     <ImageView
         android:id="@+id/profileColor5"
@@ -50,7 +50,7 @@
         android:layout_height="@dimen/menu_button"
         android:src="@drawable/child_icon"
         android:background="@drawable/color_item"
-        android:margin="@dimen/margin_half_standard"
+        android:layout_margin="@dimen/margin_half_standard"
         />
     <ImageView
         android:id="@+id/profileColor6"
@@ -59,7 +59,7 @@
         android:layout_height="@dimen/menu_button"
         android:src="@drawable/child_icon"
         android:background="@drawable/color_item"
-        android:margin="@dimen/margin_half_standard"
+        android:layout_margin="@dimen/margin_half_standard"
         />
 
 
