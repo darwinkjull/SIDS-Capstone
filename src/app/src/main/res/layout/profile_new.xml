@@ -24,6 +24,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/profileInfoTitle"
         android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:id="@+id/profileName_division"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@id/profileColor_division"
+            android:layout_alignRight="@id/profileColor_division"
+            android:background="@drawable/layout_frame"
+            android:layout_marginTop="@dimen/margin_half_standard">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="48dp"
@@ -43,39 +57,66 @@
             android:hint="Enter Name"
             android:textSize="24sp"
             android:height="48dp" />
+            </RelativeLayout>
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/profileAge_division"
+            android:layout_below="@id/profileName_division"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/layout_frame"
+            android:layout_alignLeft="@id/profileColor_division"
+            android:layout_alignRight="@id/profileColor_division"
+            android:layout_marginTop="@dimen/margin_half_standard">
         <TextView
             android:id="@+id/profileAgeHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/profileNameHeader"
             android:text="Birthday: "
             android:textStyle="bold"
             android:textSize="24sp"
             android:layout_marginEnd="@dimen/margin_half_standard"
-            android:gravity="center" />
+            android:layout_centerHorizontal="true" />
 
-        <CalendarView
+        <DatePicker
             android:id="@+id/profileAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/profileAgeHeader"
-            android:minDate="01/01/2023"/>
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:startYear="2023"
+            android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/profileColorHeader"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/profileAge"-->
-<!--            android:text="Profile Color: "-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="24sp"-->
-<!--            android:layout_marginEnd="@dimen/margin_half_standard"-->
-<!--            android:gravity="center" />-->
+        <RelativeLayout
+            android:id="@+id/profileColor_division"
+            android:layout_below="@id/profileAge_division"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_frame"
+            android:layout_marginTop="@dimen/margin_half_standard">
 
+        <TextView
+            android:id="@+id/profileColorHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile Color: "
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginEnd="@dimen/margin_half_standard"
+            android:layout_centerHorizontal="true" />
 
-
-
+            <include
+                android:id="@+id/profileColorPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profileColorHeader"
+                layout="@layout/colorpicker"
+                />
+    </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
