@@ -59,7 +59,9 @@ public class Profile_AddProfile {
                 if (profileNameText.length() != 0) {
                     ProfileModel newProfile = new ProfileModel();
                     newProfile.setUsername(profileNameText.getText().toString());
-                    newProfile.setAge(String.valueOf(profileAgePicker.getDayOfMonth()));
+                    int selectedMonth = profileAgePicker.getMonth() + 1; // Datepicker's months are indexed to 0.
+                    String profileAge = String.format("%02d/%02d/%04d", profileAgePicker.getDayOfMonth(), selectedMonth, profileAgePicker.getYear());
+                    newProfile.setAge(profileAge);
                     newProfile.setProfile_color(colorResource);
                     profile_db.insertProfile(newProfile);
                     int profileID = profile_db.getIDByUsername(newProfile.getUsername());

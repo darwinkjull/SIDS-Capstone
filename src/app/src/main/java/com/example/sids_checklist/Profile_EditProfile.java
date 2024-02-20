@@ -51,7 +51,8 @@ public class Profile_EditProfile {
                 if (profileNameText.length() != 0) {
                     ProfileModel newProfile = new ProfileModel();
                     newProfile.setUsername(profileNameText.getText().toString());
-                    newProfile.setAge(String.valueOf(profileAgePicker.getDayOfMonth()));
+                    String profileAge = String.format("%02d/%02d/%04d", profileAgePicker.getDayOfMonth(), profileAgePicker.getMonth(), profileAgePicker.getYear());
+                    newProfile.setAge(profileAge);
                     db.updateUsername(profileID, newProfile.getUsername());
                     popupWindow.dismiss();
                 }
