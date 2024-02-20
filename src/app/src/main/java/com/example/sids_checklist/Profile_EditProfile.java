@@ -20,7 +20,6 @@ import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
 public class Profile_EditProfile {
     private String colorResource;
-    private String concatAge;
     public void showEditProfilePopUp(View view, int profileID) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View editProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
@@ -44,6 +43,19 @@ public class Profile_EditProfile {
         db.openDatabase();
 
         profileNameText.setText(db.getProfileInfoFromID(profileID).getUsername());
+
+        String[] date = db.getProfileInfoFromID(profileID).getAge().split("/");
+        profileAgePicker.init(Integer.parseInt(date[2]), (Integer.parseInt(date[1]) ), Integer.parseInt(date[0]), null);
+
+        switch (db.getProfileInfoFromID(profileID).getProfile_color()){
+            case "@colors/profileColor1": profileColorPicker1.setBackgroundResource(R.drawable.color_item_selected); break;
+            case "@colors/profileColor2": profileColorPicker2.setBackgroundResource(R.drawable.color_item_selected); break;
+            case "@colors/profileColor3": profileColorPicker3.setBackgroundResource(R.drawable.color_item_selected); break;
+            case "@colors/profileColor4": profileColorPicker4.setBackgroundResource(R.drawable.color_item_selected); break;
+            case "@colors/profileColor5": profileColorPicker5.setBackgroundResource(R.drawable.color_item_selected); break;
+            case "@colors/profileColor6": profileColorPicker6.setBackgroundResource(R.drawable.color_item_selected); break;
+            default: break;
+        }
 
         acceptInfoTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
