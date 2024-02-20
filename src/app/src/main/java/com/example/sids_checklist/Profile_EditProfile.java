@@ -53,7 +53,8 @@ public class Profile_EditProfile {
                     newProfile.setUsername(profileNameText.getText().toString());
                     String profileAge = String.format("%02d/%02d/%04d", profileAgePicker.getDayOfMonth(), profileAgePicker.getMonth(), profileAgePicker.getYear());
                     newProfile.setAge(profileAge);
-                    db.updateUsername(profileID, newProfile.getUsername());
+                    newProfile.setProfile_color(colorResource);
+                    db.updateProfile(profileID, newProfile);
                     popupWindow.dismiss();
                 }
             }
