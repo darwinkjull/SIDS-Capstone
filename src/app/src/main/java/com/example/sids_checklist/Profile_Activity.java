@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.PopupWindow;
+import android.widget.ViewFlipper;
+import android.widget.ViewSwitcher;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -44,14 +46,10 @@ public class Profile_Activity extends AppCompatActivity {
         profile_db = new Profile_DatabaseHandler(this);
         profile_db.openDatabase();
 
-        updateProfileDisplay();
+        checkForProfiles();
 
-        Button returnFromProfilesButton = findViewById(R.id.returnFromProfilesButton);
-        Button editProfileButton = findViewById(R.id.editProfileButton);
-        Button deleteProfileButton = findViewById(R.id.deleteProfileButton);
         Button addProfileButton = findViewById(R.id.addProfileButton);
-
-        RecyclerView profileRecyclerList = findViewById(R.id.profilesList);
+        Button returnFromProfilesButton = findViewById(R.id.returnFromProfilesButton);
 
         returnFromProfilesButton.setOnClickListener(v -> {
             Intent i = new Intent(Profile_Activity.this, Main_Activity.class);
@@ -67,10 +65,44 @@ public class Profile_Activity extends AppCompatActivity {
             }
         });
 
+    }
 
+    public int getProfileID() {
+        assert (profileID != -1);
+        return profileID;
+    }
 
-
+    private void updateProfileDisplay(){
+        TextView selectedNameText = findViewById(R.id.profileName);
+        TextView selectedAgeText = findViewById(R.id.profileAge);
+        ImageView selectedImage = findViewById(R.id.profileImage);
         if (profileID != -1) {
+            selectedNameText.setText(profile_db.getProfileInfoFromID(profileID).getUsername());
+            Profile_DateHandler profile_date = new Profile_DateHandler(profile_db.getProfileInfoFromID(profileID));
+            selectedAgeText.setText(profile_date.getWeeks());
+            int colorID = Profile_Activity.this.getResources().getIdentifier(profile_db.getProfileInfoFromID(profileID).getProfile_color(), "color", Profile_Activity.this.getPackageName());
+            if (colorID != 0){selectedImage.setColorFilter(ContextCompat.getColor(this, colorID), PorterDuff.Mode.SRC_IN);}
+        }
+    }
+
+    private void checkForProfiles(){
+        List<Integer> idList = profile_db.getAllID();
+        ViewSwitcher profileViewSwitcher = findViewById(R.id.profileInfo_Switcher);
+        if (!(idList.isEmpty())){
+            // Check if the profileID we are using still exists
+            if (!(idList.contains(profileID))){
+                // If the ID no longer exists, fetch a new ID to use instead
+                this.profileID = idList.get(0);
+            }
+            // PUT VIEW SELECTOR HERE - CHOOSE VIEW THAT SHOWS PROFILE INFO
+            profileViewSwitcher.setDisplayedChild(profileViewSwitcher.indexOfChild(findViewById(R.id.profileInfo_profilesExist)));
+            // Initialize elements of this view
+
+            Button editProfileButton = findViewById(R.id.editProfileButton);
+            Button deleteProfileButton = findViewById(R.id.deleteProfileButton);
+
+            RecyclerView profileRecyclerList = findViewById(R.id.profilesList);
+
             editProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,25 +123,12 @@ public class Profile_Activity extends AppCompatActivity {
             profileListAdapter = new ProfileListAdapter(profile_db, this, profileModelList);
             profileRecyclerList.setLayoutManager(new LinearLayoutManager(this));
             profileRecyclerList.setAdapter(profileListAdapter);
+
+            updateProfileDisplay();
         }
-
-    }
-
-    public int getProfileID() {
-        assert (profileID != -1);
-        return profileID;
-    }
-
-    private void updateProfileDisplay(){
-        TextView selectedNameText = findViewById(R.id.profileName);
-        TextView selectedAgeText = findViewById(R.id.profileAge);
-        ImageView selectedImage = findViewById(R.id.profileImage);
-        if (profileID != -1) {
-            selectedNameText.setText(profile_db.getProfileInfoFromID(profileID).getUsername());
-            Profile_DateHandler profile_date = new Profile_DateHandler(profile_db.getProfileInfoFromID(profileID));
-            selectedAgeText.setText(profile_date.getWeeks());
-            int colorID = Profile_Activity.this.getResources().getIdentifier(profile_db.getProfileInfoFromID(profileID).getProfile_color(), "color", Profile_Activity.this.getPackageName());
-            if (colorID != 0){selectedImage.setColorFilter(ContextCompat.getColor(this, colorID), PorterDuff.Mode.SRC_IN);}
+        else {
+            // PUT VIEW SELECTOR HERE - CHOOSE VIEW THAT SHOWS NO PROFILES EXIST
+            profileViewSwitcher.setDisplayedChild(profileViewSwitcher.indexOfChild(findViewById(R.id.profileInfo_profilesNotExist)));
         }
     }
 }

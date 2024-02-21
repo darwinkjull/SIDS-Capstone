@@ -112,6 +112,32 @@ public class Profile_DatabaseHandler extends SQLiteOpenHelper {
         return usernameList;
     }
 
+    // Provides all of the usernames currently in the PROFILE_TABLE table as an ArrayList
+    // Probably not the best way for this to be implemented, but is how I am going to do it for now.
+    @SuppressLint("Range")
+    public List<Integer> getAllID() {
+        List<Integer> IDList = new ArrayList<>();
+        Cursor cur = null;
+        db.beginTransaction();
+        try {
+            cur = db.query(PROFILE_TABLE, null, null, null, null, null, null, null);
+            if (cur != null) {
+                if (cur.moveToFirst()) {
+                    do {
+                        Integer userID = cur.getInt(cur.getColumnIndex(ID));
+                        IDList.add(userID);
+                    } while (cur.moveToNext());
+                }
+            }
+        } finally {
+            db.endTransaction();
+            assert cur != null;
+            cur.close();
+        }
+        return IDList;
+    }
+
+
     // Provides the corresponding ID number for a username in the PROFILE_TABLE table
     // Since username is currently unique, there cannot be overlapping entries
     @SuppressLint("Range")
