@@ -36,8 +36,12 @@ public class Profile_DateHandler {
         long dateDifference = currentDate.getTime() - dateOfBirth.getTime();
         long numDays = TimeUnit.DAYS.convert(dateDifference, TimeUnit.MILLISECONDS);
         int numWeeks = ((int) numDays) / 7;
-        return numWeeks + " Weeks";
-
+        if(numWeeks == 1){
+            return numWeeks + " Week";
+        }
+        else {
+            return numWeeks + " Weeks";
+        }
     }
 
 
