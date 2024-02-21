@@ -4,18 +4,23 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sids_checklist.checklistadapter.ProfileListAdapter;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
+import com.example.sids_checklist.checklistutils.Profile_DateHandler;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +31,8 @@ public class Profile_Activity extends AppCompatActivity {
     private Profile_DatabaseHandler profile_db;
     private List<ProfileModel> profileModelList;
     private ProfileListAdapter profileListAdapter;
+
+    private Button returnFromProfilesButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +44,7 @@ public class Profile_Activity extends AppCompatActivity {
         profile_db = new Profile_DatabaseHandler(this);
         profile_db.openDatabase();
 
-        TextView selectedNameText = findViewById(R.id.profileName);
-        if (profileID != -1) {
-            selectedNameText.setText(profile_db.getProfileInfoFromID(profileID).getUsername());
-        }
+        updateProfileDisplay();
 
         Button returnFromProfilesButton = findViewById(R.id.returnFromProfilesButton);
         Button editProfileButton = findViewById(R.id.editProfileButton);
@@ -49,21 +53,22 @@ public class Profile_Activity extends AppCompatActivity {
 
         RecyclerView profileRecyclerList = findViewById(R.id.profilesList);
 
-
-
         returnFromProfilesButton.setOnClickListener(v -> {
             Intent i = new Intent(Profile_Activity.this, Main_Activity.class);
             i.putExtra("profile_id", profileID);
             startActivity(i);
         });
 
+        Profile_AddProfile addProfilePopUp = new Profile_AddProfile();
         addProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Profile_AddProfile addProfilePopUp = new Profile_AddProfile();
                 addProfilePopUp.showAddProfilePopUp(v);
             }
         });
+
+
+
 
         if (profileID != -1) {
             editProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -93,5 +98,18 @@ public class Profile_Activity extends AppCompatActivity {
     public int getProfileID() {
         assert (profileID != -1);
         return profileID;
+    }
+
+    private void updateProfileDisplay(){
+        TextView selectedNameText = findViewById(R.id.profileName);
+        TextView selectedAgeText = findViewById(R.id.profileAge);
+        ImageView selectedImage = findViewById(R.id.profileImage);
+        if (profileID != -1) {
+            selectedNameText.setText(profile_db.getProfileInfoFromID(profileID).getUsername());
+            Profile_DateHandler profile_date = new Profile_DateHandler(profile_db.getProfileInfoFromID(profileID));
+            selectedAgeText.setText(profile_date.getWeeks());
+            int colorID = Profile_Activity.this.getResources().getIdentifier(profile_db.getProfileInfoFromID(profileID).getProfile_color(), "color", Profile_Activity.this.getPackageName());
+            if (colorID != 0){selectedImage.setColorFilter(ContextCompat.getColor(this, colorID), PorterDuff.Mode.SRC_IN);}
+        }
     }
 }

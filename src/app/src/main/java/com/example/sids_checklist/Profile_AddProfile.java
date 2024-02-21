@@ -89,7 +89,7 @@ public class Profile_AddProfile {
             @Override
             public void onClick(View v) {
                 profileColorPicker1.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "@colors/profileColor1";
+                colorResource = "profileColor1";
 
                 profileColorPicker2.setBackgroundResource(R.drawable.color_item);
                 profileColorPicker3.setBackgroundResource(R.drawable.color_item);
@@ -104,7 +104,7 @@ public class Profile_AddProfile {
             @Override
             public void onClick(View v) {
                 profileColorPicker2.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "@colors/profileColor2";
+                colorResource = "profileColor2";
 
                 profileColorPicker3.setBackgroundResource(R.drawable.color_item);
                 profileColorPicker4.setBackgroundResource(R.drawable.color_item);
@@ -119,7 +119,7 @@ public class Profile_AddProfile {
             @Override
             public void onClick(View v) {
                 profileColorPicker3.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "@colors/profileColor3";
+                colorResource = "profileColor3";
 
                 profileColorPicker4.setBackgroundResource(R.drawable.color_item);
                 profileColorPicker5.setBackgroundResource(R.drawable.color_item);
@@ -134,7 +134,7 @@ public class Profile_AddProfile {
             @Override
             public void onClick(View v) {
                 profileColorPicker4.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "@colors/profileColor4";
+                colorResource = "profileColor4";
 
                 profileColorPicker5.setBackgroundResource(R.drawable.color_item);
                 profileColorPicker6.setBackgroundResource(R.drawable.color_item);
@@ -149,7 +149,7 @@ public class Profile_AddProfile {
             @Override
             public void onClick(View v) {
                 profileColorPicker5.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "@colors/profileColor5";
+                colorResource = "profileColor5";
 
                 profileColorPicker6.setBackgroundResource(R.drawable.color_item);
                 profileColorPicker1.setBackgroundResource(R.drawable.color_item);
@@ -164,7 +164,7 @@ public class Profile_AddProfile {
             @Override
             public void onClick(View v) {
                 profileColorPicker6.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "@colors/profileColor6";
+                colorResource = "profileColor6";
 
                 profileColorPicker1.setBackgroundResource(R.drawable.color_item);
                 profileColorPicker2.setBackgroundResource(R.drawable.color_item);
@@ -174,7 +174,5 @@ public class Profile_AddProfile {
 
             }
         });
-
     }
-
 }

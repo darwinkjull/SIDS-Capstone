@@ -106,6 +106,7 @@
                 android:height="32dp" />
 
             <ImageView
+                android:id="@+id/profileImage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
