@@ -139,12 +139,5 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     }
 
     // dismissed the dialog box so close it
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-        Activity activity = getActivity();
-        if (activity instanceof DialogCloseListener) {
-            ((DialogCloseListener) activity).handleDialogClose(dialog);
-        }
-    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.sids_checklist.checklistutils;
+package com.example.sids_checklist.checklistprofiles;
 
 import android.annotation.SuppressLint;
 

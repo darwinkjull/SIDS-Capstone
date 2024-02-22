@@ -1,34 +1,36 @@
 package com.example.sids_checklist;
 
-import android.media.Image;
-import android.transition.Slide;
+import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
-
 import com.example.sids_checklist.checklistmodel.ProfileModel;
+import com.example.sids_checklist.checklistprofiles.Profile_PopUpInterface;
 import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class Profile_AddProfile {
+public class Profile_AddProfile extends BottomSheetDialogFragment {
 
     private String colorResource;
-    public void showAddProfilePopUp(View view) {
+
+    private Profile_PopUpInterface popUpInterface;
+    public void showAddProfilePopUp(View view, Context context) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View addProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
         PopupWindow popupWindow = new PopupWindow(addProfilePopUpView,
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        this.popUpInterface = (Profile_PopUpInterface) context;
 
         Button acceptInfoTrueButton = addProfilePopUpView.findViewById(R.id.acceptInfoTrue);
         Button acceptInfoFalseButton = addProfilePopUpView.findViewById(R.id.acceptInfoFalse);
@@ -51,8 +53,6 @@ public class Profile_AddProfile {
         Checklist_UtilDatabaseHandler checklist_util_db = new Checklist_UtilDatabaseHandler(view.getContext());
         checklist_util_db.openDatabase();
 
-
-
         acceptInfoTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +67,7 @@ public class Profile_AddProfile {
                     int profileID = profile_db.getIDByUsername(newProfile.getUsername());
                     checklist_db.createTable(profileID);
                     checklist_util_db.createTable(profileID);
+                    popUpInterface.refreshProfilesAdded(profileID);
                     popupWindow.dismiss();
                 }
             }
@@ -77,8 +78,6 @@ public class Profile_AddProfile {
                 popupWindow.dismiss();
             }
         });
-
-
 
         /**
          * Each onClickListener sets the currently selected color to the address of the colors.xml

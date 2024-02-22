@@ -3,6 +3,7 @@ package com.example.sids_checklist;
 import static android.app.PendingIntent.getActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.util.SparseLongArray;
 import android.view.Gravity;
@@ -17,16 +18,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.sids_checklist.checklistmodel.ProfileModel;
+import com.example.sids_checklist.checklistprofiles.Profile_PopUpInterface;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
 public class Profile_EditProfile {
     private String colorResource;
-    public void showEditProfilePopUp(View view, int profileID) {
+    private Profile_PopUpInterface popUpInterface;
+    public void showEditProfilePopUp(View view, Context context, int profileID) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View editProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
         PopupWindow popupWindow = new PopupWindow(editProfilePopUpView,
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        this.popUpInterface = (Profile_PopUpInterface) context;
 
         Button acceptInfoTrueButton = editProfilePopUpView.findViewById(R.id.acceptInfoTrue);
         Button acceptInfoFalseButton = editProfilePopUpView.findViewById(R.id.acceptInfoFalse);

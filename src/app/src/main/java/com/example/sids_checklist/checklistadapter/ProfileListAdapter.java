@@ -5,7 +5,6 @@ import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,11 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sids_checklist.Profile_Activity;
 import com.example.sids_checklist.R;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
-import com.example.sids_checklist.checklistutils.Profile_DateHandler;
+import com.example.sids_checklist.checklistprofiles.Profile_DateHandler;
 
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package com.example.sids_checklist;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.PopupWindow;
-import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,25 +18,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sids_checklist.checklistadapter.ProfileListAdapter;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
+import com.example.sids_checklist.checklistprofiles.Profile_PopUpInterface;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
-import com.example.sids_checklist.checklistutils.Profile_DateHandler;
+import com.example.sids_checklist.checklistprofiles.Profile_DateHandler;
 
 import java.util.List;
 import java.util.Objects;
 
-public class Profile_Activity extends AppCompatActivity {
+public class Profile_Activity extends AppCompatActivity implements Profile_PopUpInterface {
 
     private int profileID;
+    private Context context;
     private Profile_DatabaseHandler profile_db;
     private List<ProfileModel> profileModelList;
     private ProfileListAdapter profileListAdapter;
 
-    private Button returnFromProfilesButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
         Objects.requireNonNull(getSupportActionBar()).hide();
+
+        context = this;
 
         profileID = getIntent().getIntExtra("profile_id", -1);
 
@@ -61,7 +61,7 @@ public class Profile_Activity extends AppCompatActivity {
         addProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addProfilePopUp.showAddProfilePopUp(v);
+                addProfilePopUp.showAddProfilePopUp(v, context);
             }
         });
 
@@ -107,7 +107,7 @@ public class Profile_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Profile_EditProfile editProfilePopUp = new Profile_EditProfile();
-                    editProfilePopUp.showEditProfilePopUp(v, profileID);
+                    editProfilePopUp.showEditProfilePopUp(v, context, profileID);
                 }
             });
 
@@ -115,7 +115,7 @@ public class Profile_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Profile_DeleteProfile deleteProfilePopUp = new Profile_DeleteProfile();
-                    deleteProfilePopUp.showDeleteProfilePopUp(v, profileID);
+                    deleteProfilePopUp.showDeleteProfilePopUp(v, context, profileID);
                 }
             });
 
@@ -130,5 +130,16 @@ public class Profile_Activity extends AppCompatActivity {
             // PUT VIEW SELECTOR HERE - CHOOSE VIEW THAT SHOWS NO PROFILES EXIST
             profileViewSwitcher.setDisplayedChild(profileViewSwitcher.indexOfChild(findViewById(R.id.profileInfo_profilesNotExist)));
         }
+    }
+
+    @Override
+    public void refreshProfiles(){
+        checkForProfiles();
+    }
+
+    @Override
+    public void refreshProfilesAdded(int newProfileID){
+        this.profileID = newProfileID;
+        checkForProfiles();
     }
 }
