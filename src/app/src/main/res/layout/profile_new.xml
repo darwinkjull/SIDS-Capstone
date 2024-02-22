@@ -1,151 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/margin_double_standard"
-    android:background="@drawable/layout_frame">
-
-
-    <TextView
-        android:id="@+id/profileInfoTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter Baby Information"
-        android:textStyle="bold"
-        android:textSize="24dp"
-        android:layout_centerHorizontal="true" />
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_standard">
 
     <RelativeLayout
-        android:id="@+id/profileInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profileInfoTitle"
-        android:layout_centerHorizontal="true">
+        android:background="@drawable/layout_frame"
+        android:padding="@dimen/margin_standard">
 
-        <RelativeLayout
-            android:id="@+id/profileName_division"
+
+        <TextView
+            android:id="@+id/profileInfoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_alignLeft="@id/profileColor_division"
-            android:layout_alignRight="@id/profileColor_division"
-            android:background="@drawable/layout_frame"
-            android:layout_marginTop="@dimen/margin_half_standard">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:id="@+id/profileNameHeader"
-            android:text="Name: "
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:layout_marginEnd="@dimen/margin_half_standard"
-            android:gravity="center" />
+            android:text="Enter Baby Information"
+            android:textSize="24dp"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/profileName"
+        <RelativeLayout
+            android:id="@+id/profileInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/profileNameHeader"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:hint="Enter Name"
-            android:textSize="24sp"
-            android:height="48dp"
-            android:maxLength="10"
-            android:maxLines="1"/>
+            android:layout_below="@id/profileInfoTitle"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:id="@+id/profileName_division"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/profileColor_division"
+                android:layout_alignRight="@id/profileColor_division"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_half_standard"
+                android:background="@drawable/layout_frame">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:id="@+id/profileNameHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="@dimen/margin_half_standard"
+                        android:gravity="center"
+                        android:text="Name: "
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/profileName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/profileNameHeader"
+                        android:height="48dp"
+                        android:hint="Enter Name"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textSize="24sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/profileAge_division"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profileName_division"
+                android:layout_alignLeft="@id/profileColor_division"
+                android:layout_alignRight="@id/profileColor_division"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_half_standard"
+                android:background="@drawable/layout_frame">
+
+                <TextView
+                    android:id="@+id/profileAgeHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="@dimen/margin_half_standard"
+                    android:text="Birthday: "
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <DatePicker
+                    android:id="@+id/profileAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profileAgeHeader"
+                    android:layout_centerHorizontal="true"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    android:startYear="2023" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/profileColor_division"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profileAge_division"
+                android:layout_marginTop="@dimen/margin_half_standard"
+                android:background="@drawable/layout_frame"
+                android:paddingHorizontal="4dp">
+
+                <TextView
+                    android:id="@+id/profileColorHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="@dimen/margin_half_standard"
+                    android:text="Profile Color: "
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <include
+                    android:id="@+id/profileColorPicker"
+                    layout="@layout/colorpicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profileColorHeader" />
             </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/profileAge_division"
-            android:layout_below="@id/profileName_division"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/profileInfo"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/layout_frame"
-            android:layout_alignLeft="@id/profileColor_division"
-            android:layout_alignRight="@id/profileColor_division"
-            android:layout_marginTop="@dimen/margin_half_standard">
-        <TextView
-            android:id="@+id/profileAgeHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Birthday: "
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:layout_marginEnd="@dimen/margin_half_standard"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginVertical="@dimen/margin_half_standard">
 
-        <DatePicker
-            android:id="@+id/profileAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/profileAgeHeader"
-            android:datePickerMode="spinner"
-            android:calendarViewShown="false"
-            android:startYear="2023"
-            android:layout_centerHorizontal="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/profileColor_division"
-            android:layout_below="@id/profileAge_division"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/layout_frame"
-            android:layout_marginTop="@dimen/margin_half_standard"
-            android:paddingHorizontal="4dp">
-
-        <TextView
-            android:id="@+id/profileColorHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profile Color: "
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:layout_marginEnd="@dimen/margin_half_standard"
-            android:layout_centerHorizontal="true" />
-
-            <include
-                android:id="@+id/profileColorPicker"
+            <Button
+                android:id="@+id/acceptInfoTrue"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/profileColorHeader"
-                layout="@layout/colorpicker"
-                />
-    </RelativeLayout>
-    </RelativeLayout>
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="@dimen/margin_standard"
+                android:backgroundTint="@color/black"
+                android:text="Save"
+                android:textSize="16dp" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/profileInfo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="@dimen/margin_half_standard">
-        <Button
-            android:id="@+id/acceptInfoTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Save"
-            android:textSize="16dp"
-            android:backgroundTint="@color/black"
-            android:layout_marginHorizontal="@dimen/margin_standard"/>
-        <Button
-            android:id="@+id/acceptInfoFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_toRightOf="@id/acceptInfoTrue"
-            android:text="Cancel"
-            android:textSize="16dp"
-            android:layout_marginHorizontal="@dimen/margin_standard"/>
+            <Button
+                android:id="@+id/acceptInfoFalse"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="@dimen/margin_standard"
+                android:layout_toRightOf="@id/acceptInfoTrue"
+                android:text="Cancel"
+                android:textSize="16dp" />
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
 
 </androidx.cardview.widget.CardView>

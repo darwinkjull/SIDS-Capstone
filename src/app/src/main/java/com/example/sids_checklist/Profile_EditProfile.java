@@ -28,7 +28,7 @@ public class Profile_EditProfile {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View editProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
         PopupWindow popupWindow = new PopupWindow(editProfilePopUpView,
-                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
         this.popUpInterface = (Profile_PopUpInterface) context;

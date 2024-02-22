@@ -1,6 +1,7 @@
 package com.example.sids_checklist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class Profile_AddProfile extends BottomSheetDialogFragment {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View addProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
         PopupWindow popupWindow = new PopupWindow(addProfilePopUpView,
-                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
         this.popUpInterface = (Profile_PopUpInterface) context;
