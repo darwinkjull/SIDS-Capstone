@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_standard"
@@ -16,18 +16,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Safe Sleep"
-            android:textSize="24sp"
+            android:text="SafeSleep"
+            android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
             android:id="@+id/home_title" />
 
         <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/layout_frame"
             android:spinnerMode="dropdown"
             android:id="@+id/profile_select" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <GridLayout
         android:layout_width="match_parent"

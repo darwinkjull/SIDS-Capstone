@@ -27,17 +27,19 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             tool:text="Baby Name"
+            android:gravity="left"
             android:paddingStart="16dp"
             android:buttonTint="@color/colorAccent"
             tool:ignore="RtlSymmetry" />
         <TextView
             android:id="@+id/profile_age"
-            android:layout_toEndOf="@id/profile_username"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tool:text="Age"
-            android:paddingStart="16dp"
+            android:gravity="right"
+            android:paddingEnd="@dimen/margin_double_standard"
             android:buttonTint="@color/colorAccent"
             tool:ignore="RtlSymmetry" />
 

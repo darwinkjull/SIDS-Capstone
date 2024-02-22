@@ -15,4 +15,11 @@
     <color name="colorAccent">#D2DE32</color>
     <color name="background">#FFFFDD</color>
 
+    <color name="profileColor1"> @color/colorPrimary </color>
+    <color name="profileColor2"> @color/colorPrimaryDark </color>
+    <color name="profileColor3"> #FB5607 </color>
+    <color name="profileColor4"> #8338EC </color>
+    <color name="profileColor5"> #3A86FF </color>
+    <color name="profileColor6"> #FF006E </color>
+
 </resources>

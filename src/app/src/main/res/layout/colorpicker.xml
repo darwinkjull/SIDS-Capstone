@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:columnCount="3"
+    android:layout_centerHorizontal="true">
+
+    <ImageView
+        android:id="@+id/profileColor1"
+        app:tint="@color/profileColor1"
+        android:layout_width="@dimen/color_picker_button"
+        android:layout_height="@dimen/color_picker_button"
+        android:src="@drawable/child_icon"
+        android:background="@drawable/color_item"
+        android:layout_margin="@dimen/color_picker_margin"
+        />
+    <ImageView
+        android:id="@+id/profileColor2"
+        app:tint="@color/profileColor2"
+        android:layout_width="@dimen/color_picker_button"
+        android:layout_height="@dimen/color_picker_button"
+        android:src="@drawable/child_icon"
+        android:background="@drawable/color_item"
+        android:layout_margin="@dimen/color_picker_margin"
+        />
+    <ImageView
+        android:id="@+id/profileColor3"
+        app:tint="@color/profileColor3"
+        android:layout_width="@dimen/color_picker_button"
+        android:layout_height="@dimen/color_picker_button"
+        android:src="@drawable/child_icon"
+        android:background="@drawable/color_item"
+        android:layout_margin="@dimen/color_picker_margin"
+        />
+    <ImageView
+        android:id="@+id/profileColor4"
+        app:tint="@color/profileColor4"
+        android:layout_width="@dimen/color_picker_button"
+        android:layout_height="@dimen/color_picker_button"
+        android:src="@drawable/child_icon"
+        android:background="@drawable/color_item"
+        android:layout_margin="@dimen/color_picker_margin"
+        />
+    <ImageView
+        android:id="@+id/profileColor5"
+        app:tint="@color/profileColor5"
+        android:layout_width="@dimen/color_picker_button"
+        android:layout_height="@dimen/color_picker_button"
+        android:src="@drawable/child_icon"
+        android:background="@drawable/color_item"
+        android:layout_margin="@dimen/color_picker_margin"
+        />
+    <ImageView
+        android:id="@+id/profileColor6"
+        app:tint="@color/profileColor6"
+        android:layout_width="@dimen/color_picker_button"
+        android:layout_height="@dimen/color_picker_button"
+        android:src="@drawable/child_icon"
+        android:background="@drawable/color_item"
+        android:layout_margin="@dimen/color_picker_margin"
+        />
+
+
+
+
+
+</GridLayout>

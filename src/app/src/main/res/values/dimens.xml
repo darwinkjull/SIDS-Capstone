@@ -5,4 +5,6 @@
     <dimen name="margin_half_standard"> 8dp </dimen>
     <dimen name="menu_button"> 90dp </dimen>
     <dimen name="menu_half_button">60dp</dimen>
+    <dimen name="color_picker_button">80dp</dimen>
+    <dimen name="color_picker_margin">6dp</dimen>
 </resources>
