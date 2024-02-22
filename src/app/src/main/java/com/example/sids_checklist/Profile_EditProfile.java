@@ -75,6 +75,7 @@ public class Profile_EditProfile {
                     newProfile.setAge(profileAge);
                     newProfile.setProfile_color(colorResource);
                     db.updateProfile(profileID, newProfile);
+                    popUpInterface.refreshProfiles();
                     popupWindow.dismiss();
                 }
             }
