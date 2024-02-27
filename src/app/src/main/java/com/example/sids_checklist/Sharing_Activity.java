@@ -16,6 +16,16 @@ import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ *  To share files using wifi direct, we first need to define our wifi direct methods, classes etc.
+ *  to get the sharing backend operational. Following this, we will convert our tables into JSON,
+ *  send via wifi direct, then unpackage them and merge into the existing tables.
+ *  (https://developer.android.com/develop/connectivity/wifi/wifip2p)
+ *  (https://stackoverflow.com/questions/38748855/can-i-use-androids-wifi-p2p-api-to-transfer-sqlite-data-between-apps)
+ *  (https://stackoverflow.com/questions/25722585/convert-sqlite-to-json)
+ */
+
 public class Sharing_Activity extends AppCompatActivity {
     private int profileID;
     private List<ProfileModel> profileModelList;
