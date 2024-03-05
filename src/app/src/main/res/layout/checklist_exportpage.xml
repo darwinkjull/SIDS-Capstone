@@ -2,24 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:ignore="MissingDefaultResource">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="16dp">
-        <TableLayout
-            android:id="@+id/export_table"
-            android:layout_below="@+id/Export_Confirm"
+        <TextView
+            android:id="@+id/export_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Overview"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/receive_view"
+            android:layout_below="@id/export_title"
             android:layout_width="match_parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:isScrollContainer="true"
-            android:scrollbarTrackVertical="@color/colorPrimaryDark"
-            tools:ignore="MissingConstraints">
-        </TableLayout>
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:background="#fafafa" />
 
 </RelativeLayout>
