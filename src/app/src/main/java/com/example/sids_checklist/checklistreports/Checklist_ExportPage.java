@@ -1,14 +1,17 @@
 package com.example.sids_checklist.checklistreports;
 
+/*
+    Uses the expandable recyclerview implementation by
+    https://github.com/nikolajakshic/expandablerecycler/tree/master
+*/
+
 import static android.graphics.Color.parseColor;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.media.Session2Command;
 import android.os.Bundle;
-import android.se.omapi.Session;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +29,6 @@ import com.example.sids_checklist.R;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
