@@ -41,6 +41,8 @@ public class Sharing_Activity extends AppCompatActivity {
     private WifiP2pManager.Channel channel;
     private BroadcastReceiver receiver;
     private IntentFilter intentFilter;
+    private WifiP2pManager.PeerListListener peerListListener;
+    private List<String> selectedProfiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,8 @@ public class Sharing_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Sharing_SendInfo sendInfoPopup = new Sharing_SendInfo();
-                sendInfoPopup.showAddProfilePopUp(v);
+
+                sendInfoPopup.showSendProfilePopUp(v, manager, channel, peerListListener, selectedProfiles);
             }
         });
 
@@ -89,7 +92,18 @@ public class Sharing_Activity extends AppCompatActivity {
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
+    }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        registerReceiver(receiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        unregisterReceiver(receiver);
     }
 
 }
