@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
-            android:text="Share &amp; Receive Data"
+            android:text="Share Profiles"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
@@ -55,7 +55,7 @@
             android:id="@+id/sendInfoButton"
             android:layout_marginVertical="@dimen/margin_standard"
             android:drawableTop="@drawable/upload_icon"
-            android:text="Share baby data"
+            android:text="Share Selected Profiles"
             android:textSize="20sp" />
 
 <!--        <Button-->
@@ -71,23 +71,29 @@
     <RelativeLayout
         android:layout_below="@id/shareButtons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin_standard">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_half_standard"
+        android:background="@drawable/layout_frame">
 
         <TextView
             android:id="@+id/profileListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="All Baby Profiles"
+            android:layout_marginTop="@dimen/margin_half_standard"
+            android:text="Select Baby Profiles to Share:"
             android:textSize="24dp"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profilesSharingList"
-            android:layout_below="@id/profileListTitle"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="400dp"
+            android:layout_below="@id/profileListTitle"
+            android:layout_marginStart="@dimen/margin_half_standard"
+            android:layout_marginTop="@dimen/margin_half_standard"
+            android:layout_marginEnd="@dimen/margin_half_standard"
+            android:layout_marginBottom="@dimen/margin_half_standard" />
 
     </RelativeLayout>
 
