@@ -3,6 +3,7 @@ package com.example.sids_checklist;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,11 +47,13 @@ public class Sharing_SendInfo implements WifiP2pManager.PeerListListener {
             @Override
             public void onSuccess() {
                 manager.requestPeers(channel, peerListListener);
+                Log.d("tag", "Detected peers!");
 
             }
 
             @Override
             public void onFailure(int reason) {
+                Log.d("tag", "Failed to detect peers");
 
             }
         });
@@ -76,6 +79,8 @@ public class Sharing_SendInfo implements WifiP2pManager.PeerListListener {
         deviceListAdapter = new DeviceListAdapter(deviceList);
         deviceRecyclerList.setLayoutManager(new LinearLayoutManager(deviceRecyclerList.getContext()));
         deviceRecyclerList.setAdapter(deviceListAdapter);
+
+        Log.d("tag", "Peer list created and displayed");
 
 
     }
