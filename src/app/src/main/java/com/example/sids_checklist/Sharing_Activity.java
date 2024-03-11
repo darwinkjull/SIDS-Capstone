@@ -1,13 +1,12 @@
 package com.example.sids_checklist;
 
-import static android.os.Looper.getMainLooper;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,10 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sids_checklist.checklistadapter.ProfileListAdapter;
+import com.example.sids_checklist.checklistadapter.ProfileListCheckableAdapter;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistsharing.WifiDirectBroadcastReceiver;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ import java.util.Objects;
 public class Sharing_Activity extends AppCompatActivity {
     private int profileID;
     private List<ProfileModel> profileModelList;
-    private ProfileListAdapter profileListAdapter;
+    private ProfileListCheckableAdapter profileListCheckableAdapter;
     private WifiP2pManager manager;
     private WifiP2pManager.Channel channel;
     private BroadcastReceiver receiver;
@@ -57,13 +58,12 @@ public class Sharing_Activity extends AppCompatActivity {
 
         Button returnFromSharingButton = findViewById(R.id.returnFromSharingButton);
         Button sendInfoButton = findViewById(R.id.sendInfoButton);
-//        Button receiveInfoButton = findViewById(R.id.receiveInfoButton);
         RecyclerView profileRecyclerList = findViewById(R.id.profilesSharingList);
 
         profileModelList = profile_db.getAllProfiles();
-        profileListAdapter = new ProfileListAdapter(profile_db, this, profileModelList);
+        profileListCheckableAdapter = new ProfileListCheckableAdapter(profile_db, this, profileModelList);
         profileRecyclerList.setLayoutManager(new LinearLayoutManager(this));
-        profileRecyclerList.setAdapter(profileListAdapter);
+        profileRecyclerList.setAdapter(profileListCheckableAdapter);
 
         returnFromSharingButton.setOnClickListener(v -> {
             Intent i = new Intent(Sharing_Activity.this, Main_Activity.class);
@@ -74,12 +74,14 @@ public class Sharing_Activity extends AppCompatActivity {
         sendInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sharing_SendInfo sendInfoPopup = new Sharing_SendInfo();
-
-                sendInfoPopup.showSendProfilePopUp(v, manager, channel, peerListListener, selectedProfiles);
+                selectedProfiles = profileListCheckableAdapter.getCheckedProfiles();
+                if(!selectedProfiles.isEmpty()) {
+                    Log.d("tag", "Starting sendInfoPopup, selected profiles: " + selectedProfiles);
+                    Sharing_SendInfo sendInfoPopup = new Sharing_SendInfo();
+                    sendInfoPopup.showSendProfilePopUp(v, manager, channel, peerListListener, selectedProfiles);
+                }
             }
         });
-
 
         // P2P sharing below:
         manager = (WifiP2pManager) this.getSystemService(Context.WIFI_P2P_SERVICE);

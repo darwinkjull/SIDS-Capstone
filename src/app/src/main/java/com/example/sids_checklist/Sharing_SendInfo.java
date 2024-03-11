@@ -58,11 +58,6 @@ public class Sharing_SendInfo implements WifiP2pManager.PeerListListener {
             }
         });
 
-
-        acceptInfoTrueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { /* Activate fetch our data and send it */ }
-        });
         acceptInfoFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

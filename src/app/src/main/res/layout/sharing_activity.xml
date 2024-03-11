@@ -69,10 +69,13 @@
     </GridLayout>
 
     <RelativeLayout
-        android:layout_below="@id/shareButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_half_standard"
+        android:layout_below="@id/shareButtons"
+        android:layout_marginStart="@dimen/margin_half_standard"
+        android:layout_marginTop="@dimen/margin_half_standard"
+        android:layout_marginEnd="@dimen/margin_half_standard"
+        android:layout_marginBottom="@dimen/margin_half_standard"
         android:background="@drawable/layout_frame">
 
         <TextView
