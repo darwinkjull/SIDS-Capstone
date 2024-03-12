@@ -48,8 +48,16 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
 
         checkForProfiles();
 
-        Button addProfileButton = findViewById(R.id.addProfileButton);
+        Button addProfileButtonNoProfile = findViewById(R.id.addProfileButton_NoProfileSelected);
         Button returnFromProfilesButton = findViewById(R.id.returnFromProfilesButton);
+
+        addProfileButtonNoProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Profile_AddProfile addProfilePopUp = new Profile_AddProfile();
+                addProfilePopUp.showAddProfilePopUp(v, context);
+            }
+        });
 
         returnFromProfilesButton.setOnClickListener(v -> {
             Intent i = new Intent(Profile_Activity.this, Main_Activity.class);
@@ -57,13 +65,6 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
             startActivity(i);
         });
 
-        Profile_AddProfile addProfilePopUp = new Profile_AddProfile();
-        addProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addProfilePopUp.showAddProfilePopUp(v, context);
-            }
-        });
 
     }
 
@@ -98,10 +99,20 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
             profileViewSwitcher.setDisplayedChild(profileViewSwitcher.indexOfChild(findViewById(R.id.profileInfo_profilesExist)));
             // Initialize elements of this view
 
+
+            Button addProfileButton = findViewById(R.id.addProfileButton);
             Button editProfileButton = findViewById(R.id.editProfileButton);
             Button deleteProfileButton = findViewById(R.id.deleteProfileButton);
 
             RecyclerView profileRecyclerList = findViewById(R.id.profilesList);
+
+            addProfileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Profile_AddProfile addProfilePopUp = new Profile_AddProfile();
+                    addProfilePopUp.showAddProfilePopUp(v, context);
+                }
+            });
 
             editProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
