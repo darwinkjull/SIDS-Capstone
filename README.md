@@ -1,5 +1,7 @@
-# SafeSleep
+# SafeSleep 
+
 A Carleton Engineering fourth year capstone project centered around the implementation of best practices for SIDS.
+
 
 ## About the project:
 This project is a capstone done as part of our undergraduate Biomedical and Electrical Engineering degrees at Carleton University. A capstone project typically requires students to apply the engineering knowledge they have developed to a real engineering project. We have chosen to develop a mobile application that will support new parents in implementing evidence-based best practices for Sudden Infant Death Syndrome (SIDS). 
@@ -12,7 +14,7 @@ This project is conducted under the supervision of Fateme Rajabiyazdi, an assosc
 ## Features:
 |Profile Management|Literature-Backed Checklist Items|Habit Tracking|
 |------------------|---------------------------------|--------------|
-|<img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif1.gif" width = 216 height = 444/>| <img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif2.gif" width = 216 height = 444/>|<img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif3.gif" width = 216 height = 444/>|
+|<img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/visuals/gif1.gif" width = 216 height = 444/>| <img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/visuals/gif2.gif" width = 216 height = 444/>|<img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/visuals/gif3.gif" width = 216 height = 444/>|
 
 Other Features Include:
 - [x] Data sharing using wireless peer-to-peer sharing methods
