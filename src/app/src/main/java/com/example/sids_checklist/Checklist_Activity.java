@@ -95,8 +95,10 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // listen for "ADD" button being pressed by user
         // if pressed, continue to Item adding functionality in Checklist_AddNewItem
         fab.setOnClickListener(
-                v -> Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
-                        Checklist_AddNewItem.TAG));
+                v -> {
+                    Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
+                            Checklist_AddNewItem.TAG);
+                });
 
         returnFromChecklistButton.setOnClickListener(v -> {
             Intent i = new Intent(Checklist_Activity.this, Main_Activity.class);

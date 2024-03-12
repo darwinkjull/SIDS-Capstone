@@ -6,17 +6,18 @@ Creating a reports page to output the progress of the checklist
 
  */
 
-import static android.graphics.Color.parseColor;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.sids_checklist.Main_Activity;
-import com.example.sids_checklist.Profile_Activity;
 import com.example.sids_checklist.R;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
@@ -37,11 +38,15 @@ public class Checklist_Reports extends AppCompatActivity {
     ArrayList<String> sessionList;
     private int profileID;
     private String profileUsername;
+    private LineChart lineChart;
+
+    private LineDataSet lineDataSet;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checklist_report);
         Objects.requireNonNull(getSupportActionBar()).hide();
+
 
         // Get the profile ID that was passed into the activity using the intent
         profileID = getIntent().getIntExtra("profile_id", -1);
@@ -51,7 +56,60 @@ public class Checklist_Reports extends AppCompatActivity {
         profile_db.openDatabase();
         profileUsername = profile_db.getUsernameByID(profileID);
 
-        LineChart lineChart = findViewById(R.id.checklistChart);
+        List<String> usernameList;
+        usernameList = profile_db.getAllUsernames();
+
+        // Set up spinner (drop down menu) to house the profiles we can select
+        // The ArrayAdapter is used to put our list of usernames into the drop down menu
+        Spinner profile_select = (Spinner) findViewById(R.id.profile_select_reports);
+        ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, usernameList);
+        usernameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        profile_select.setAdapter(usernameAdapter);
+        if (profileID != -1) {
+            profile_select.setSelection(usernameAdapter.getPosition(profile_db.getUsernameByID(profileID)));
+        }
+
+        /*
+         * This itemSelectedListener will allow us to navigate using the buttons only when
+         * an item from the list has been chosen
+         */
+        profile_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedUsername = parent.getItemAtPosition(position).toString();
+                // Getting profile ID from the selected user name
+                profileID = profile_db.getIDByUsername(selectedUsername);
+                getData();
+                getSleepSessions();
+                String colour = profile_db.getProfileInfoFromID(profileID).getProfile_color();
+                int colour_id = R.color.profileColor1;
+                switch (colour) {
+                    case "profileColor2": colour_id = R.color.profileColor2; break;
+                    case "profileColor3": colour_id = R.color.profileColor3; break;
+                    case "profileColor4": colour_id = R.color.profileColor4; break;
+                    case "profileColor5": colour_id = R.color.profileColor5; break;
+                    case "profileColor6": colour_id = R.color.profileColor6; break;
+                }
+
+                int colour_real = getResources().getColor(colour_id, null);
+
+                setColoursInvalidateBitmapCache(colour_real);
+
+                XAxis xAxis = lineChart.getXAxis();
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(sessionList));
+                lineDataSet.setValues(lineArrayList);
+                lineDataSet.notifyDataSetChanged();
+                lineChart.moveViewToX(lineDataSet.getEntryCount());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        lineChart = findViewById(R.id.checklistChart);
 
         // Add the "REPORTS" "button capability onto screen
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
@@ -61,10 +119,7 @@ public class Checklist_Reports extends AppCompatActivity {
         getData();
         getSleepSessions();
 
-        LineDataSet lineDataSet = new LineDataSet(lineArrayList, "Sleep Sessions");
-        LineData lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
-
+        lineDataSet = new LineDataSet(lineArrayList, "Sleep Sessions");
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(sessionList));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -72,10 +127,31 @@ public class Checklist_Reports extends AppCompatActivity {
         xAxis.setGranularity(1);
         xAxis.setGranularityEnabled(true);
         xAxis.setDrawGridLines(false);
+
+        String colour = profile_db.getProfileInfoFromID(profileID).getProfile_color();
+        int colour_id = R.color.profileColor1;
+        switch (colour) {
+            case "profileColor2": colour_id = R.color.profileColor2; break;
+            case "profileColor3": colour_id = R.color.profileColor3; break;
+            case "profileColor4": colour_id = R.color.profileColor4; break;
+            case "profileColor5": colour_id = R.color.profileColor5; break;
+            case "profileColor6": colour_id = R.color.profileColor6; break;
+        }
+
+        int colour_real = getResources().getColor(colour_id, null);
+        setColoursInvalidateBitmapCache(colour_real);
+        lineDataSet.setValueTextSize(10); // hide the top text
+        lineDataSet.setCircleRadius(8);
+        lineDataSet.setLineWidth(3);
+
+        LineData lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineChart.getDescription().setEnabled(false);
         lineChart.getAxisLeft().setDrawGridLines(false);
 
         lineChart.setDragEnabled(true);
-        lineChart.moveViewToX(lineData.getEntryCount());
+        lineChart.moveViewToX(lineDataSet.getEntryCount());
         lineChart.setVisibleXRangeMaximum(5);
         lineChart.getXAxis().setAxisMinimum(0);
         lineChart.getAxisLeft().setAxisMinimum(0);
@@ -83,15 +159,6 @@ public class Checklist_Reports extends AppCompatActivity {
         lineChart.getAxisRight().setEnabled(false);
         lineChart.getLegend().setEnabled(false);
         lineChart.setExtraTopOffset(35);
-
-        lineDataSet.setColors(parseColor("#D2DE32"));
-        lineDataSet.setCircleColor(parseColor("#A2C579"));
-        lineDataSet.setValueTextSize(10); // hide the top text
-        lineDataSet.setCircleRadius(8);
-        lineDataSet.setCircleHoleColor(parseColor("#A2C579"));
-        lineDataSet.setLineWidth(3);
-
-        lineChart.getDescription().setEnabled(false);
 
         returnFromReportsButton.setOnClickListener(v -> {
             Intent i = new Intent(Checklist_Reports.this, Main_Activity.class);
@@ -129,6 +196,22 @@ public class Checklist_Reports extends AppCompatActivity {
             String[] tempString = (String.valueOf(session).split(" "));
             sessionList.add(tempString[1] + " " + tempString[2] + " " + tempString[3]);
         });
+    }
+
+    /**
+     * Reset the dataset's bitmap
+     * More info https://stackoverflow.com/questions/54350166/mpchart-android-setcirclecolor-not-reflecting
+     * @param colour Colour to change the data points to
+     */
+    private void setColoursInvalidateBitmapCache(int colour)
+    {
+        lineDataSet.setDrawCircles(true);
+        int count = lineDataSet.getCircleColors().size();
+        lineDataSet.resetCircleColors();
+        lineDataSet.setColors(colour);
+        lineDataSet.setCircleColor(colour);
+        lineDataSet.setCircleHoleColor(colour);
+        if (count == 1) {lineDataSet.getCircleColors().add(colour);}
     }
 
     public String getProfileUsername(){return profileUsername;}

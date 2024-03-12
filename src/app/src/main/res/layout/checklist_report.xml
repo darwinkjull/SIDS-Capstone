@@ -4,17 +4,26 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/reportsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp"
+        android:layout_below="@+id/returnFromReportsButton"
+        android:layout_centerInParent="true"
         android:text="Checklist Completion Tracking"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
+
+    <Spinner
+        android:layout_alignParentEnd="true"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@drawable/layout_frame"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:id="@+id/profile_select_reports" />
+
     <Button
         android:id="@+id/returnFromReportsButton"
         android:layout_width="wrap_content"
@@ -53,13 +62,15 @@
         android:id="@+id/reportGraphTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/returnFromReportsButton"
+        android:layout_below="@id/reportsTitle"
         android:layout_centerInParent="true"
         android:layout_marginTop="16dp"
         android:text="Percent Complete (%)"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+
 
     <Button
         android:id="@+id/ExportButton"
