@@ -1,7 +1,5 @@
 package com.example.sids_checklist.checklistadapter;
 
-import android.bluetooth.BluetoothClass;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,21 +16,40 @@ import java.util.List;
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.ViewHolder> {
     private List<String> deviceList;
 
+    private OnClickListener onClickListener;
+
     public DeviceListAdapter(List<String> deviceList){
         this.deviceList = deviceList;
     }
 
     @NonNull
-    public DeviceListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int position){
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int position){
         View deviceView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.profile_card, parent, false);
-        return new DeviceListAdapter.ViewHolder(deviceView);
+                .inflate(R.layout.device_card, parent, false);
+        return new ViewHolder(deviceView);
     }
 
-    public void onBindViewHolder(DeviceListAdapter.ViewHolder holder, int position){
+    public void onBindViewHolder(ViewHolder holder, int position){
         String deviceName = deviceList.get(position);
-
         holder.deviceName.setText(deviceName);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickListener != null){
+                    onClickListener.onClick(deviceName);
+                }
+            }
+        });
+
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
+    }
+
+    public interface OnClickListener{
+        void onClick(String deviceName);
     }
 
     public int getItemCount(){return deviceList.size();}

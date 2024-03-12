@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sids_checklist.checklistadapter.DeviceListAdapter;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sharing_SendInfo implements WifiP2pManager.PeerListListener {
@@ -25,6 +26,7 @@ public class Sharing_SendInfo implements WifiP2pManager.PeerListListener {
     private List<String> deviceList;
     private DeviceListAdapter deviceListAdapter;
     private RecyclerView deviceRecyclerList;
+    private String selectedDeviceName;
     public void showSendProfilePopUp(View view, WifiP2pManager manager, WifiP2pManager.Channel channel, WifiP2pManager.PeerListListener peerListListener, List<String> selectedProfiles) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View sendInfoPopUpView = inflater.inflate(R.layout.sharing_send, null);
@@ -32,7 +34,6 @@ public class Sharing_SendInfo implements WifiP2pManager.PeerListListener {
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-        Button acceptInfoTrueButton = sendInfoPopUpView.findViewById(R.id.confirmOperation);
         Button acceptInfoFalseButton = sendInfoPopUpView.findViewById(R.id.cancelOperation);
 
         ProgressBar sharingProgressBar = sendInfoPopUpView.findViewById(R.id.sharingProgressBar);
@@ -40,8 +41,21 @@ public class Sharing_SendInfo implements WifiP2pManager.PeerListListener {
 
         Profile_DatabaseHandler profile_db = new Profile_DatabaseHandler(view.getContext());
         profile_db.openDatabase();
+        deviceList = new ArrayList<String>();
+        deviceList.add("Test Device");
 
         deviceRecyclerList = sendInfoPopUpView.findViewById(R.id.profileSelectionList);
+        deviceListAdapter = new DeviceListAdapter(deviceList);
+        deviceRecyclerList.setLayoutManager(new LinearLayoutManager(deviceRecyclerList.getContext()));
+        deviceRecyclerList.setAdapter(deviceListAdapter);
+
+        deviceListAdapter.setOnClickListener(new DeviceListAdapter.OnClickListener() {
+            @Override
+            public void onClick(String deviceName){
+                selectedDeviceName = deviceName;
+                Log.d("tag", "Selected device: " + selectedDeviceName);
+            }
+        });
 
         manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
             @Override
