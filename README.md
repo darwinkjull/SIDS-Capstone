@@ -12,7 +12,7 @@ This project is conducted under the supervision of Fateme Rajabiyazdi, an assosc
 ## Features:
 |Profile Management|Literature-Backed Checklist Items|Habit Tracking|
 |------------------|---------------------------------|--------------|
-|<img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif1.gif" width = 270 height = 555/>| <img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif2.gif" width = 270 height = 555/>|<img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif3.gif" width = 270 height = 555/>|
+|<img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif1.gif" width = 216 height = 444/>| <img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif2.gif" width = 216 height = 444/>|<img src="https://github.com/darwinkjull/SIDS-Capstone/blob/main/GIF/gif3.gif" width = 216 height = 444/>|
 
 Other Features Include:
 - [x] Data sharing using wireless peer-to-peer sharing methods
