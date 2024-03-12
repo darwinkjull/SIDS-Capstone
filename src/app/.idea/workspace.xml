@@ -28,6 +28,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
   <component name="ProjectId" id="2XzUqrNRldh3oppk1IQyVvjQjuv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -42,7 +45,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "CHecklist-Suggestion",
-    "last_opened_file_path": "C:/Users/maven/OneDrive/Documents/GitHub/SIDS-Capstone/src/app/src"
+    "last_opened_file_path": "C:/Users/Darwin/Documents/GitHub/SIDS-Capstone/src"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
