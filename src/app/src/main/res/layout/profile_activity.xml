@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:text="Edit"
                     android:drawableTop="@drawable/edit_icon"
-                    android:layout_marginStart="@dimen/margin_half_standard" />
+                    android:layout_marginEnd="@dimen/margin_half_standard" />
 
                 <Button
                     android:id="@+id/deleteProfileButton"
