@@ -61,9 +61,11 @@
                         android:hint="Enter Name"
                         android:singleLine="true"
                         android:maxLength="12"
+                        android:imeOptions="actionDone"
                         android:inputType="text"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textSize="24sp" />
+
                 </RelativeLayout>
             </RelativeLayout>
 
