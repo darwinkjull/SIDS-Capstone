@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -134,6 +135,14 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
             profileListAdapter = new ProfileListAdapter(profile_db, this, profileModelList);
             profileRecyclerList.setLayoutManager(new LinearLayoutManager(this));
             profileRecyclerList.setAdapter(profileListAdapter);
+
+            profileListAdapter.setOnClickListener(new ProfileListAdapter.OnClickListener(){
+                @Override
+                public void onClick(ProfileModel profile) {
+                    profileID = profile.getId();
+                    updateProfileDisplay();
+                }
+            });
 
             updateProfileDisplay();
         }

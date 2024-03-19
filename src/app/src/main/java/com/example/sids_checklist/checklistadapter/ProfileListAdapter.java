@@ -23,6 +23,7 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
     private List<ProfileModel> profileList;
     private Profile_DatabaseHandler profile_db;
     private Context context;
+    private OnClickListener onClickListener;
 
     public ProfileListAdapter(Profile_DatabaseHandler profile_db, Context context, List<ProfileModel> profileList){
         this.profile_db = profile_db;
@@ -46,6 +47,24 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
         holder.age.setText(profile_date.getWeeks());
         int colorID = context.getResources().getIdentifier(profile.getProfile_color(), "color", context.getPackageName());
         if (colorID != 0){holder.icon.setColorFilter(ContextCompat.getColor(context, colorID), PorterDuff.Mode.SRC_IN);}
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickListener != null){
+                    onClickListener.onClick(profile);
+                }
+            }
+        });
+
+    }
+
+    public void setOnClickListener(ProfileListAdapter.OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
+    }
+
+    public interface OnClickListener{
+        void onClick(ProfileModel profile);
     }
 
     public int getItemCount(){return profileList.size();}
