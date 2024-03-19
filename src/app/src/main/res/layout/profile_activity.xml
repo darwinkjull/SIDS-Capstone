@@ -54,7 +54,7 @@
         android:layout_marginHorizontal="@dimen/margin_standard">
 
         <RelativeLayout
-            android:id="@+id/profileInfo"
+            android:id="@+id/selectedProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/layout_frame"
@@ -69,6 +69,7 @@
                 android:textSize="24dp"
                 android:layout_centerHorizontal="true" />
             <GridLayout
+                android:id="@+id/selectedProfileInfo"
                 android:layout_below="@id/selectedProfileTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,60 +105,50 @@
                     android:id="@+id/profileImage"
                     android:layout_width="@dimen/menu_button"
                     android:layout_height="@dimen/menu_button"
-                    android:layout_below="@id/selectedProfileTitle"
+                    android:layout_below="@id/profileAge"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/child_icon" />
             </GridLayout>
 
-            <LinearLayout
+            <GridLayout
+                android:id="@+id/profileButtons"
+                android:layout_below="@id/selectedProfileInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:columnCount="3"
+                android:rowCount="1"
+                android:layout_centerHorizontal="true">
 
-            </LinearLayout>
+                <Button
+                    android:id="@+id/editProfileButton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:drawableTop="@drawable/edit_icon"
+                    android:layout_marginStart="@dimen/margin_half_standard" />
+
+                <Button
+                    android:id="@+id/deleteProfileButton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"
+                    android:layout_marginStart="@dimen/margin_half_standard"
+                    android:drawableTop="@drawable/remove_icon"/>
+
+
+            </GridLayout>
 
 
         </RelativeLayout>
 
-        <GridLayout
-            android:id="@+id/profileButtons"
-            android:layout_below="@id/profileInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:rowCount="1"
-            android:layout_centerHorizontal="true">
 
-            <Button
-                android:id="@+id/addProfileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:drawableTop="@drawable/add_icon" />
-
-
-            <Button
-                android:id="@+id/editProfileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:drawableTop="@drawable/edit_icon"
-                android:layout_marginStart="@dimen/margin_half_standard" />
-
-            <Button
-                android:id="@+id/deleteProfileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_marginStart="@dimen/margin_half_standard"
-                android:drawableTop="@drawable/remove_icon"/>
-
-
-        </GridLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/profileButtons"
+            android:layout_below="@id/selectedProfile"
             android:background="@drawable/layout_frame"
+            android:layout_marginTop="@dimen/margin_standard"
             android:padding="@dimen/margin_half_standard">
 
 
@@ -175,6 +166,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/profileListTitle" />
+
+            <Button
+                android:id="@+id/addProfileButton"
+                android:layout_below="@id/profilesList"
+                android:layout_centerHorizontal="true"
+                android:text="Add Profile"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/add_icon" />
+
         </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
