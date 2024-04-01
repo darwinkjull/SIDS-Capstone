@@ -100,6 +100,19 @@ public class Sharing_Activity extends AppCompatActivity {
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
+        manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+                Log.d("tag", "Beginning peer discovery");
+            }
+
+            @Override
+            public void onFailure(int reason) {
+                Log.d("tag", "Failed to begin peer discovery");
+
+            }
+        });
+
         deviceList = new ArrayList<String>();
         deviceList.add("Test Device");
 
@@ -115,6 +128,7 @@ public class Sharing_Activity extends AppCompatActivity {
                 Log.d("tag", "Selected device: " + selectedDeviceName);
             }
         });
+
     }
 
     public WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
