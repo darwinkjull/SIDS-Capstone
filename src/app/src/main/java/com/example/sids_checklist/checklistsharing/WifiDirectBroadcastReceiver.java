@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.util.Log;
 
 import com.example.sids_checklist.Sharing_Activity;
 
@@ -16,9 +17,9 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
     private WifiP2pManager manager;
     private WifiP2pManager.Channel channel;
-    private Activity activity;
+    private Sharing_Activity activity;
 
-    public WifiDirectBroadcastReceiver(WifiP2pManager manager, WifiP2pManager.Channel channel, Activity activity){
+    public WifiDirectBroadcastReceiver(WifiP2pManager manager, WifiP2pManager.Channel channel, Sharing_Activity activity){
         super();
         this.manager = manager;
         this.channel = channel;
@@ -30,10 +31,17 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
 
         if (WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION.equals(action)){
-            // Implement these later
+            if(WifiP2pManager.WIFI_P2P_STATE_ENABLED == intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1)){
+                Log.d("tag", "Wifi Enabled");
+            }
+            else{
+                Log.d("tag", "Wifi Disabled");
+            }
         }
         else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)){
-
+            if(manager != null){
+                manager.requestPeers(channel, activity.peerListListener);
+            }
         }
         else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)){
 

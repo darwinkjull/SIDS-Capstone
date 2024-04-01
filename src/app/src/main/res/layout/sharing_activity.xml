@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,39 +40,12 @@
 
     </LinearLayout>
 
-    <GridLayout
-        android:id="@+id/shareButtons"
-        android:layout_below="@id/profile_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="1"
-        android:alignmentMode="alignMargins"
-        android:layout_centerHorizontal="true"
-        android:padding="@dimen/margin_standard">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/sendInfoButton"
-            android:layout_marginVertical="@dimen/margin_standard"
-            android:drawableTop="@drawable/upload_icon"
-            android:text="Share Selected Profiles"
-            android:textSize="20sp" />
-
-<!--        <Button-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/receiveInfoButton"-->
-<!--            android:layout_marginVertical="@dimen/margin_standard"-->
-<!--            android:drawableTop="@drawable/download_icon"-->
-<!--            android:text="Receive Baby Data"-->
-<!--            android:textSize="20sp" />-->
-    </GridLayout>
 
     <RelativeLayout
+        android:id="@+id/profilesListLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shareButtons"
         android:layout_marginStart="@dimen/margin_half_standard"
         android:layout_marginTop="@dimen/margin_half_standard"
         android:layout_marginEnd="@dimen/margin_half_standard"
@@ -100,4 +74,36 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profilesListLayout"
+        android:layout_marginStart="@dimen/margin_half_standard"
+        android:layout_marginTop="@dimen/margin_half_standard"
+        android:layout_marginEnd="@dimen/margin_half_standard"
+        android:layout_marginBottom="@dimen/margin_half_standard"
+        android:background="@drawable/layout_frame"
+        >
+        <TextView
+            android:id="@+id/deviceListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_half_standard"
+            android:text="Select Device to Share With:"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/deviceSelectionList"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/deviceListTitle"
+            android:layout_marginStart="@dimen/margin_half_standard"
+            android:layout_marginTop="@dimen/margin_half_standard"
+            android:layout_marginEnd="@dimen/margin_half_standard"
+            android:layout_marginBottom="@dimen/margin_half_standard"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sids_checklist.checklistadapter.DeviceListAdapter;
 import com.example.sids_checklist.checklistadapter.ProfileListAdapter;
 import com.example.sids_checklist.checklistadapter.ProfileListCheckableAdapter;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
@@ -42,8 +45,11 @@ public class Sharing_Activity extends AppCompatActivity {
     private WifiP2pManager.Channel channel;
     private BroadcastReceiver receiver;
     private IntentFilter intentFilter;
-    private WifiP2pManager.PeerListListener peerListListener;
     private List<String> selectedProfiles;
+    private List<String> deviceList;
+    private DeviceListAdapter deviceListAdapter;
+    private RecyclerView deviceRecyclerList;
+    private String selectedDeviceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +63,7 @@ public class Sharing_Activity extends AppCompatActivity {
         profile_db.openDatabase();
 
         Button returnFromSharingButton = findViewById(R.id.returnFromSharingButton);
-        Button sendInfoButton = findViewById(R.id.sendInfoButton);
+        //Button sendInfoButton = findViewById(R.id.sendInfoButton);
         RecyclerView profileRecyclerList = findViewById(R.id.profilesSharingList);
 
         profileModelList = profile_db.getAllProfiles();
@@ -71,17 +77,17 @@ public class Sharing_Activity extends AppCompatActivity {
             startActivity(i);
         });
 
-        sendInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedProfiles = profileListCheckableAdapter.getCheckedProfiles();
-                if(!selectedProfiles.isEmpty()) {
-                    Log.d("tag", "Starting sendInfoPopup, selected profiles: " + selectedProfiles);
-                    Sharing_SendInfo sendInfoPopup = new Sharing_SendInfo();
-                    sendInfoPopup.showSendProfilePopUp(v, manager, channel, peerListListener, selectedProfiles);
-                }
-            }
-        });
+//        sendInfoButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                selectedProfiles = profileListCheckableAdapter.getCheckedProfiles();
+//                if(!selectedProfiles.isEmpty()) {
+//                    Log.d("tag", "Starting sendInfoPopup, selected profiles: " + selectedProfiles);
+//                    Sharing_SendInfo sendInfoPopup = new Sharing_SendInfo();
+//                    sendInfoPopup.showSendProfilePopUp(v, manager, channel, peerListListener, selectedProfiles);
+//                }
+//            }
+//        });
 
         // P2P sharing below:
         manager = (WifiP2pManager) this.getSystemService(Context.WIFI_P2P_SERVICE);
@@ -94,7 +100,36 @@ public class Sharing_Activity extends AppCompatActivity {
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
+        deviceList = new ArrayList<String>();
+        deviceList.add("Test Device");
+
+        deviceRecyclerList = this.findViewById(R.id.deviceSelectionList);
+        deviceListAdapter = new DeviceListAdapter(deviceList);
+        deviceRecyclerList.setLayoutManager(new LinearLayoutManager(deviceRecyclerList.getContext()));
+        deviceRecyclerList.setAdapter(deviceListAdapter);
+
+        deviceListAdapter.setOnClickListener(new DeviceListAdapter.OnClickListener() {
+            @Override
+            public void onClick(String deviceName){
+                selectedDeviceName = deviceName;
+                Log.d("tag", "Selected device: " + selectedDeviceName);
+            }
+        });
     }
+
+    public WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
+        @Override
+        public void onPeersAvailable(WifiP2pDeviceList peers) {
+            for (WifiP2pDevice device : peers.getDeviceList()) {
+                deviceList.add(device.deviceName);
+            }
+            deviceListAdapter = new DeviceListAdapter(deviceList);
+            deviceRecyclerList.setLayoutManager(new LinearLayoutManager(deviceRecyclerList.getContext()));
+            deviceRecyclerList.setAdapter(deviceListAdapter);
+
+            Log.d("tag", "Peer list created and displayed");
+        }
+    };
 
     @Override
     protected void onResume(){
