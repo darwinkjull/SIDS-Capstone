@@ -1,12 +1,5 @@
 package com.example.sids_checklist.checklistadapter;
 
-/*
-Creating an adapter class to support recycler view
-- List of items
-- activity context fot Main_Activity
-- constructor for adapter
- */
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,6 +21,9 @@ import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import java.util.List;
 import java.util.Calendar;
 
+/**
+ * The ChecklistAdapter class is responsible for managing the checklist items in a RecyclerView.
+ */
 public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.ViewHolder> {
     private List<ChecklistModel> checklistList;
     private final Checklist_Activity activity;
@@ -35,14 +31,26 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     private final Checklist_UtilDatabaseHandler disp_db;
 
     // Pass activity context to adapter
+    /**
+     * Constructs a ChecklistAdapter.
+     *
+     * @param db         The database handler for checklist items.
+     * @param disp_db    The database handler for displaying checklist items.
+     * @param activity   The activity associated with the adapter.
+     */
     public ChecklistAdapter(Checklist_DatabaseHandler db, Checklist_UtilDatabaseHandler disp_db, Checklist_Activity activity) {
         this.db = db;
         this.disp_db = disp_db;
         this.activity = activity;
     }
 
-    // define a viewholder which will get context from checklist_layout.xml
-    // this will help populate the item list using the parameters from the xml
+    /**
+     * Creates a ViewHolder by inflating the checklist_layout.xml.
+     *
+     * @param parent   The parent ViewGroup.
+     * @param viewType The view type.
+     * @return The ViewHolder instance.
+     */
     @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -50,7 +58,12 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
         return new ViewHolder(itemView);
     }
 
-    // get the name and status of the checklist item
+    /**
+     * Binds data to the ViewHolder.
+     *
+     * @param holder   The ViewHolder instance.
+     * @param position The position of the item in the list.
+     */
     public void onBindViewHolder(ViewHolder holder, int position) {
         db.openDatabase();
         ChecklistModel item = checklistList.get(position);
@@ -67,25 +80,39 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
         });
     }
 
-    // helper function to turn int (1/0) into boolean
+    /**
+     * Converts an integer to a boolean.
+     *
+     * @param i The integer value.
+     * @return True if the integer is non-zero, false otherwise.
+     */
     private boolean toBoolean(int i) {
         return i != 0;
     }
 
-    // update the checklist if new item is added
+    /**
+     * Sets the checklist items.
+     *
+     * @param checklistList The list of checklist items.
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void setItem(List<ChecklistModel> checklistList) {
         this.checklistList = checklistList;
         notifyDataSetChanged();
     }
 
+    /**
+     * Refreshes the checklist items with updated data.
+     *
+     * @param checklistList The list of updated checklist items.
+     *                      It contains the new data to be refreshed.
+     *                      Each ChecklistModel object in the list represents an item in the checklist.
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void refreshItems(List<ChecklistModel> checklistList) {
         disp_db.openDatabase();
         String session = String.valueOf(Calendar.getInstance().getTime());
-        checklistList.forEach((item) -> {
-            disp_db.insertItem(item.getItem(), item.getStatus(), session, activity.getProfileID());
-        });
+        checklistList.forEach((item) -> disp_db.insertItem(item.getItem(), item.getStatus(), session, activity.getProfileID()));
         checklistList.forEach((item) -> {
             db.updateStatus(item.getId(), 0, activity.getProfileID());
             item.setStatus(0);

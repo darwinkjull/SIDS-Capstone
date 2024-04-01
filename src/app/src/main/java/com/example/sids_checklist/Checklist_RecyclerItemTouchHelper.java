@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
 
-
+/**
+ * Constructs a new Checklist_RecyclerItemTouchHelper with the specified adapter.
+ */
 public class Checklist_RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private final ChecklistAdapter adapter;
     public Checklist_RecyclerItemTouchHelper(ChecklistAdapter adapter){
@@ -25,6 +27,14 @@ public class Checklist_RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCal
         this.adapter = adapter;
     }
 
+    /**
+     * Called when items are moved in the RecyclerView.
+     *
+     * @param recyclerView The RecyclerView instance.
+     * @param viewHolder   The ViewHolder of the item being moved.
+     * @param target       The ViewHolder of the target position.
+     * @return Always returns false as movement functionality is not implemented.
+     */
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView,
                           @NonNull RecyclerView.ViewHolder viewHolder,
@@ -32,6 +42,12 @@ public class Checklist_RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCal
         return false;
     }
 
+    /**
+     * Called when an item is swiped in the RecyclerView.
+     *
+     * @param viewHolder The ViewHolder of the swiped item.
+     * @param direction  The direction of the swipe.
+     */
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction){
         final int position = viewHolder.getAbsoluteAdapterPosition();
@@ -42,6 +58,18 @@ public class Checklist_RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCal
         }
     }
 
+    /**
+     * Overrides the default behavior of drawing the swipe backgrounds and icons.
+     * Customizes the appearance of the swipe action.
+     *
+     * @param c            The Canvas to draw the swipe content.
+     * @param recyclerView The RecyclerView instance.
+     * @param viewHolder   The ViewHolder of the swiped item.
+     * @param dx           The amount of horizontal displacement due to the swipe.
+     * @param dy           The amount of vertical displacement due to the swipe.
+     * @param actionState  The current action state of the swipe.
+     * @param isActive     Indicates whether the item is currently being swiped.
+     */
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
                             @NonNull RecyclerView.ViewHolder viewHolder,

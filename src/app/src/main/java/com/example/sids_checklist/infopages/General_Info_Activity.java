@@ -1,5 +1,6 @@
 package com.example.sids_checklist.infopages;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
@@ -12,7 +13,19 @@ import com.example.sids_checklist.R;
 
 import java.util.Objects;
 
+/**
+ * This class represents the activity for displaying general information.
+ * It extends AppCompatActivity to provide compatibility with older Android versions.
+ * The activity sets up a WebView to display a YouTube video embedded in an iframe.
+ * The video is loaded from a specific URL.
+ * It also includes a back button to navigate back to the previous activity.
+ */
 public class General_Info_Activity extends AppCompatActivity {
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState A Bundle object containing the activity's previously saved state.
+     */
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

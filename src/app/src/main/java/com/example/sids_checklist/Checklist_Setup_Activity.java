@@ -1,8 +1,5 @@
 package com.example.sids_checklist;
 
-
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,8 +23,16 @@ public class Checklist_Setup_Activity extends AppCompatActivity {
     private Checklist_DatabaseHandler db;
     private int profileID;
 
-
-
+    /**
+     * This method initializes the activity layout, hides the action bar,
+     * retrieves the profile ID from the intent, opens the checklist database,
+     * sets up RecyclerViews for each section, initializes items in the RecyclerViews,
+     * sets up adapters, and implements click listeners for the add and back buttons.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down,
+     *                           this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
+     *                           Otherwise, it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -49,9 +54,9 @@ public class Checklist_Setup_Activity extends AppCompatActivity {
         RecyclerView tasksRecyclerViewStandard = findViewById(R.id.StadardRecycler);
         tasksRecyclerViewStandard.setLayoutManager(new LinearLayoutManager(this));
         //initialize items in recycler view
-        tipsAdapterSmoking = new SetUpAdapter(this);
-        tipsAdapterCoSleeping = new SetUpAdapter(this);
-        tipsAdapterStandard = new SetUpAdapter(this);
+        tipsAdapterSmoking = new SetUpAdapter();
+        tipsAdapterCoSleeping = new SetUpAdapter();
+        tipsAdapterStandard = new SetUpAdapter();
 
         tasksRecyclerViewSmoking.setAdapter(tipsAdapterSmoking);
         Tips smoking = new Tips();
@@ -69,19 +74,14 @@ public class Checklist_Setup_Activity extends AppCompatActivity {
 
         //implement the add button
         Button add = findViewById(R.id.suggestedAdd);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkCheckedItems(tipsAdapterSmoking);
-                checkCheckedItems(tipsAdapterCoSleeping);
-                checkCheckedItems(tipsAdapterStandard);
-                Intent i = new Intent(Checklist_Setup_Activity.this, Checklist_Activity.class);
-                i.putExtra("profile_id", profileID);
-                startActivity(i);
-            }
+        add.setOnClickListener(v -> {
+            checkCheckedItems(tipsAdapterSmoking);
+            checkCheckedItems(tipsAdapterCoSleeping);
+            checkCheckedItems(tipsAdapterStandard);
+            Intent i = new Intent(Checklist_Setup_Activity.this, Checklist_Activity.class);
+            i.putExtra("profile_id", profileID);
+            startActivity(i);
         });
-
-
 
         Button back = findViewById(R.id.checklistButtonBack);
         back.setOnClickListener(v -> {
@@ -89,8 +89,12 @@ public class Checklist_Setup_Activity extends AppCompatActivity {
             i.putExtra("profile_id", profileID);
             startActivity(i);
         });
-
     }
+    /**
+     * Checks the checked items in the adapter and inserts them into the database.
+     *
+     * @param adapter The adapter containing the checklist items.
+     */
     private void checkCheckedItems(SetUpAdapter adapter){
         for (int i = 0; i < adapter.getItemCount(); i++){
             Tips item = adapter.getItem(i);
@@ -100,6 +104,11 @@ public class Checklist_Setup_Activity extends AppCompatActivity {
             }
         }
     }
+    /**
+     * Retrieves the profile ID associated with this activity.
+     *
+     * @return The profile ID.
+     */
     public int getProfileID(){return profileID;}
 }
 

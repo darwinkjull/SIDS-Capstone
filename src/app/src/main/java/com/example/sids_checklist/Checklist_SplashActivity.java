@@ -11,6 +11,14 @@ import java.util.Objects;
 
 @SuppressLint("CustomSplashScreen")
 public class Checklist_SplashActivity extends AppCompatActivity {
+    /**
+     * This method initializes the splash screen layout, hides the action bar,
+     * and sets up a delay before launching the next activity.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down,
+     *                           this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
+     *                           Otherwise, it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

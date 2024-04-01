@@ -10,7 +10,6 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
@@ -24,6 +23,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/*
+ * This class is responsible for the activity of the Checklist and related
+ * diaglogs. It uses a profileID passed from the Home Page activity to load
+ * the toDo list of the user.
+ *
+ * Within this program, the adapters for the checklist databases will help
+ * the user edit and save their items accordingly. This page also links to the
+ * "Tips" page.
+ *
+ * The Checklist was inspired by Mohit Singh's To Do List App Android Studio Tutorial
+ */
 public class Checklist_Activity extends AppCompatActivity implements DialogCloseListener {
     private int profileID;
     private ChecklistAdapter checklistAdapter;
@@ -95,10 +105,8 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         // listen for "ADD" button being pressed by user
         // if pressed, continue to Item adding functionality in Checklist_AddNewItem
         fab.setOnClickListener(
-                v -> {
-                    Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
-                            Checklist_AddNewItem.TAG);
-                });
+                v -> Checklist_AddNewItem.newInstance().show(getSupportFragmentManager(),
+                        Checklist_AddNewItem.TAG));
 
         returnFromChecklistButton.setOnClickListener(v -> {
             Intent i = new Intent(Checklist_Activity.this, Main_Activity.class);
@@ -124,6 +132,11 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         );
     }
 
+    /**
+     * This constructor handles the closing of any dialog interfaces that may appear through editing an item or creating a new item. When the dialog closes, it will update all the items and display the newest item at the top of the list.
+     *
+     * @param dialog – the dialog
+     */
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void handleDialogClose(DialogInterface dialog) {
@@ -132,6 +145,12 @@ public class Checklist_Activity extends AppCompatActivity implements DialogClose
         checklistAdapter.setItems(checklistList);
         checklistAdapter.notifyDataSetChanged();
     }
+
+    /**
+     * Retrieves the profile ID associated with this activity.
+     *
+     * @return profileID - the profile ID
+     */
     public int getProfileID(){return profileID;}
 
 }

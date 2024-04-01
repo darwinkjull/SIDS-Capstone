@@ -14,13 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sids_checklist.checklistadapter.ProfileListAdapter;
 import com.example.sids_checklist.checklistadapter.ProfileListCheckableAdapter;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistsharing.WifiDirectBroadcastReceiver;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,10 +31,8 @@ import java.util.Objects;
  *  (https://stackoverflow.com/questions/38748855/can-i-use-androids-wifi-p2p-api-to-transfer-sqlite-data-between-apps)
  *  (https://stackoverflow.com/questions/25722585/convert-sqlite-to-json)
  */
-
 public class Sharing_Activity extends AppCompatActivity {
     private int profileID;
-    private List<ProfileModel> profileModelList;
     private ProfileListCheckableAdapter profileListCheckableAdapter;
     private WifiP2pManager manager;
     private WifiP2pManager.Channel channel;
@@ -60,7 +56,7 @@ public class Sharing_Activity extends AppCompatActivity {
         Button sendInfoButton = findViewById(R.id.sendInfoButton);
         RecyclerView profileRecyclerList = findViewById(R.id.profilesSharingList);
 
-        profileModelList = profile_db.getAllProfiles();
+        List<ProfileModel> profileModelList = profile_db.getAllProfiles();
         profileListCheckableAdapter = new ProfileListCheckableAdapter(profile_db, this, profileModelList);
         profileRecyclerList.setLayoutManager(new LinearLayoutManager(this));
         profileRecyclerList.setAdapter(profileListCheckableAdapter);
@@ -71,22 +67,19 @@ public class Sharing_Activity extends AppCompatActivity {
             startActivity(i);
         });
 
-        sendInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedProfiles = profileListCheckableAdapter.getCheckedProfiles();
-                if(!selectedProfiles.isEmpty()) {
-                    Log.d("tag", "Starting sendInfoPopup, selected profiles: " + selectedProfiles);
-                    Sharing_SendInfo sendInfoPopup = new Sharing_SendInfo();
-                    sendInfoPopup.showSendProfilePopUp(v, manager, channel, peerListListener, selectedProfiles);
-                }
+        sendInfoButton.setOnClickListener(v -> {
+            selectedProfiles = profileListCheckableAdapter.getCheckedProfiles();
+            if(!selectedProfiles.isEmpty()) {
+                Log.d("tag", "Starting sendInfoPopup, selected profiles: " + selectedProfiles);
+                Sharing_SendInfo sendInfoPopup = new Sharing_SendInfo();
+                sendInfoPopup.showSendProfilePopUp(v, manager, channel, peerListListener, selectedProfiles);
             }
         });
 
         // P2P sharing below:
         manager = (WifiP2pManager) this.getSystemService(Context.WIFI_P2P_SERVICE);
         channel = manager.initialize(this, getMainLooper(), null);
-        receiver = new WifiDirectBroadcastReceiver(manager, channel, this);
+        receiver = new WifiDirectBroadcastReceiver();
 
         intentFilter = new IntentFilter();
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
@@ -96,12 +89,18 @@ public class Sharing_Activity extends AppCompatActivity {
 
     }
 
+    /**
+     * Registers the Wi-Fi P2P broadcast receiver when the activity resumes.
+     */
     @Override
     protected void onResume(){
         super.onResume();
         registerReceiver(receiver, intentFilter);
     }
 
+    /**
+     * Unregisters the Wi-Fi P2P broadcast receiver when the activity pauses.
+     */
     @Override
     protected void onPause(){
         super.onPause();

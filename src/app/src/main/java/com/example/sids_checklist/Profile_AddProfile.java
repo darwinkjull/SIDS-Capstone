@@ -1,7 +1,7 @@
 package com.example.sids_checklist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +19,23 @@ import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+/**
+ * A BottomSheetDialogFragment used for adding a new profile.
+ */
 public class Profile_AddProfile extends BottomSheetDialogFragment {
 
     private String colorResource;
 
     private Profile_PopUpInterface popUpInterface;
+    /**
+     * Displays the add profile popup.
+     *
+     * @param view    The view from which the popup is invoked.
+     * @param context The context of the invoking activity.
+     */
     public void showAddProfilePopUp(View view, Context context) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
-        View addProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
+        @SuppressLint("InflateParams") View addProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
         PopupWindow popupWindow = new PopupWindow(addProfilePopUpView,
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
@@ -55,13 +64,21 @@ public class Profile_AddProfile extends BottomSheetDialogFragment {
         checklist_util_db.openDatabase();
 
         acceptInfoTrueButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Overrides the onClick method to handle the event when a profile is added.
+             * If the profile name is not empty, it creates a new profile, sets its attributes,
+             * inserts it into the database, creates tables for associated checklists, refreshes the
+             * profiles list, and dismisses the popup window.
+             *
+             * @param v The view that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 if (profileNameText.length() != 0) {
                     ProfileModel newProfile = new ProfileModel();
                     newProfile.setUsername(profileNameText.getText().toString());
                     int selectedMonth = profileAgePicker.getMonth() + 1; // Datepicker's months are indexed to 0.
-                    String profileAge = String.format("%02d/%02d/%04d", profileAgePicker.getDayOfMonth(), selectedMonth, profileAgePicker.getYear());
+                    @SuppressLint("DefaultLocale") String profileAge = String.format("%02d/%02d/%04d", profileAgePicker.getDayOfMonth(), selectedMonth, profileAgePicker.getYear());
                     newProfile.setAge(profileAge);
                     newProfile.setProfile_color(colorResource);
                     profile_db.insertProfile(newProfile);
@@ -74,105 +91,86 @@ public class Profile_AddProfile extends BottomSheetDialogFragment {
             }
         });
         acceptInfoFalseButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles the onClick event for dismissing a popup window.
+             *
+             * @param v The view that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
             }
         });
+        profileColorPicker1.setOnClickListener(v -> {
+            profileColorPicker1.setBackgroundResource(R.drawable.color_item_selected);
+            colorResource = "profileColor1";
 
-        /**
-         * Each onClickListener sets the currently selected color to the address of the colors.xml
-         * value. Each press changes the background of the icon to have a black border, which shows
-         * users what color they have selected.
-         */
-        profileColorPicker1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileColorPicker1.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "profileColor1";
+            profileColorPicker2.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker3.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker4.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker5.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker6.setBackgroundResource(R.drawable.color_item);
 
-                profileColorPicker2.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker3.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker4.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker5.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker6.setBackgroundResource(R.drawable.color_item);
-
-            }
         });
 
-        profileColorPicker2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileColorPicker2.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "profileColor2";
+        profileColorPicker2.setOnClickListener(v -> {
+            profileColorPicker2.setBackgroundResource(R.drawable.color_item_selected);
+            colorResource = "profileColor2";
 
-                profileColorPicker3.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker4.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker5.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker6.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker1.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker3.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker4.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker5.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker6.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker1.setBackgroundResource(R.drawable.color_item);
 
-            }
         });
 
-        profileColorPicker3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileColorPicker3.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "profileColor3";
+        profileColorPicker3.setOnClickListener(v -> {
+            profileColorPicker3.setBackgroundResource(R.drawable.color_item_selected);
+            colorResource = "profileColor3";
 
-                profileColorPicker4.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker5.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker6.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker1.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker2.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker4.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker5.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker6.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker1.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker2.setBackgroundResource(R.drawable.color_item);
 
-            }
         });
 
-        profileColorPicker4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileColorPicker4.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "profileColor4";
+        profileColorPicker4.setOnClickListener(v -> {
+            profileColorPicker4.setBackgroundResource(R.drawable.color_item_selected);
+            colorResource = "profileColor4";
 
-                profileColorPicker5.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker6.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker1.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker2.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker3.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker5.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker6.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker1.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker2.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker3.setBackgroundResource(R.drawable.color_item);
 
-            }
         });
 
-        profileColorPicker5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileColorPicker5.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "profileColor5";
+        profileColorPicker5.setOnClickListener(v -> {
+            profileColorPicker5.setBackgroundResource(R.drawable.color_item_selected);
+            colorResource = "profileColor5";
 
-                profileColorPicker6.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker1.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker2.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker3.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker4.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker6.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker1.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker2.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker3.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker4.setBackgroundResource(R.drawable.color_item);
 
-            }
         });
 
-        profileColorPicker6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileColorPicker6.setBackgroundResource(R.drawable.color_item_selected);
-                colorResource = "profileColor6";
+        profileColorPicker6.setOnClickListener(v -> {
+            profileColorPicker6.setBackgroundResource(R.drawable.color_item_selected);
+            colorResource = "profileColor6";
 
-                profileColorPicker1.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker2.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker3.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker4.setBackgroundResource(R.drawable.color_item);
-                profileColorPicker5.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker1.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker2.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker3.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker4.setBackgroundResource(R.drawable.color_item);
+            profileColorPicker5.setBackgroundResource(R.drawable.color_item);
 
-            }
         });
     }
 }

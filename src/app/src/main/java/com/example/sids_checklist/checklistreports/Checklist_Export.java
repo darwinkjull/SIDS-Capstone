@@ -19,6 +19,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+
+/**
+ * The Checklist_Export class handles exporting checklist data.
+ */
 public class Checklist_Export extends AppCompatActivity {
     TextView selectedDate;
     Button datePicker, exportReturn, exportConfirm;
@@ -26,6 +30,11 @@ public class Checklist_Export extends AppCompatActivity {
     Long startDate, endDate;
     MutableLiveData<Long> startDateListener = new MutableLiveData<>();
 
+    /**
+     * Initializes the activity.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +77,9 @@ public class Checklist_Export extends AppCompatActivity {
         });
     }
 
+    /**
+     * Displays the date picker dialog.
+     */
     private void DatePickerdialog() {
         // Creating a MaterialDatePicker builder for selecting a date range
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
@@ -99,5 +111,10 @@ public class Checklist_Export extends AppCompatActivity {
         datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
     }
 
+    /**
+     * Returns the profile ID.
+     *
+     * @return The profile ID.
+     */
     public int getProfileID(){return profileID;}
 }

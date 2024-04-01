@@ -1,17 +1,7 @@
 package com.example.sids_checklist;
 
-/*
-Code created with reference to Mohit Singh's To Do List App Android Studio Tutorial
-
-This is the main activity which allows the user to access the sleeping checklist,
-
-*/
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,28 +10,28 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistreports.Checklist_Reports;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 import com.example.sids_checklist.infopages.Info_Page_Activity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Main_Activity extends AppCompatActivity {
     private Profile_DatabaseHandler profile_db;
-    private List<String> usernameList;
 
+    /**
+     * This method initializes the main activity layout, hides the action bar,
+     * sets up database access, populates the user profile spinner, and defines button click listeners.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down,
+     *                           this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
+     *                           Otherwise, it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        //uncomment to get the Shared preferences to reset
-        Context context = this;
-        //uncomment to reset the pin and security questions on each run of app
-        //SharedPreferences settings = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
-        //settings.edit().clear().apply();
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
@@ -53,12 +43,12 @@ public class Main_Activity extends AppCompatActivity {
         profile_db.openDatabase();
 
         // This could be turned into an adapter or other simplified function in the future
-        usernameList = new ArrayList<>();
+        List<String> usernameList;
         usernameList = profile_db.getAllUsernames();
 
         // Set up spinner (drop down menu) to house the profiles we can select
         // The ArrayAdapter is used to put our list of usernames into the drop down menu
-        Spinner profile_select = (Spinner) findViewById(R.id.profile_select);
+        Spinner profile_select = findViewById(R.id.profile_select);
         ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, usernameList);
         usernameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -93,6 +83,17 @@ public class Main_Activity extends AppCompatActivity {
         an item from the list has been chosen
          */
         profile_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            /**
+             * This method retrieves the selected username from the spinner,
+             * obtains the corresponding profile ID from the database,
+             * and sets up intents for various activities in the application based on the selected profile.
+             *
+             * @param parent   The AdapterView where the selection happened.
+             * @param view     The view within the AdapterView that was clicked.
+             * @param position The position of the view in the adapter.
+             * @param id       The row id of the item that is selected.
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedUsername = parent.getItemAtPosition(position).toString();
@@ -125,10 +126,13 @@ public class Main_Activity extends AppCompatActivity {
                 });
             }
 
+            /**
+             * This method is invoked when the selection disappears from this view.
+             *
+             * @param parent The AdapterView where the selection was supposed to happen.
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
-
             }
         });
     }

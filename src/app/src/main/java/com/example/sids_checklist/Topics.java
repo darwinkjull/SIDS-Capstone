@@ -1,45 +1,40 @@
 package com.example.sids_checklist;
 
-import android.graphics.drawable.Drawable;
-
-import java.util.ArrayList;
-
+/**
+ * The Topics class represents topics related to safe baby sleeping practices.
+ * It provides methods to initialize lists of topics.
+ */
 public class Topics {
-    private String title;
-    private int image;
+    private final String title;
+    private final int image;
 
+    /**
+     * Constructs a Topics object with the given title and image.
+     *
+     * @param title The title of the topic.
+     * @param image The image resource ID associated with the topic.
+     */
     public Topics(String title, int image) {
         this.title = title;
         this.image = image;
     }
 
-    public Topics() {
 
-    }
-
+    /**
+     * Retrieves the title of the topic.
+     *
+     * @return The title of the topic.
+     */
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
+    /**
+     * Retrieves the image resource ID associated with the topic.
+     *
+     * @return The image resource ID associated with the topic.
+     */
     public int getImage() {
         return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-    }
-
-    public ArrayList<Topics> initTopics(){
-        ArrayList<Topics> list = new ArrayList<>();
-
-        list.add(new Topics("Sleep Location", R.drawable.baseline_location_on_24));
-        list.add(new Topics("Sleep Area and Position", R.drawable.crib_icon));
-        list.add(new Topics("General Care", R.drawable.baseline_baby_changing_station_24));
-        list.add(new Topics("Additional Resources", R.drawable.info_icon));
-        return list;
     }
 }

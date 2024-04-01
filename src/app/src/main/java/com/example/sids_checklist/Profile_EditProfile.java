@@ -1,16 +1,11 @@
 package com.example.sids_checklist;
 
-import static android.app.PendingIntent.getActivity;
-
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
-import android.util.SparseLongArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -21,12 +16,22 @@ import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistprofiles.Profile_PopUpInterface;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
+/**
+ * Profile_EditProfile class handles the functionality related to editing a user profile.
+ */
 public class Profile_EditProfile {
     private String colorResource;
     private Profile_PopUpInterface popUpInterface;
+
+    /**
+     * Displays the edit profile pop-up window.
+     * @param view The view from which the pop-up is triggered.
+     * @param context The context of the application.
+     * @param profileID The ID of the profile to be edited.
+     */
     public void showEditProfilePopUp(View view, Context context, int profileID) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
-        View editProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
+        @SuppressLint("InflateParams") View editProfilePopUpView = inflater.inflate(R.layout.profile_new, null);
         PopupWindow popupWindow = new PopupWindow(editProfilePopUpView,
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
@@ -65,13 +70,22 @@ public class Profile_EditProfile {
         }
 
         acceptInfoTrueButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Handles the onClick event for accepting profile information changes.
+             * If the profile name is not empty, it creates a new ProfileModel object with updated information,
+             * sets the username, age, and profile color based on the entered values, and updates the profile in the database.
+             * Finally, it triggers a refresh of the profiles displayed and dismisses the pop-up window.
+             *
+             * @param v The View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 if (profileNameText.length() != 0) {
                     ProfileModel newProfile = new ProfileModel();
                     newProfile.setUsername(profileNameText.getText().toString());
                     int selectedMonth = profileAgePicker.getMonth() + 1; // Datepicker's months are indexed to 0.
-                    String profileAge = String.format("%02d/%02d/%04d", profileAgePicker.getDayOfMonth(), selectedMonth, profileAgePicker.getYear());
+                    @SuppressLint("DefaultLocale") String profileAge = String.format("%02d/%02d/%04d", profileAgePicker.getDayOfMonth(), selectedMonth, profileAgePicker.getYear());
                     newProfile.setAge(profileAge);
                     newProfile.setProfile_color(colorResource);
                     db.updateProfile(profileID, newProfile);
@@ -81,18 +95,26 @@ public class Profile_EditProfile {
             }
         });
         acceptInfoFalseButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * OnClickListener for dismissing the pop-up window.
+             * Dismisses the pop-up window when the associated view is clicked.
+             *
+             * @param v The View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
             }
         });
 
-        /**
-         * Each onClickListener sets the currently selected color to the address of the colors.xml
-         * value. Each press changes the background of the icon to have a black border, which shows
-         * users what color they have selected.
-         */
         profileColorPicker1.setOnClickListener(new View.OnClickListener() {
+            /**
+             * OnClickListener for selecting profile color option 1.
+             * Sets the selected color to profileColor1 and updates UI accordingly by highlighting the selected color
+             * and resetting the others.
+             *
+             * @param v The View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 profileColorPicker1.setBackgroundResource(R.drawable.color_item_selected);
@@ -108,6 +130,13 @@ public class Profile_EditProfile {
         });
 
         profileColorPicker2.setOnClickListener(new View.OnClickListener() {
+            /**
+             * OnClickListener for selecting profile color option 2.
+             * Sets the selected color to profileColor1 and updates UI accordingly by highlighting the selected color
+             * and resetting the others.
+             *
+             * @param v The View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 profileColorPicker2.setBackgroundResource(R.drawable.color_item_selected);
@@ -123,6 +152,13 @@ public class Profile_EditProfile {
         });
 
         profileColorPicker3.setOnClickListener(new View.OnClickListener() {
+            /**
+             * OnClickListener for selecting profile color option 3.
+             * Sets the selected color to profileColor1 and updates UI accordingly by highlighting the selected color
+             * and resetting the others.
+             *
+             * @param v The View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 profileColorPicker3.setBackgroundResource(R.drawable.color_item_selected);
@@ -138,6 +174,13 @@ public class Profile_EditProfile {
         });
 
         profileColorPicker4.setOnClickListener(new View.OnClickListener() {
+            /**
+             * OnClickListener for selecting profile color option 4.
+             * Sets the selected color to profileColor1 and updates UI accordingly by highlighting the selected color
+             * and resetting the others.
+             *
+             * @param v The View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 profileColorPicker4.setBackgroundResource(R.drawable.color_item_selected);
@@ -153,6 +196,13 @@ public class Profile_EditProfile {
         });
 
         profileColorPicker5.setOnClickListener(new View.OnClickListener() {
+            /**
+             * OnClickListener for selecting profile color option 5.
+             * Sets the selected color to profileColor1 and updates UI accordingly by highlighting the selected color
+             * and resetting the others.
+             *
+             * @param v The View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 profileColorPicker5.setBackgroundResource(R.drawable.color_item_selected);
@@ -168,6 +218,13 @@ public class Profile_EditProfile {
         });
 
         profileColorPicker6.setOnClickListener(new View.OnClickListener() {
+            /**
+             * OnClickListener for selecting profile color option 6.
+             * Sets the selected color to profileColor1 and updates UI accordingly by highlighting the selected color
+             * and resetting the others.
+             *
+             * @param v The View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 profileColorPicker6.setBackgroundResource(R.drawable.color_item_selected);

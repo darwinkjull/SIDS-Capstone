@@ -1,27 +1,12 @@
 package com.example.sids_checklist.checklistutils;
 
-/*
-Using SQLite to organize database - Android offers/Uses SQLite by
-default and had built in tools in Android Studio to query with SQLite.
-
-Database Handler will deal with all queries to the database
-
-TODO: Add static items that user cannot delete (populate database)
-
- */
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import androidx.annotation.ChecksSdkIntAtLeast;
-
-import com.example.sids_checklist.Checklist_Activity;
 import com.example.sids_checklist.Tips;
 import com.example.sids_checklist.checklistmodel.ChecklistModel;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
@@ -29,6 +14,10 @@ import com.example.sids_checklist.checklistmodel.ProfileModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Checklist_DatabaseHandler is a SQLiteOpenHelper class responsible for managing the checklist
+ * database, including creating, upgrading, opening, and interacting with database tables.
+ */
 public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
     // Define Database parameters and query for creating database table
     private static final int VERSION = 1; //Should be kept at 1 until release
@@ -44,15 +33,25 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
             + ITEM + " TEXT, "
             + STATUS + " INTEGER)";
 
-    private Context context;
+    private final Context context;
     private SQLiteDatabase db;
     private Profile_DatabaseHandler profile_db;
+
+    /**
+     * Constructor for Checklist_DatabaseHandler.
+     *
+     * @param context the database
+     */
     public Checklist_DatabaseHandler(Context context) {
         super(context, NAME, null, VERSION);
         this.context = context;
     }
 
-    // create the table
+    /**
+     * Handle the view creation
+     *
+     * @param db The database.
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         List<ProfileModel> userList;
@@ -66,7 +65,13 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    // upgrade the table to the new version and drop the old table
+    /**
+     * Upgrade the database table if a new version exists.
+     *
+     * @param db The database.
+     * @param oldVersion The old database version.
+     * @param newVersion The new database version.
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         List<ProfileModel> userList;
@@ -82,7 +87,9 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    // open the database to write to
+    /**
+     * open the database to write to.
+     */
     public void openDatabase() {
         db = this.getWritableDatabase(); // open as a writable database since we want to update
 
@@ -91,7 +98,12 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         //onCreate(db); // create upgraded table
     }
 
-    // ability to add new items to the database (SQL)
+    /**
+     * Insert new items to the select database
+     *
+     * @param item the item to be inserted
+     * @param profile_ID the current profile id
+     */
     public void insertItem(ChecklistModel item, int profile_ID) {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item.getItem()); // get item name
@@ -101,7 +113,12 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         db.insert(tableName, null, cv); // insert new item to database
     }
 
-    // Ability to get current items from the database (SQL)
+    /**
+     * obtain a list of the items within the checklist database
+     *
+     * @param profileID the current profile id
+     * @return itemList - a list of checklist items of the ChecklistModel class
+     */
     @SuppressLint("Range")
     public List<ChecklistModel> getAllItems(int profileID) {
         List<ChecklistModel> itemList = new ArrayList<>();
@@ -132,7 +149,13 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         return itemList;
     }
 
-    // Update the status of the checklist item (checked/unchecked) (SQL)
+    /**
+     * Update the status of the checklist item (checked/unchecked) (SQL)
+     *
+     * @param id the id of the item in the list
+     * @param status the status of the item
+     * @param profileID the current profile id
+     */
     public void updateStatus(int id, int status, int profileID) {
         ContentValues cv = new ContentValues();
         cv.put(STATUS, status);
@@ -141,7 +164,13 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         db.update(tableName, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
 
-    // Update the name of the checklist item (SQL)
+    /**
+     * Update the name of the checklist item (SQL)
+     *
+     * @param id the id of the current item
+     * @param item the text for the item
+     * @param profileID the current profile id
+     */
     public void updateItem(int id, String item, int profileID) {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item);
@@ -150,21 +179,42 @@ public class Checklist_DatabaseHandler extends SQLiteOpenHelper {
         db.update(tableName, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
 
-    // Delete a checklist item (SQL)
+    /**
+     * Delete a checklist item (SQL)
+     *
+     * @param id the id of the item
+     * @param profileID the profile id
+     */
     public void deleteItem(int id, int profileID) {
         String tableName = CHECKLIST_TABLE_PREFIX + profileID + CHECKLIST_TABLE_SUFFIX;
         db.delete(tableName, ID + "=?", new String[]{String.valueOf(id)});
     }
 
+    /**
+     * create a new table in the database
+     *
+     * @param profileID the profile id
+     */
     public void createTable(int profileID){
         db.execSQL(CREATE_CHECKLIST_TABLE_PREFIX + profileID + CREATE_CHECKLIST_TABLE_SUFFIX);
     }
 
+    /**
+     * delete a table from the database
+     *
+     * @param profileID the profile id
+     */
     public void deleteTable(int profileID){
         String tableName = CHECKLIST_TABLE_PREFIX + profileID + CHECKLIST_TABLE_SUFFIX;
         db.execSQL("DROP TABLE IF EXISTS " + tableName);
     }
 
+    /**
+     * insert a tip from the tips menu into the database
+     *
+     * @param item the item
+     * @param profile_ID the profile id
+     */
     public void insertTip(Tips item, int profile_ID) {
         ContentValues cv = new ContentValues();
         cv.put(ITEM, item.getItem()); // get item name

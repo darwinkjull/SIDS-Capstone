@@ -1,11 +1,10 @@
 package com.example.sids_checklist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,14 +25,21 @@ import com.example.sids_checklist.checklistprofiles.Profile_DateHandler;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Profile_Activity displays and manages user profiles.
+ * This activity allows users to view, add, edit, and delete profiles.
+ */
 public class Profile_Activity extends AppCompatActivity implements Profile_PopUpInterface {
 
     private int profileID;
     private Context context;
     private Profile_DatabaseHandler profile_db;
-    private List<ProfileModel> profileModelList;
-    private ProfileListAdapter profileListAdapter;
 
+    /**
+     * Called when the activity is first created.
+     *
+     * @param savedInstanceState Bundle containing the activity's previously saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,12 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
         Button returnFromProfilesButton = findViewById(R.id.returnFromProfilesButton);
 
         addProfileButtonNoProfile.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * create the add profile view
+             *
+             * @param v The view that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 Profile_AddProfile addProfilePopUp = new Profile_AddProfile();
@@ -69,11 +81,22 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
 
     }
 
+    /**
+     * Retrieves the ID of the current profile.
+     *
+     * @return The ID of the current profile
+     * @throws AssertionError If the profileID is -1 (indicating no profile is selected)
+     */
     public int getProfileID() {
         assert (profileID != -1);
         return profileID;
     }
 
+    /**
+     * Updates the display with information about the selected profile.
+     * Sets the profile name, age, and image color based on the selected profile's data.
+     * If no profile is selected, the display remains unchanged.
+     */
     private void updateProfileDisplay(){
         TextView selectedNameText = findViewById(R.id.profileName);
         TextView selectedAgeText = findViewById(R.id.profileAge);
@@ -82,11 +105,16 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
             selectedNameText.setText(profile_db.getProfileInfoFromID(profileID).getUsername());
             Profile_DateHandler profile_date = new Profile_DateHandler(profile_db.getProfileInfoFromID(profileID));
             selectedAgeText.setText(profile_date.getWeeks());
-            int colorID = Profile_Activity.this.getResources().getIdentifier(profile_db.getProfileInfoFromID(profileID).getProfile_color(), "color", Profile_Activity.this.getPackageName());
+            @SuppressLint("DiscouragedApi") int colorID = Profile_Activity.this.getResources().getIdentifier(profile_db.getProfileInfoFromID(profileID).getProfile_color(), "color", Profile_Activity.this.getPackageName());
             if (colorID != 0){selectedImage.setColorFilter(ContextCompat.getColor(this, colorID), PorterDuff.Mode.SRC_IN);}
         }
     }
 
+    /**
+     * Checks for the existence of profiles and updates the UI accordingly.
+     * If profiles exist, it sets up the view to display profile information, including buttons for adding, editing, and deleting profiles.
+     * If no profiles exist, it switches to a view indicating that no profiles are available.
+     */
     private void checkForProfiles(){
         List<Integer> idList = profile_db.getAllID();
         ViewSwitcher profileViewSwitcher = findViewById(R.id.profileInfo_Switcher);
@@ -107,41 +135,29 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
 
             RecyclerView profileRecyclerList = findViewById(R.id.profilesList);
 
-            addProfileButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Profile_AddProfile addProfilePopUp = new Profile_AddProfile();
-                    addProfilePopUp.showAddProfilePopUp(v, context);
-                }
+            addProfileButton.setOnClickListener(v -> {
+                Profile_AddProfile addProfilePopUp = new Profile_AddProfile();
+                addProfilePopUp.showAddProfilePopUp(v, context);
             });
 
-            editProfileButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Profile_EditProfile editProfilePopUp = new Profile_EditProfile();
-                    editProfilePopUp.showEditProfilePopUp(v, context, profileID);
-                }
+            editProfileButton.setOnClickListener(v -> {
+                Profile_EditProfile editProfilePopUp = new Profile_EditProfile();
+                editProfilePopUp.showEditProfilePopUp(v, context, profileID);
             });
 
-            deleteProfileButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Profile_DeleteProfile deleteProfilePopUp = new Profile_DeleteProfile();
-                    deleteProfilePopUp.showDeleteProfilePopUp(v, context, profileID);
-                }
+            deleteProfileButton.setOnClickListener(v -> {
+                Profile_DeleteProfile deleteProfilePopUp = new Profile_DeleteProfile();
+                deleteProfilePopUp.showDeleteProfilePopUp(v, context, profileID);
             });
 
-            profileModelList = profile_db.getAllProfiles();
-            profileListAdapter = new ProfileListAdapter(profile_db, this, profileModelList);
+            List<ProfileModel> profileModelList = profile_db.getAllProfiles();
+            ProfileListAdapter profileListAdapter = new ProfileListAdapter(profile_db, this, profileModelList);
             profileRecyclerList.setLayoutManager(new LinearLayoutManager(this));
             profileRecyclerList.setAdapter(profileListAdapter);
 
-            profileListAdapter.setOnClickListener(new ProfileListAdapter.OnClickListener(){
-                @Override
-                public void onClick(ProfileModel profile) {
-                    profileID = profile.getId();
-                    updateProfileDisplay();
-                }
+            profileListAdapter.setOnClickListener(profile -> {
+                profileID = profile.getId();
+                updateProfileDisplay();
             });
 
             updateProfileDisplay();
@@ -152,11 +168,19 @@ public class Profile_Activity extends AppCompatActivity implements Profile_PopUp
         }
     }
 
+    /**
+     * Refreshes the profile list by calling the method to check for profiles.
+     */
     @Override
     public void refreshProfiles(){
         checkForProfiles();
     }
 
+    /**
+     * Refreshes the profile list after a new profile is added.
+     *
+     * @param newProfileID The ID of the newly added profile.
+     */
     @Override
     public void refreshProfilesAdded(int newProfileID){
         this.profileID = newProfileID;

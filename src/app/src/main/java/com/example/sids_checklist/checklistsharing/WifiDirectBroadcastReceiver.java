@@ -1,12 +1,9 @@
 package com.example.sids_checklist.checklistsharing;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.p2p.WifiP2pManager;
-
-import com.example.sids_checklist.Sharing_Activity;
 
 /**
  *  Implementation of this class was guided by the following page:
@@ -14,17 +11,20 @@ import com.example.sids_checklist.Sharing_Activity;
  */
 public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
-    private WifiP2pManager manager;
-    private WifiP2pManager.Channel channel;
-    private Activity activity;
-
-    public WifiDirectBroadcastReceiver(WifiP2pManager manager, WifiP2pManager.Channel channel, Activity activity){
+    /**
+     * setup the reciever for the broadcast of the data
+     *
+     */
+    public WifiDirectBroadcastReceiver(){
         super();
-        this.manager = manager;
-        this.channel = channel;
-        this.activity = activity;
     }
 
+    /**
+     * setup the behavior of the receiver depending on the action in the intent
+     *
+     * @param context The Context in which the receiver is running.
+     * @param intent The Intent being received.
+     */
     @Override
     public void onReceive(Context context, Intent intent){
         String action = intent.getAction();

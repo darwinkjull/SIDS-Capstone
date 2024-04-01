@@ -1,12 +1,12 @@
 package com.example.sids_checklist.checklistadapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,25 +20,42 @@ import com.example.sids_checklist.checklistprofiles.Profile_DateHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.security.auth.callback.Callback;
-
+/**
+ * The ProfileListCheckableAdapter class manages a list of profiles in a RecyclerView
+ * with checkable items.
+ */
 public class ProfileListCheckableAdapter extends  RecyclerView.Adapter<ProfileListCheckableAdapter.ViewHolder>{
-    private List<ProfileModel> profileList;
-    private Profile_DatabaseHandler profile_db;
-    private Context context;
-    private HashSet<String> itemsChecked; // Use hashset to get unique list of elements
+    private final List<ProfileModel> profileList;
+    private final Profile_DatabaseHandler profile_db;
+    private final Context context;
+    private final HashSet<String> itemsChecked; // Use hashset to get unique list of elements
 
+    /**
+     * Constructs a ProfileListCheckableAdapter with the associated database handler,
+     * context, and profile list.
+     *
+     * @param profile_db   The database handler for profile data.
+     * @param context      The context of the RecyclerView.
+     * @param profileList  The list of profiles to be displayed.
+     */
     public ProfileListCheckableAdapter(Profile_DatabaseHandler profile_db, Context context, List<ProfileModel> profileList){
         this.profile_db = profile_db;
         this.context = context;
         this.profileList = profileList;
-        itemsChecked = new HashSet<String>();
+        itemsChecked = new HashSet<>();
     }
 
+    /**
+     * Inflates the layout from profile_card_checkable.xml and creates a new ViewHolder.
+     *
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param position The view type of the new View.
+     * @return viewholder
+     */
     @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int position){
         View profileView = LayoutInflater.from(parent.getContext())
@@ -46,6 +63,13 @@ public class ProfileListCheckableAdapter extends  RecyclerView.Adapter<ProfileLi
         return new ViewHolder(profileView);
     }
 
+    /**
+     * Binds data to the ViewHolder and handles checkbox state changes.
+     *
+     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     *                 item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     public void onBindViewHolder(ViewHolder holder, int position){
         profile_db.openDatabase();
         ProfileModel profile = profileList.get(position);
@@ -53,7 +77,7 @@ public class ProfileListCheckableAdapter extends  RecyclerView.Adapter<ProfileLi
 
         holder.username.setText(profile.getUsername());
         holder.age.setText(profile_date.getWeeks());
-        int colorID = context.getResources().getIdentifier(profile.getProfile_color(), "color", context.getPackageName());
+        @SuppressLint("DiscouragedApi") int colorID = context.getResources().getIdentifier(profile.getProfile_color(), "color", context.getPackageName());
         if (colorID != 0){holder.icon.setColorFilter(ContextCompat.getColor(context, colorID), PorterDuff.Mode.SRC_IN);}
 
         holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -66,8 +90,14 @@ public class ProfileListCheckableAdapter extends  RecyclerView.Adapter<ProfileLi
         });
     }
 
+    /**
+     * @return Returns the total number of items in the list.
+     */
     public int getItemCount(){return profileList.size();}
 
+    /**
+     * ViewHolder class for caching view components of item layout.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView username;
         TextView age;
@@ -83,8 +113,11 @@ public class ProfileListCheckableAdapter extends  RecyclerView.Adapter<ProfileLi
         }
     }
 
+    /**
+     * @return Returns a list of checked profile usernames.
+     *
+     */
     public List<String> getCheckedProfiles(){
         return new ArrayList<>(itemsChecked);
     }
-
 }

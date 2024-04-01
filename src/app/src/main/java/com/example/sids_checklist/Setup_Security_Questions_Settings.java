@@ -18,12 +18,23 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
+/**
+ * Setup_Security_Questions_Settings class is responsible for managing the setup of security questions and answers.
+ * Users can set up a security question along with its answer. The question and answer are stored securely.
+ */
 public class Setup_Security_Questions_Settings extends AppCompatActivity {
     private EditText questionText;
     private EditText answerText;
     private Button saveButton;
-    private Button backButton;
 
+    /**
+     * Initializes the activity when created.
+     * Hides the action bar, sets the layout, and initializes UI elements.
+     * Handles button clicks for saving security question and answer, as well as navigation back to the previous screen.
+     * Enables/disables the save button based on answer input.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,17 +43,34 @@ public class Setup_Security_Questions_Settings extends AppCompatActivity {
         questionText = findViewById(R.id.QuestionSetUp);
         answerText = findViewById(R.id.AnswerSetUp);
         saveButton = findViewById(R.id.Save);
-        backButton = findViewById(R.id.QuestionBack);
+        Button backButton = findViewById(R.id.QuestionBack);
         saveButton.setEnabled(false);
 
 
         backButton.setOnClickListener(v-> startActivity(new Intent(Setup_Security_Questions_Settings.this, Pin_Setup_Settings.class)));
 
         answerText.addTextChangedListener(new TextWatcher() {
+
+            /**
+             * textwatcher for data before any text changes (not used)
+             *
+             * @param s character sequence
+             * @param start the starting character position
+             * @param count the number of characters
+             * @param after the number of characters after changing
+             */
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
+            /**
+             * textwatcher module which will enable the save button when text changes
+             *
+             * @param s the character sequence
+             * @param start the start character index
+             * @param before the number of characters before change
+             * @param count the total count of characters
+             */
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().length() == 0) {
@@ -55,6 +83,10 @@ public class Setup_Security_Questions_Settings extends AppCompatActivity {
                 }
             }
 
+            /**
+             * textwatcher module for after text changes (not used)
+             * @param s the characher sequence
+             */
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -76,21 +108,37 @@ public class Setup_Security_Questions_Settings extends AppCompatActivity {
         });
     }
 
-    private SharedPreferences.Editor saveQuestion(String Question) {
+    /**
+     * Saves the security question in SharedPreferences.
+     *
+     * @param Question The security question to be saved.
+     */
+    private void saveQuestion(String Question) {
         SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("Question", Question);
-        editor.commit();
-        return editor;
+        editor.apply();
     }
 
-    private SharedPreferences.Editor saveAnswer(String Answer) {
+    /**
+     * Saves the hashed answer in SharedPreferences.
+     *
+     * @param Answer The answer to be hashed and saved.
+     */
+    private void saveAnswer(String Answer) {
         SharedPreferences preferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("Answer", Answer);
-        editor.commit();
-        return editor;
+        editor.apply();
     }
+
+    /**
+     * Hashes the given password using SHA-512 algorithm.
+     *
+     * @param password The password to be hashed.
+     * @return The hashed password.
+     * @throws NoSuchAlgorithmException if SHA-512 algorithm is not available.
+     */
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -105,6 +153,5 @@ public class Setup_Security_Questions_Settings extends AppCompatActivity {
             sb.append(Integer.toHexString(v));
         }
         return sb.toString();
-
     }
 }

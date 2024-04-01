@@ -15,15 +15,31 @@ import com.example.sids_checklist.Topics;
 
 import java.util.ArrayList;
 
+/**
+ * The InfoAdapter class is responsible for managing the list of topics in a RecyclerView.
+ */
 public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
     private ArrayList<Topics> topics;
 
     private final Info_Page_Activity activity;
 
+    /**
+     * Constructs an InfoAdapter with the associated activity.
+     *
+     * @param activity The activity hosting the RecyclerView.
+     */
     public InfoAdapter(Info_Page_Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     * Inflates the layout from info_tiles.xml and creates a new ViewHolder.
+     *
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param viewType The view type of the new View.
+     * @return the viewholder
+     */
     @NonNull
     @Override
     public InfoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -32,7 +48,13 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
         return new InfoAdapter.ViewHolder(itemView);
     }
 
-
+    /**
+     * Binds data to the ViewHolder.
+     *
+     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     *                 item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull InfoAdapter.ViewHolder holder, int position) {
         Topics item = topics.get(position);
@@ -42,13 +64,18 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
         icon.setImageResource(item.getImage());
 
     }
-    public void setTopics(ArrayList<Topics> list){
-        this.topics = list;
-    }
+
+    /**
+     * @return Returns the total number of items in the list.
+     */
     @Override
     public int getItemCount() {
         return topics.size();
     }
+
+    /**
+     * ViewHolder class for caching view components of item layout.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView titleView;
         public ImageView iconView;

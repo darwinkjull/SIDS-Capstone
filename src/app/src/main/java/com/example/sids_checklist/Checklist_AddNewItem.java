@@ -1,19 +1,11 @@
 package com.example.sids_checklist;
 
-/*
-Adding helper class to deal with adding new items to the database,
-as well as ensuring that all items are valid and have non-empty names
-
-TODO: Add duplicate checking
-*/
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +22,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Objects;
 
+/*
+ * This file is responsible for the addition of new items to the checklist
+ * activity. It creates a pop-up dialog option to input a new item to the list,
+ * and dismisses the dialog upon completion.
+ *
+ * The Checklist was inspired by Mohit Singh's To Do List App Android Studio Tutorial
+ */
 public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
     private EditText newItemText;
@@ -37,29 +36,32 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     private Checklist_DatabaseHandler db;
     private int profileID;
 
-    /* Pass profile ID into the fragment as an argument so it can be used in the definition of
-     new checklist items.
-     */
+
     public static Checklist_AddNewItem newInstance() {
-//        Log.d("tag", "Now importing intent to fragment");
-//        Checklist_AddNewItem frag = new Checklist_AddNewItem();
-//        Bundle args = new Bundle();
-//        args.putInt("profile_ID", profileID);
-//        Log.d("tag", "Intent imported");
-//        frag.setArguments(args);
-//        Log.d("tag", "Fragment arguments set");
+
         return new Checklist_AddNewItem();
         }
 
+    /**
+     * this is a constructor which handles the creation of the activity.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
-//        Bundle args = getArguments();
-//        profileID = args.getInt("profile_ID", -1);
-//        assert (profileID != -1);
     }
 
+    /**
+     *
+     * It is a constructor which handles the creation of the dialog container
+     *
+     * @param inflater  the inflater.
+     * @param container  the container.
+     * @param savedInstanceState  the saved instance state.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,12 +71,20 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
         //Get profileID from Checklist_Activity.java
         Checklist_Activity checklist = (Checklist_Activity) getActivity();
+        assert checklist != null;
         profileID = checklist.getProfileID();
 
         return view;
     }
 
     // Setup the text box for writing in names of added items, and save button
+
+    /**
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -101,10 +111,29 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
 
         // change color of the save button if text exists
         newItemText.addTextChangedListener(new TextWatcher() {
+            /**
+             * It is invoked before the text is changed
+             *
+             * @param s      The text before it has been changed.
+             * @param start  The position of the beginning of the changed part in the text.
+             * @param count  The length of the changed part in the text.
+             * @param after  The length of the new text that replaces the changed part.
+             */
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
+            /**
+             * This method is called when the text in the EditText is changed.
+             * It is invoked after the text has been changed, to change the colour
+             * of the save button displayed on screen, indicating to the user
+             * that they have input a valid string.
+             *
+             * @param s      The modified text.
+             * @param start  The starting position of the changed part in the text.
+             * @param before The length of the text that has been replaced.
+             * @param count  The length of the new text.
+             */
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().length() == 0) {
@@ -117,6 +146,11 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
                 }
             }
 
+            /**
+             * It is invoked after the text is changed
+             *
+             * @param s      The text before it has been changed.
+             */
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -139,6 +173,14 @@ public class Checklist_AddNewItem extends BottomSheetDialogFragment {
     }
 
     // dismissed the dialog box so close it
+
+    /**
+     * This method notifies the activity implementing the DialogCloseListener interface about the
+     * dismissal of the dialog, allowing it to handle the event accordingly
+     *
+     * @param dialog the dialog that was dismissed will be passed into the
+     *               method
+     */
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);

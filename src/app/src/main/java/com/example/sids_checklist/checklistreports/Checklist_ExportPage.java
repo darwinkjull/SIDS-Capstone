@@ -34,9 +34,20 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * A dialog fragment for exporting checklist data.
+ */
 public class Checklist_ExportPage extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
     private int profileID;
+
+    /**
+     * Creates a new instance of the Checklist_ExportPage fragment.
+     *
+     * @param start The start date.
+     * @param end   The end date.
+     * @return A new instance of Checklist_ExportPage.
+     */
     public static Checklist_ExportPage newInstance(long start, long end){
         Checklist_ExportPage CLP = new Checklist_ExportPage();
         Bundle args = new Bundle();
@@ -45,6 +56,7 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
         CLP.setArguments(args);
         return CLP;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -59,11 +71,17 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         Checklist_Export export =  (Checklist_Export) getActivity();
+        assert export != null;
         this.profileID = export.getProfileID();
 
         return view;
     }
 
+    /**
+     * Gets the screen width in pixels.
+     *
+     * @return The screen width.
+     */
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
@@ -86,7 +104,7 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
         Calendar endDate = Calendar.getInstance();
         endDate.setTimeInMillis(end);
 
-        List<SessionItemView> sessionItemViews = new ArrayList<SessionItemView>();
+        List<SessionItemView> sessionItemViews = new ArrayList<>();
 
         boolean complete = true;
         while (currDate.getTimeInMillis() <= endDate.getTimeInMillis()){
@@ -154,13 +172,19 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
         RecAdapter adapter = new RecAdapter(sessionItemViews);
         RecyclerView recyclerView = view.findViewById(R.id.receive_view);
 
-        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        ((SimpleItemAnimator) Objects.requireNonNull(recyclerView.getItemAnimator())).setSupportsChangeAnimations(false);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setVerticalScrollBarEnabled(true);
     }
+
+    /**
+     *
+     * @param dialog the dialog that was dismissed will be passed into the
+     *               method
+     */
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
@@ -171,12 +195,20 @@ public class Checklist_ExportPage extends BottomSheetDialogFragment {
     }
 }
 
+/**
+ * Represents a session item view.
+ */
 class SessionItemView {
 
     private String date;
     private boolean expanded;
-    private ArrayList<TableRow> rows;
+    private final ArrayList<TableRow> rows;
 
+    /**
+     * Initializes a new instance of the SessionItemView class with a specified date.
+     *
+     * @param date The date.
+     */
     public SessionItemView(String date)
     {
         this.date = date;
@@ -184,45 +216,84 @@ class SessionItemView {
         rows = new ArrayList<>();
     }
 
+    /**
+     * Adds a row to the session item view.
+     *
+     * @param row The row to add.
+     */
     public void addRow(TableRow row)
     {
         rows.add(row);
     }
 
+    /**
+     * Sets the date of the session item view.
+     *
+     * @param date The date to set.
+     */
     public void setDate(String date)
     {
         this.date = date;
     }
 
+    /**
+     * Gets the rows of the session item view.
+     *
+     * @return The rows.
+     */
     public ArrayList<TableRow> getRows()
     {
         return rows;
     }
 
+    /**
+     * Sets whether the session item view is expanded.
+     *
+     * @param expanded True if expanded; otherwise, false.
+     */
     public void setExpanded(boolean expanded)
     {
         this.expanded = expanded;
     }
 
+    /**
+     * Determin if the view is expanded
+     *
+     * @return True if expanded; otherwise, false.
+     */
     public boolean isExpanded()
     {
         return expanded;
     }
 
+    /**
+     * Get the selected date from the database
+     *
+     * @return the date as a string value
+     */
     public String getDate()
     {
         return date;
     }
 }
 
+/**
+ * Adapter class for the RecyclerView in Checklist_ExportPage.
+ */
 class RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> {
 
-    private List<SessionItemView> list;
+    private final List<SessionItemView> list;
 
+    /**
+     * Constructs a RecAdapter with the specified list of SessionItemView items.
+     *
+     * @param list The list of SessionItemView items.
+     */
     public RecAdapter(List<SessionItemView> list) {
         this.list = list;
     }
 
+    @NonNull
     @Override
     public RecViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater
@@ -244,17 +315,28 @@ class RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> {
         });
     }
 
+    /**
+     * @return the list size as an integer
+     */
     @Override
     public int getItemCount() {
         return list == null ? 0 : list.size();
     }
 
-    class RecViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * ViewHolder class for the RecyclerView.
+     */
+    static class RecViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView date;
-        private TableLayout table;
-        private View subItem;
+        private final TextView date;
+        private final TableLayout table;
+        private final View subItem;
 
+        /**
+         * Constructs a RecViewHolder with the specified itemView.
+         *
+         * @param itemView The itemView.
+         */
         public RecViewHolder(View itemView) {
             super(itemView);
 
@@ -263,15 +345,20 @@ class RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> {
             subItem = itemView.findViewById(R.id.sub_item);
         }
 
-        private void bind(SessionItemView movie) {
+        /**
+         * Binds the session item view to the view holder.
+         *
+         * @param item The session item view.
+         */
+        private void bind(SessionItemView item) {
             ArrayList<TableRow> rows;
 
-            boolean expanded = movie.isExpanded();
+            boolean expanded = item.isExpanded();
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
-            date.setText(movie.getDate());
-            rows = movie.getRows();
+            date.setText(item.getDate());
+            rows = item.getRows();
             table.removeAllViews();
             for (int i = 0; i < rows.size(); i++) {
                 table.addView(rows.get(i));

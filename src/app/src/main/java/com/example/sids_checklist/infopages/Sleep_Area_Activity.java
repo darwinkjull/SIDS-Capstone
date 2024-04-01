@@ -1,5 +1,6 @@
 package com.example.sids_checklist.infopages;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
@@ -8,12 +9,22 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sids_checklist.Main_Activity;
 import com.example.sids_checklist.R;
 
 import java.util.Objects;
 
+/**
+ * This class represents the activity for displaying information about sleeping areas.
+ * It extends AppCompatActivity to provide compatibility with older Android versions.
+ * The activity allows users to view information about sleeping areas and includes a button to navigate back to the Info_Page_Activity.
+ */
 public class Sleep_Area_Activity extends AppCompatActivity{
+
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState A Bundle object containing the activity's previously saved state.
+     */
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

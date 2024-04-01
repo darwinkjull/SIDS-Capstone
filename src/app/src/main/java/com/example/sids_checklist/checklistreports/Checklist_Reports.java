@@ -1,11 +1,5 @@
 package com.example.sids_checklist.checklistreports;
 
-/*
-Creating a reports page to output the progress of the checklist
--- This is a very temporary setup, cannot access database yet
-
- */
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +27,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Checklist_Reports Activity displays sleep session reports for a specific user profile.
+ * It includes a line chart to visualize sleep session data over time.
+ * Users can select different profiles using a spinner, which dynamically updates the displayed data.
+ * They can also navigate to the main activity or export checklist data to a file.
+ */
 public class Checklist_Reports extends AppCompatActivity {
     ArrayList<Entry> lineArrayList;
     ArrayList<String> sessionList;
@@ -42,6 +42,11 @@ public class Checklist_Reports extends AppCompatActivity {
 
     private LineDataSet lineDataSet;
 
+    /**
+     * Called when the activity is starting. Responsible for initializing the activity.
+     *
+     * @param savedInstanceState A Bundle object containing the activity's previously saved state.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checklist_report);
@@ -172,6 +177,10 @@ public class Checklist_Reports extends AppCompatActivity {
             startActivity(i);
         });
     }
+
+    /**
+     * get the percentage of completion from the selected date range
+     */
     private void getData(){
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
@@ -187,6 +196,9 @@ public class Checklist_Reports extends AppCompatActivity {
         });
     }
 
+    /**
+     * sort the list of sessions for the selected date range
+     */
     private void getSleepSessions(){
         Checklist_UtilDatabaseHandler disp_db = new Checklist_UtilDatabaseHandler(this);
         disp_db.openDatabase();
@@ -214,6 +226,5 @@ public class Checklist_Reports extends AppCompatActivity {
         if (count == 1) {lineDataSet.getCircleColors().add(colour);}
     }
 
-    public String getProfileUsername(){return profileUsername;}
     public int getProfileID(){return profileID;}
 }
