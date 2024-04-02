@@ -1,24 +1,32 @@
 package com.example.sids_checklist;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
+import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sids_checklist.checklistadapter.DeviceListAdapter;
 import com.example.sids_checklist.checklistadapter.ProfileListAdapter;
 import com.example.sids_checklist.checklistadapter.ProfileListCheckableAdapter;
+import com.example.sids_checklist.checklistmodel.DeviceModel;
 import com.example.sids_checklist.checklistmodel.ProfileModel;
 import com.example.sids_checklist.checklistsharing.WifiDirectBroadcastReceiver;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
@@ -26,6 +34,8 @@ import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import android.Manifest;
 
 
 /**
@@ -37,7 +47,7 @@ import java.util.Objects;
  *  (https://stackoverflow.com/questions/25722585/convert-sqlite-to-json)
  */
 
-public class Sharing_Activity extends AppCompatActivity {
+public class Sharing_Activity extends AppCompatActivity implements DeviceListAdapter.OnItemClickListener {
     private int profileID;
     private List<ProfileModel> profileModelList;
     private ProfileListCheckableAdapter profileListCheckableAdapter;
@@ -46,7 +56,7 @@ public class Sharing_Activity extends AppCompatActivity {
     private BroadcastReceiver receiver;
     private IntentFilter intentFilter;
     private List<String> selectedProfiles;
-    private List<String> deviceList;
+    private ArrayList<DeviceModel> deviceList;
     private DeviceListAdapter deviceListAdapter;
     private RecyclerView deviceRecyclerList;
     private String selectedDeviceName;
@@ -100,6 +110,17 @@ public class Sharing_Activity extends AppCompatActivity {
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.CHANGE_WIFI_STATE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 256);
+            Log.d("tag", "Permissions required update");
+        } else {
+            Log.d("tag", "All permissions granted, no need to update");
+        }
+
         manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
@@ -108,24 +129,49 @@ public class Sharing_Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(int reason) {
-                Log.d("tag", "Failed to begin peer discovery");
+                Log.d("tag", "Failed to begin peer discovery, reason:" + reason);
 
             }
         });
 
-        deviceList = new ArrayList<String>();
-        deviceList.add("Test Device");
+        deviceList = new ArrayList<DeviceModel>();
+
 
         deviceRecyclerList = this.findViewById(R.id.deviceSelectionList);
-        deviceListAdapter = new DeviceListAdapter(deviceList);
+        deviceListAdapter = new DeviceListAdapter(deviceList, this);
         deviceRecyclerList.setLayoutManager(new LinearLayoutManager(deviceRecyclerList.getContext()));
         deviceRecyclerList.setAdapter(deviceListAdapter);
 
-        deviceListAdapter.setOnClickListener(new DeviceListAdapter.OnClickListener() {
+
+        WifiP2pManager.ConnectionInfoListener connectionInfoListener = new WifiP2pManager.ConnectionInfoListener() {
             @Override
-            public void onClick(String deviceName){
-                selectedDeviceName = deviceName;
-                Log.d("tag", "Selected device: " + selectedDeviceName);
+            public void onConnectionInfoAvailable(WifiP2pInfo info) {
+                
+            }
+        }
+
+
+
+
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onItemClick(DeviceModel device) {
+        WifiP2pConfig wifiP2pConfig = new WifiP2pConfig();
+        String deviceAddress = deviceList.get(deviceList.indexOf(device)).getDeviceAddress();
+        wifiP2pConfig.deviceAddress = deviceAddress;
+        Log.d("tag", "Selected device: " + device);
+
+        manager.connect(channel, wifiP2pConfig, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+                Log.d("tag", "Successfully connected to " + device.getDeviceName() + " with address: " + deviceAddress);
+            }
+
+            @Override
+            public void onFailure(int reason) {
+                Log.d("tag", "Failed to connected to " + device.getDeviceName() + " reason: " + reason);
             }
         });
 
@@ -134,10 +180,15 @@ public class Sharing_Activity extends AppCompatActivity {
     public WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
         @Override
         public void onPeersAvailable(WifiP2pDeviceList peers) {
+            deviceList.clear();
             for (WifiP2pDevice device : peers.getDeviceList()) {
-                deviceList.add(device.deviceName);
+                DeviceModel newDevice = new DeviceModel();
+                newDevice.setDeviceName(device.deviceName);
+                newDevice.setDeviceAddress(device.deviceAddress);
+                deviceList.add(newDevice);
             }
-            deviceListAdapter = new DeviceListAdapter(deviceList);
+
+            deviceListAdapter = new DeviceListAdapter(deviceList, Sharing_Activity.this);
             deviceRecyclerList.setLayoutManager(new LinearLayoutManager(deviceRecyclerList.getContext()));
             deviceRecyclerList.setAdapter(deviceListAdapter);
 
