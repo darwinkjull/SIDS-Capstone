@@ -22,6 +22,11 @@ import com.example.sids_checklist.checklistadapter.ChecklistAdapter;
  */
 public class Checklist_RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private final ChecklistAdapter adapter;
+
+    /**
+     * helps determine the motions from the user on the RecyclerView
+     * @param adapter - the adapter
+     */
     public Checklist_RecyclerItemTouchHelper(ChecklistAdapter adapter){
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;

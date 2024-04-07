@@ -38,6 +38,9 @@ import java.util.Objects;
  * A dialog fragment for exporting checklist data.
  */
 public class Checklist_ExportPage extends BottomSheetDialogFragment {
+    /**
+     * tag for the fragment
+     */
     public static final String TAG = "ActionBottomDialog";
     private int profileID;
 

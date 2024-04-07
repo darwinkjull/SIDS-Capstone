@@ -14,8 +14,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/*
-Code created referencing Michey Faisal Integrate Android PassCode Security in your android app Android Studio latest
+/**
+ * Class for that handles the activity of the Pin page
+ *
+ * Code created referencing Michey Faisal Integrate Android PassCode Security in your android app
+ * Android Studio latest
  */
 public class Pin_Activity extends AppCompatActivity implements View.OnClickListener {
 

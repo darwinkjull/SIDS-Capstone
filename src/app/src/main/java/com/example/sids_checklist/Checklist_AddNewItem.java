@@ -22,7 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Objects;
 
-/*
+/**
  * This file is responsible for the addition of new items to the checklist
  * activity. It creates a pop-up dialog option to input a new item to the list,
  * and dismisses the dialog upon completion.
@@ -30,13 +30,19 @@ import java.util.Objects;
  * The Checklist was inspired by Mohit Singh's To Do List App Android Studio Tutorial
  */
 public class Checklist_AddNewItem extends BottomSheetDialogFragment {
+    /**
+     * tag for the fragment
+     */
     public static final String TAG = "ActionBottomDialog";
     private EditText newItemText;
     private Button newItemSaveButton;
     private Checklist_DatabaseHandler db;
     private int profileID;
 
-
+    /**
+     * Returns this object
+     * @return Checklist_AddNewItem() - this object
+     */
     public static Checklist_AddNewItem newInstance() {
 
         return new Checklist_AddNewItem();

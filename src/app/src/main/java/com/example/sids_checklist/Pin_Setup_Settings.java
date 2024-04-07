@@ -13,8 +13,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-/*
-Code created referencing Michey Faisal Integrate Android PassCode Security in your android app Android Studio latest
+/**
+ * Class that handles the re-setting of the user's pin
+ *
+ * Code created referencing Michey Faisal Integrate Android PassCode Security in your android
+ * app Android Studio latest
  */
 public class Pin_Setup_Settings extends AppCompatActivity implements View.OnClickListener{
 

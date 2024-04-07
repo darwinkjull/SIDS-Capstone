@@ -71,6 +71,9 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
     }
 
 
+    /**
+     * the interface for the OnClickListener to monitor user inputs
+     */
     public interface OnClickListener{
         /**
          * Called when a device item is clicked.

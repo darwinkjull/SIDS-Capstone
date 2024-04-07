@@ -14,6 +14,9 @@ import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import com.example.sids_checklist.checklistutils.Checklist_UtilDatabaseHandler;
 import com.example.sids_checklist.checklistutils.Profile_DatabaseHandler;
 
+/**
+ *  Handles the deleting of a profile and the associated pop-up prompts
+ */
 public class Profile_DeleteProfile {
     private Profile_PopUpInterface popUpInterface;
 

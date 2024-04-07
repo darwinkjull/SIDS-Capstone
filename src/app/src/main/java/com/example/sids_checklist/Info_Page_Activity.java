@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ *  Activity class for the Information Page
+ */
 public class Info_Page_Activity extends AppCompatActivity {
 
 

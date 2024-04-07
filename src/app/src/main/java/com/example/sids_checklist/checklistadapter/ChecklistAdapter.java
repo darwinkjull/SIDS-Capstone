@@ -125,12 +125,19 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
         return checklistList.size();
     }
 
-    // update the checklist with new and current items
+    /**
+     * update the checklist with new and current items
+     *
+     * @param checklistList - the checklist object
+     */
     public void setItems(List<ChecklistModel> checklistList) {
         this.checklistList = checklistList;
     }
 
-    // delete items from checklist
+    /**
+     * delete items from checklist
+     * @param position - the position of the item in the layout
+     */
     public void deleteItem(int position) {
         ChecklistModel item = checklistList.get(position);
         db.deleteItem(item.getId(), activity.getProfileID());
@@ -138,7 +145,11 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
         notifyItemRemoved(position);
     }
 
-    // edit the title of an existing checklist item
+    /**
+     * edit the title of an existing checklist item
+     *
+     * @param position - the position of the item in the layout
+     */
     public void editItem(int position) {
         ChecklistModel item = checklistList.get(position);
         Bundle bundle = new Bundle();
@@ -149,11 +160,18 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
         fragment.show(activity.getSupportFragmentManager(), Checklist_AddNewItem.TAG);
     }
 
+    /**
+     * get the context for the activity
+     *
+     * @return this activity
+     */
     public Context getContext() {
         return activity;
     }
 
-    // define ViewHolder class for remaining attributes
+    /**
+     * define ViewHolder class for remaining attributes
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox item;
 

@@ -104,6 +104,10 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
      * Sets the onClickListener for the adapter.
      */
     public interface OnClickListener{
+        /**
+         * declaration for the OnClickListener for the profile models
+         * @param profile - the profile of the user
+         */
         void onClick(ProfileModel profile);
     }
 
@@ -112,6 +116,9 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
      */
     public int getItemCount(){return profileList.size();}
 
+    /**
+     * extension of the viewholder for the recyclerview class
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView username;
         TextView age;

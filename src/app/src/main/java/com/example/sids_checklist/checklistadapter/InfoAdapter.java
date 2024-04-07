@@ -77,8 +77,19 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
      * ViewHolder class for caching view components of item layout.
      */
     public static class ViewHolder extends RecyclerView.ViewHolder{
+        /**
+         * the view of the title
+         */
         public TextView titleView;
+        /**
+         * the view of the icon
+         */
         public ImageView iconView;
+
+        /**
+         * setting the title and icon views
+         * @param itemView - the view of the items
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = (TextView) itemView.findViewById(R.id.titleInfo);

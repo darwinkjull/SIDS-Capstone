@@ -23,10 +23,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-/*
+/**
  * This class is responsible for the activity of the Checklist and related
  * diaglogs. It uses a profileID passed from the Home Page activity to load
- * the toDo list of the user.
+ * the  list of the user.
  *
  * Within this program, the adapters for the checklist databases will help
  * the user edit and save their items accordingly. This page also links to the

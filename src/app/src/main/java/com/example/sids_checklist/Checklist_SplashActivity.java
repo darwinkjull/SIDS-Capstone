@@ -9,6 +9,9 @@ import android.os.Handler;
 
 import java.util.Objects;
 
+/**
+ * Displays the splashscreen and logo on startup
+ */
 @SuppressLint("CustomSplashScreen")
 public class Checklist_SplashActivity extends AppCompatActivity {
     /**

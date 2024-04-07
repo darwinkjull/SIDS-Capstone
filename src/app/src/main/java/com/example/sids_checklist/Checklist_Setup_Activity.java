@@ -15,6 +15,10 @@ import com.example.sids_checklist.checklistutils.Checklist_DatabaseHandler;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ *  This class is dedicated to displaying the recommended tips from the literature to the user
+ *  so that they can add them to their own checklist.
+ */
 public class Checklist_Setup_Activity extends AppCompatActivity {
 
     private SetUpAdapter tipsAdapterSmoking;

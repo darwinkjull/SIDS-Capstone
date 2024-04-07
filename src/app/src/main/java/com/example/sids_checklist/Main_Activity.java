@@ -17,6 +17,10 @@ import com.example.sids_checklist.infopages.Info_Page_Activity;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class that encompasses the functionality of the Home Page for the application
+ * and allows users to navigate to all other pages of the application
+ */
 public class Main_Activity extends AppCompatActivity {
     private Profile_DatabaseHandler profile_db;
 

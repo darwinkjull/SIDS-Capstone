@@ -226,5 +226,10 @@ public class Checklist_Reports extends AppCompatActivity {
         if (count == 1) {lineDataSet.getCircleColors().add(colour);}
     }
 
+    /**
+     * Returns the profile ID
+     *
+     * @return profileID - the Profile ID as an Int
+     */
     public int getProfileID(){return profileID;}
 }
