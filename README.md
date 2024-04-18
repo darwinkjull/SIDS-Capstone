@@ -25,3 +25,12 @@ Other Features Include:
 ## Contact Us!
 If you have any questions or would like to learn more, please do not hesistate to reach out! We can be reached at the following email address: 
 <br> **Darwin:** darwinjull@cmail.carleton.ca
+
+## How to Contribute:
+As of April 2024, support for the project by its original authors will gradually decline. However, anyone is able & encouraged to expand upon our project as defined by the BSD-2 license. To expand upon our work, follow the steps given below:
+
+1. Download and install the [Android Studio IDE](https://developer.android.com/studio?gad_source=1&gclid=Cj0KCQjwiYOxBhC5ARIsAIvdH53wtqW8IExFarAWDqJmvCj9a4osn5GY5GZS8CeX6AaY6EtLYqeKaqwaAjixEALw_wcB&gclsrc=aw.ds)
+2. Clone this repository using Git or [Github Desktop](https://desktop.github.com/)
+3. Open the project in android studio and edit away!
+
+If you have never developed an android application before- worry not! There are plenty of [good tutorials](https://developer.android.com/courses?gad_source=1&gclid=Cj0KCQjwiYOxBhC5ARIsAIvdH508skpNKMpLZPjr8Uji5-S8bV2HobMNBaWZeheQ_t7zrQNmdkUBjCAaAsn9EALw_wcB&gclsrc=aw.ds) out there.
